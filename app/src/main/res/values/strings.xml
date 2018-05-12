@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">MenuAchat</string>
+    <string name="text_prix">Prix</string>
+    <string name="text_plat">Plat</string>
+    <string name="text_pris">Pris</string>
+    <string name="text_categorie">Categorie</string>
+    <string name="text_prixTotal">Total :</string>
+    <string name="layout_weigth_one">1</string>
+    <string name="text_quantite">Quantité</string>
+    <string name="text_genereList">Générer la liste</string>
+    <string name="text_retourPlat">Retourner à la liste des plats</string>
+    <string name="text_ingredient">Ingrédient</string>
+    <string name="text_creationingredient">Nouvel Ingrédient</string>
+    <string name="text_nom">Nom</string>
+    <string name="text_confirmation">Confirmer</string>
+    <string name="text_nouveauPlat">Nouveau plat</string>
+
+
+</resources>
+

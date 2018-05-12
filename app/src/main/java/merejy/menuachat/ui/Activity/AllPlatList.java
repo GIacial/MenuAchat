@@ -1,0 +1,55 @@
+package merejy.menuachat.ui.Activity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
+import java.util.ArrayList;
+
+import merejy.menuachat.R;
+import merejy.menuachat.database.CategoriePlats;
+import merejy.menuachat.database.Database;
+import merejy.menuachat.database.Ingredient;
+import merejy.menuachat.database.Plat;
+import merejy.menuachat.ui.ViewAdapter.ChoiceIngredientAdapter;
+import merejy.menuachat.ui.ViewAdapter.ChoicePlatAdapter;
+
+public class AllPlatList extends ActivitySaveOnClose {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.all_plat_activity);
+
+        Database d = Database.getDatabase();
+
+        //recup de la liste
+        RecyclerView listUi = findViewById(R.id.platListAll);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        listUi.setHasFixedSize(true);
+
+        // use a linear layout manager
+        listUi.setLayoutManager(new LinearLayoutManager(this));
+        //mets un adapter
+        listUi.setAdapter(new ChoicePlatAdapter(d.getAllPlat(), this));
+
+        //butoon
+        FloatingActionButton p = findViewById(R.id.platAjoutDatabase);
+        p.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent secondeActivite =  new Intent(AllPlatList.this,PlatCreator.class);
+
+                System.err.println("lancement activity");
+                startActivity(secondeActivite);
+            }
+        });
+
+
+    }
+}

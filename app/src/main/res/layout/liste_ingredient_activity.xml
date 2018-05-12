@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="top"
+            android:layout_weight="@string/layout_weigth_one"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="@string/layout_weigth_one"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/text_pris"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="@string/layout_weigth_one"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/text_categorie"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="@string/layout_weigth_one"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/text_ingredient"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="@string/layout_weigth_one"
+                android:layout_margin="10dp"
+                android:layout_height="wrap_content"
+                android:text="@string/text_quantite"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="@string/layout_weigth_one"
+                android:layout_margin="10dp"
+                android:layout_height="wrap_content"
+                android:text="@string/text_prix"
+                android:textAllCaps="true"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ingredientList"
+            android:layout_weight="@string/layout_weigth_one"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="@string/layout_weigth_one"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="3"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="@string/layout_weigth_one"
+                android:layout_margin="10dp"
+                android:layout_height="wrap_content"
+                android:text="@string/text_prixTotal"
+                android:textAllCaps="true"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="@string/layout_weigth_one"
+                android:layout_margin="10dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/prixTotal"
+                android:text=""/>
+        </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+        android:id="@+id/IngredientAjout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+            android:layout_margin="10dp"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_retourPlat"
+            android:layout_weight="@string/layout_weigth_one"
+            android:id="@+id/button_plat"
+            />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
