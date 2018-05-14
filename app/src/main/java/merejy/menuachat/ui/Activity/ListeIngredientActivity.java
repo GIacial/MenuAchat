@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import merejy.menuachat.R;
 import merejy.menuachat.kernel.Needing;
@@ -33,8 +34,16 @@ public class ListeIngredientActivity extends ActivitySaveOnClose {
 
         // use a linear layout manager
         listUi.setLayoutManager(new LinearLayoutManager(this));
+
+
+        //total
+        TextView total = findViewById(R.id.prixTotal);
+        total.setText(n.getTotal()+"");
+
         //mets un adapter
-        listUi.setAdapter(new IngredientAdapter(n.getIngredients(),listUi));
+        listUi.setAdapter(new IngredientAdapter(n.getIngredients(),listUi,this,total));
+
+
 
         //button plat
         Button p = findViewById(R.id.button_plat);

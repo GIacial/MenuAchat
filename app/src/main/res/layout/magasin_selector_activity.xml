@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        >
         <TextView
             android:layout_width="match_parent"
+            android:layout_weight="@string/layout_weigth_one"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/text_creationingredient"
+            android:layout_margin="10dp"
             android:textAllCaps="true"
             android:textSize="20sp"
-            android:layout_weight="@string/layout_weigth_one"
+            android:gravity="center"
+            android:text="@string/text_choice_magasin"
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,39 +25,21 @@
             android:orientation="horizontal"
             android:layout_weight="@string/layout_weigth_one"
             >
-
             <TextView
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="@string/layout_weigth_one"
-                android:layout_height="wrap_content"
-                android:text="@string/text_nom"
-                />
-            <EditText
-                android:id="@+id/nomEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:layout_weight="3"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="@string/layout_weigth_one"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_weight="@string/layout_weigth_one"
-                android:layout_height="wrap_content"
-                android:text="@string/text_categorie"
+                android:text="@string/text_nom_magasin"
                 />
             <Spinner
-                android:id="@+id/categorieEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:layout_weight="3" />
+                android:layout_weight="@string/layout_weigth_one"
+                android:id="@+id/choixMagasinSpinnerMagasin"
+                >
+
+            </Spinner>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,23 +50,37 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_prix"
                 android:layout_weight="@string/layout_weigth_one"
+                android:text="@string/text_lieu"
                 />
-            <EditText
-                android:id="@+id/prixEdit"
+            <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="numberDecimal" />
+                android:layout_weight="@string/layout_weigth_one"
+                android:id="@+id/choixMagasinSpinnerLieu"
+                >
+
+            </Spinner>
+
         </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/MagasinAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            app:srcCompat="@android:drawable/ic_input_add"  />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/text_confirmation"
             android:layout_weight="@string/layout_weigth_one"
-            android:id="@+id/button_comfimer_creator_ingredient"
+            android:id="@+id/choixMagasinComfirmer"
             />
 
+
+
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

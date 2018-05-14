@@ -38,28 +38,12 @@ public class ListePlatActivity extends ActivitySaveOnClose {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    0);
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    1);
-        }
-
          Needing n = Needing.getNeeding();
 
         //ui
 
         RecyclerView listUi = findViewById(R.id.platList);
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-       // listUi.setHasFixedSize(true);
 
         // use a linear layout manager
         listUi.setLayoutManager(new LinearLayoutManager(this));
@@ -68,7 +52,7 @@ public class ListePlatActivity extends ActivitySaveOnClose {
 
         //calcul du total
         TextView total = findViewById(R.id.prixTotal);
-        total.setText(n.getTotal(null)+"");
+        total.setText(n.getTotal()+"");
 
         //mise en marche du butoon
         Button b = findViewById(R.id.buttonGenere);

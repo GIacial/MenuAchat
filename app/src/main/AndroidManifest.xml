@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.Activity.ListePlatActivity">
+        <activity android:name=".ui.Activity.MagasinChoiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,6 +24,8 @@
         <activity android:name=".ui.Activity.IngredientCreator" />
         <activity android:name=".ui.Activity.AllPlatList" />
         <activity android:name=".ui.Activity.PlatCreator" />
+        <activity android:name=".ui.Activity.MagasinCreator" />
+        <activity android:name=".ui.Activity.ListePlatActivity" />
     </application>
 
 </manifest>

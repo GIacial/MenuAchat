@@ -86,6 +86,7 @@ public class Database  implements Serializable {
                //contient pas la localisation
                c.put(localisation,new Magasin(nom,localisation));
            }
+
        }
        else{
            //contient pas le nom
@@ -117,5 +118,17 @@ public class Database  implements Serializable {
 
     public  Collection<String> getAllMagasin(){
         return magasins.keySet();
+    }
+
+    public  Ingredient getIngredient(String nom){
+        return ingredients.get(nom);
+    }
+
+    public  Collection<String> getAllMagasinLocation(String nomMag){
+        return magasins.get(nomMag).keySet();
+    }
+
+    public  Magasin getMagasin(String nomMag ,String localisation){
+        return magasins.get(nomMag).get(localisation);
     }
 }

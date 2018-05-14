@@ -14,6 +14,10 @@
     <string name="text_nom">Nom</string>
     <string name="text_confirmation">Confirmer</string>
     <string name="text_nouveauPlat">Nouveau plat</string>
+    <string name="text_anullation">Annuler</string>
+    <string name="text_nom_magasin">Nom du Magasin</string>
+    <string name="text_choice_magasin">Choix du magasin</string>
+    <string name="text_lieu">Lieu</string>
 
 
 </resources>

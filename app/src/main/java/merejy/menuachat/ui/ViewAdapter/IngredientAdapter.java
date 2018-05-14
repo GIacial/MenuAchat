@@ -1,5 +1,6 @@
 package merejy.menuachat.ui.ViewAdapter;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,13 @@ import java.util.List;
 
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingIngredient;
+import merejy.menuachat.ui.Popup.SetPricePopup;
 
 public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
     private List<NeedingIngredient> list;
     private RecyclerView view;
+    private Activity activity;
+    private TextView listTotalPrix;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -56,9 +60,11 @@ public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.V
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public IngredientAdapter(Collection<NeedingIngredient> myDataset ,RecyclerView view) {
+    public IngredientAdapter(Collection<NeedingIngredient> myDataset ,RecyclerView view,Activity a,TextView total) {
         list = new ArrayList<>();
         this.view = view;
+        this.activity = a;
+        this.listTotalPrix = total;
         Iterator i = myDataset.iterator();
         while(i.hasNext()){
             list.add((NeedingIngredient) i.next());
@@ -83,20 +89,27 @@ public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.V
         //ici on mets a jour les info des composant du Holder
         holder.take.setChecked(list.get(position).isTake());
         holder.produitName.setText(list.get(position).getNom());
-        holder.prix.setText(list.get(position).getPrix(null)+"");
+        holder.prix.setText(list.get(position).getPrix(Needing.getNeeding().getCurrentMag())+"");
+        holder.prix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SetPricePopup.showDialog(list.get(position),view,activity,listTotalPrix);
+            }
+        });
         holder.categorie.setText(list.get(position).getCategorie().toString());
         holder.quantite.setText(list.get(position).getQuantite()+"");
         holder.take.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 list.get(position).setTake(isChecked);
+                listTotalPrix.setText(Needing.getNeeding().getTotal()+"");
             }
         });
         holder.v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Needing.getNeeding().remove(list.get(position));
-                view.setAdapter(new IngredientAdapter(Needing.getNeeding().getIngredients(),view));
+                view.setAdapter(new IngredientAdapter(Needing.getNeeding().getIngredients(),view,activity,listTotalPrix));
             }
         });
     }

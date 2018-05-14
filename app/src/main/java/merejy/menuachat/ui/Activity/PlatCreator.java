@@ -38,7 +38,6 @@ public class PlatCreator extends ActivitySaveOnClose {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.err.println("Debut activity");
         setContentView(R.layout.plat_creator);
 
         final EditText nom = findViewById(R.id.nomPlatEdit);

@@ -76,7 +76,7 @@ public class PlatAdapter  extends RecyclerView.Adapter<PlatAdapter.ViewHolder> {
         //ici on mets a jour les info des composant du Holder
         holder.take.setChecked(list.get(position).isTake());
         holder.produitName.setText(list.get(position).getNom());
-        holder.prix.setText(list.get(position).getPrix(null)+"");
+        holder.prix.setText(list.get(position).getPrix(Needing.getNeeding().getCurrentMag())+"");
         holder.categorie.setText(list.get(position).getCategories().toString());
         holder.v.setOnClickListener(new View.OnClickListener() {
             @Override

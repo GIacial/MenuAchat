@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/text_creationingredient"
+            android:text="@string/text_nouveauPlat"
             android:textAllCaps="true"
             android:textSize="20sp"
             android:layout_weight="@string/layout_weigth_one"
@@ -27,39 +23,19 @@
             android:orientation="horizontal"
             android:layout_weight="@string/layout_weigth_one"
             >
-
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_weight="@string/layout_weigth_one"
                 android:layout_height="wrap_content"
-                android:text="@string/text_nom"
+                android:text="@string/text_nom_magasin"
+                android:layout_weight="@string/layout_weigth_one"
                 />
             <EditText
-                android:id="@+id/nomEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:layout_weight="3"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="@string/layout_weigth_one"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_weight="@string/layout_weigth_one"
-                android:layout_height="wrap_content"
-                android:text="@string/text_categorie"
+                android:layout_weight="2"
+                android:id="@+id/nomMagasinEdit"
                 />
-            <Spinner
-                android:id="@+id/categorieEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:layout_weight="3" />
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,23 +46,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/text_prix"
+                android:text="@string/text_lieu"
                 android:layout_weight="@string/layout_weigth_one"
                 />
             <EditText
-                android:id="@+id/prixEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="numberDecimal" />
+                android:layout_weight="2"
+                android:id="@+id/lieuMagasinEdit"
+                />
+
         </LinearLayout>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/text_confirmation"
             android:layout_weight="@string/layout_weigth_one"
-            android:id="@+id/button_comfimer_creator_ingredient"
+            android:id="@+id/button_comfimer_creator_magasin"
             />
 
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

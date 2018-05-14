@@ -35,6 +35,10 @@ public class Needing implements Serializable {
 
     private List<NeedingPlat> plats;
     private HashMap<String,NeedingIngredient> ingredients;
+    private Magasin currentMag = null;
+
+
+
     static private Needing n = null;
     final static String saveName = "ListeCourse.sav";
 
@@ -129,18 +133,26 @@ public class Needing implements Serializable {
         return ing;
     }
 
-    public double  getTotal(Magasin m){
+    public double  getTotal(){
         double total = 0;
         for(NeedingPlat p : plats){
             if(p.isTake()){
-                total += p.getPrix(m);
+                total += p.getPrix(currentMag);
             }
         }
         for(NeedingIngredient i : ingredients.values()){
             if(i.isTake()){
-                total += i.getPrix(m);
+                total += i.getPrix(currentMag);
             }
         }
         return total;
+    }
+
+    public Magasin getCurrentMag() {
+        return currentMag;
+    }
+
+    public void setCurrentMag(Magasin currentMag) {
+        this.currentMag = currentMag;
     }
 }

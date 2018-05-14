@@ -3,6 +3,7 @@ package merejy.menuachat.ui.Activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,12 +27,14 @@ public class IngredientCreator extends ActivitySaveOnClose {
         final EditText nom = findViewById(R.id.nomEdit);
         final Spinner  cat = findViewById(R.id.categorieEdit);
         Button   comfirmer = findViewById(R.id.button_comfimer_creator_ingredient);
+        final  EditText prix = findViewById(R.id.prixEdit);
 
         comfirmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!nom.getText().equals("")){
                     Database.getDatabase().addIngedient(nom.getText().toString(),(CategorieIngredient) cat.getSelectedItem());
+                    Database.getDatabase().getIngredient(nom.getText().toString()).addPrix(Double.parseDouble(prix.getText().toString()),Needing.getNeeding().getCurrentMag());
                 }
                 Intent secondeActivite =  new Intent(IngredientCreator.this,All_IngredientList.class);
 
