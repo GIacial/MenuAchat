@@ -32,7 +32,7 @@ public class IngredientCreator extends ActivitySaveOnClose {
         comfirmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!nom.getText().equals("")){
+                if(!nom.getText().equals("") && prix.getText().toString()!=""){
                     Database.getDatabase().addIngedient(nom.getText().toString(),(CategorieIngredient) cat.getSelectedItem());
                     Database.getDatabase().getIngredient(nom.getText().toString()).addPrix(Double.parseDouble(prix.getText().toString()),Needing.getNeeding().getCurrentMag());
                 }
