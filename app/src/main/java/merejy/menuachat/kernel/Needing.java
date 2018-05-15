@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import merejy.menuachat.Exception.ItemNotfound;
 import merejy.menuachat.database.Database;
 import merejy.menuachat.database.Magasin;
 import merejy.menuachat.database.Plat;
@@ -107,15 +108,20 @@ public class Needing implements Serializable {
         }
     }
 
-    public void remove(NeedingPlat p){
+    public void remove(NeedingPlat p)throws ItemNotfound{
         if(this.plats.contains(p)){
             plats.remove(p);
+        }else{
+            throw  new ItemNotfound();
         }
     }
 
-    public void remove(NeedingIngredient i){
+    public void remove(NeedingIngredient i) throws ItemNotfound{
         if(this.ingredients.containsKey(i.getNom())){
             ingredients.remove(i.getNom());
+        }
+        else{
+            throw  new ItemNotfound();
         }
     }
 

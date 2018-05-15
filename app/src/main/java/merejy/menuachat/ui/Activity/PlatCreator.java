@@ -11,10 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import merejy.menuachat.Exception.ItemAlreadyExist;
 import merejy.menuachat.R;
 import merejy.menuachat.database.CategorieIngredient;
 import merejy.menuachat.database.CategoriePlats;
@@ -67,10 +69,17 @@ public class PlatCreator extends ActivitySaveOnClose {
             @Override
             public void onClick(View v) {
                 if(!nom.getText().equals("") && need.size() > 0){
-                    Database.getDatabase().addPlat(nom.getText().toString(),(CategoriePlats) cat.getSelectedItem(),need);
+                    try {
+                        Database.getDatabase().addPlat(nom.getText().toString(),(CategoriePlats) cat.getSelectedItem(),need);
+                    } catch (ItemAlreadyExist itemAlreadyExist) {
+                        Toast.makeText(PlatCreator.this,R.string.error_PlatExistant,Toast.LENGTH_LONG).show();
+                    }
                     need = new ArrayList<>();
                     PlatCreator.nom = "";
                     PlatCreator.catego = 0;
+                }
+                else {
+                    Toast.makeText(PlatCreator.this,R.string.error_Plat_needNameOrIngredient,Toast.LENGTH_LONG).show();
                 }
                 Intent secondeActivite =  new Intent(PlatCreator.this,AllPlatList.class);
 

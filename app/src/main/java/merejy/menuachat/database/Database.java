@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import merejy.menuachat.Exception.ItemAlreadyExist;
 import merejy.menuachat.kernel.Needing;
 
 /**
@@ -78,13 +79,16 @@ public class Database  implements Serializable {
     }
 
 
-    public void addMagasin(String nom , String localisation){
+    public void addMagasin(String nom , String localisation) throws ItemAlreadyExist{
        if(this.magasins.containsKey(nom)){
            //contient le nom
            HashMap<String,Magasin> c = this.magasins.get(nom);
            if(!c.containsKey(localisation)){
                //contient pas la localisation
                c.put(localisation,new Magasin(nom,localisation));
+           }
+           else{
+               throw  new ItemAlreadyExist();
            }
 
        }
@@ -96,15 +100,21 @@ public class Database  implements Serializable {
        }
     }
 
-    public void addIngedient(String nom , CategorieIngredient cat ){
+    public void addIngedient(String nom , CategorieIngredient cat ) throws ItemAlreadyExist{
         if(!ingredients.containsKey(nom)){
             this.ingredients.put(nom,new Ingredient(nom,cat));
         }
+        else{
+            throw new ItemAlreadyExist();
+        }
     }
 
-    public void addPlat(String nom , CategoriePlats cat ,  List<Ingredient> i){
+    public void addPlat(String nom , CategoriePlats cat ,  List<Ingredient> i) throws ItemAlreadyExist{
         if(!plats.containsKey(nom)){
             this.plats.put(nom,new Plat(nom, cat, i));
+        }
+        else{
+            throw new ItemAlreadyExist();
         }
     }
 

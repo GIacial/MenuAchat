@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import merejy.menuachat.Exception.ItemAlreadyExist;
 import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
 
@@ -22,8 +24,16 @@ public class MagasinCreator extends ActivitySaveOnClose {
         comfirmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(nom.getText().toString()!="" && lieu.getText().toString()!=""){
-                    Database.getDatabase().addMagasin(nom.getText().toString(),lieu.getText().toString());
+                if(!nom.getText().toString().equals("") && !lieu.getText().toString().equals("")){
+
+                    try {
+                        Database.getDatabase().addMagasin(nom.getText().toString(),lieu.getText().toString());
+                    } catch (ItemAlreadyExist itemAlreadyExist) {
+                        Toast.makeText(MagasinCreator.this,R.string.error_MagasinExistant,Toast.LENGTH_LONG).show();
+                    }
+                }
+                else{
+                    Toast.makeText(MagasinCreator.this,R.string.error_Magasin_needNameOrLocalisation,Toast.LENGTH_LONG).show();
                 }
                 Intent secondeActivite =  new Intent(MagasinCreator.this,MagasinChoiceActivity.class);
                 startActivity(secondeActivite);

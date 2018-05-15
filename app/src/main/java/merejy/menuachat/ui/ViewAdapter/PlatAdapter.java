@@ -9,10 +9,13 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import merejy.menuachat.Exception.ItemNotfound;
+import merejy.menuachat.R;
 import merejy.menuachat.database.Plat;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingPlat;
@@ -81,7 +84,11 @@ public class PlatAdapter  extends RecyclerView.Adapter<PlatAdapter.ViewHolder> {
         holder.v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Needing.getNeeding().remove(list.get(position));
+                try {
+                    Needing.getNeeding().remove(list.get(position));
+                } catch (ItemNotfound itemNotfound) {
+                    Toast.makeText(view.getContext(), R.string.error_platNotFound,Toast.LENGTH_LONG).show();
+                }
                 view.setAdapter(new PlatAdapter(Needing.getNeeding().getPlats(),view));
             }
         });

@@ -19,6 +19,15 @@
     <string name="text_choice_magasin">Choix du magasin</string>
     <string name="text_lieu">Lieu</string>
 
+    <string name="error_IngredientExistant">Ce nom d\'ingrédient existe déjà</string>
+    <string name="error_PlatExistant">Ce nom de plat existe déjà</string>
+    <string name="error_MagasinExistant">Ce magasin existe déjà</string>
+    <string name="error_Name_notWrite_ingredient">Veuillez donnez un nom à votre ingrédient</string>
+    <string name="error_Magasin_needNameOrLocalisation">Veuillez donnez un nom et lieu pour le magasin</string>
+    <string name="error_Plat_needNameOrIngredient">Veuillez donnez un nom et une liste d\'ingrédient pour le plat</string>
+    <string name="error_ingredientNotFound">Cette ingrédient n\existe pas ou fait partie d'un plat</string>
+    <string name="error_platNotFound">Ce plat n\existe pas </string>
+
 
 </resources>
 

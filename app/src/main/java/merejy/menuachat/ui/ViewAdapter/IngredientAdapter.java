@@ -8,14 +8,18 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import merejy.menuachat.Exception.ItemNotfound;
+import merejy.menuachat.R;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingIngredient;
+import merejy.menuachat.ui.Activity.MagasinCreator;
 import merejy.menuachat.ui.Popup.SetPricePopup;
 
 public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
@@ -108,7 +112,11 @@ public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.V
         holder.v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Needing.getNeeding().remove(list.get(position));
+                try {
+                    Needing.getNeeding().remove(list.get(position));
+                } catch (ItemNotfound itemNotfound) {
+                    Toast.makeText(activity, R.string.error_ingredientNotFound,Toast.LENGTH_LONG).show();
+                }
                 view.setAdapter(new IngredientAdapter(Needing.getNeeding().getIngredients(),view,activity,listTotalPrix));
             }
         });
