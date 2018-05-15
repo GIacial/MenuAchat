@@ -54,5 +54,9 @@ public class NeedingIngredient implements Serializable {
         return  quantite;
     }
 
+    public boolean isLessCost(Magasin mag){
+        return i.isCostLess(mag);
+    }
+
 
 }

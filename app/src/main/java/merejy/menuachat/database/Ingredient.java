@@ -37,4 +37,14 @@ public class Ingredient  implements Serializable {
         }
         return this.prix.get(mag);
     }
+
+    public boolean isCostLess(Magasin mag){
+        double min = Double.MAX_VALUE;
+        for(Double magPrix : prix.values()){
+            if(min > magPrix){
+                min = magPrix;
+            }
+        }
+        return  prix.containsKey(mag) && prix.get(mag)<= min;
+    }
 }

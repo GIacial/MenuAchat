@@ -18,6 +18,8 @@
     <string name="text_nom_magasin">Nom du Magasin</string>
     <string name="text_choice_magasin">Choix du magasin</string>
     <string name="text_lieu">Lieu</string>
+    <string name="text_nouveauMagasin">Nouveau Magasin</string>
+    <string name="text_ajouterIngredient">Ajouter un ingrédient</string>
 
     <string name="error_IngredientExistant">Ce nom d\'ingrédient existe déjà</string>
     <string name="error_PlatExistant">Ce nom de plat existe déjà</string>

@@ -100,6 +100,14 @@ public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.V
                 SetPricePopup.showDialog(list.get(position),view,activity,listTotalPrix);
             }
         });
+        if(list.get(position).isLessCost(Needing.getNeeding().getCurrentMag())){
+            holder.prix.setTextColor(activity.getResources().getColor(R.color.goodPrice));
+        }
+        else{
+
+            holder.prix.setTextColor(activity.getResources().getColor(R.color.badPrice));
+        }
+
         holder.categorie.setText(list.get(position).getCategorie().toString());
         holder.quantite.setText(list.get(position).getQuantite()+"");
         holder.take.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
