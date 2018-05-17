@@ -60,6 +60,8 @@ public class ListePlatActivity extends ActivitySaveOnClose {
             @Override
             public void onClick(View v) {
                 Intent secondeActivite = new Intent(ListePlatActivity.this, ListeIngredientActivity.class);
+
+                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                 startActivity(secondeActivite);
             }
         });
@@ -69,6 +71,8 @@ public class ListePlatActivity extends ActivitySaveOnClose {
             @Override
             public void onClick(View v) {
                 Intent secondeActivite = new Intent(ListePlatActivity.this, AllPlatList.class);
+
+                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                 startActivity(secondeActivite);
             }
         });

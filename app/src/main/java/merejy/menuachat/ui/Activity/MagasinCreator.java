@@ -36,6 +36,8 @@ public class MagasinCreator extends ActivitySaveOnClose {
                     Toast.makeText(MagasinCreator.this,R.string.error_Magasin_needNameOrLocalisation,Toast.LENGTH_LONG).show();
                 }
                 Intent secondeActivite =  new Intent(MagasinCreator.this,MagasinChoiceActivity.class);
+
+                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                 startActivity(secondeActivite);
             }
         });

@@ -59,6 +59,7 @@ public class IngredientCreator extends ActivitySaveOnClose {
 
                 Intent secondeActivite =  new Intent(IngredientCreator.this,All_IngredientList.class);
 
+                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                 startActivity(secondeActivite);
             }
         });

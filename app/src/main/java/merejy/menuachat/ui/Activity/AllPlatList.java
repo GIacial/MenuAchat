@@ -45,6 +45,7 @@ public class AllPlatList extends ActivitySaveOnClose {
             public void onClick(View v) {
                 Intent secondeActivite =  new Intent(AllPlatList.this,PlatCreator.class);
 
+                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                 System.err.println("lancement activity");
                 startActivity(secondeActivite);
             }

@@ -65,6 +65,8 @@ public class MagasinChoiceActivity extends ActivitySaveOnClose {
                 if(ok){
                     Needing.getNeeding().setCurrentMag(d.getMagasin(magasin.getSelectedItem().toString(),lieu.getSelectedItem().toString()));
                     Intent secondeActivite =  new Intent(MagasinChoiceActivity.this,ListePlatActivity.class);
+
+                    secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                     startActivity(secondeActivite);
                 }
 
@@ -75,6 +77,8 @@ public class MagasinChoiceActivity extends ActivitySaveOnClose {
             @Override
             public void onClick(View v) {
                 Intent secondeActivite =  new Intent(MagasinChoiceActivity.this,MagasinCreator.class);
+
+                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                 startActivity(secondeActivite);
             }
         });

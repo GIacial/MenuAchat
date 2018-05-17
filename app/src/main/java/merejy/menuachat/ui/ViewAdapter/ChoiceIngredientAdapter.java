@@ -87,6 +87,8 @@ public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredi
                         break;
                     default:break;
                 }
+
+                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                 activity.startActivity(secondeActivite);
             }
         });

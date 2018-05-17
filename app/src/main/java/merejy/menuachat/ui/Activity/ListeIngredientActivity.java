@@ -51,6 +51,8 @@ public class ListeIngredientActivity extends ActivitySaveOnClose {
             @Override
             public void onClick(View v) {
                 Intent secondeActivite = new Intent(ListeIngredientActivity.this, ListePlatActivity.class);
+
+                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                 startActivity(secondeActivite);
             }
         });
@@ -61,6 +63,8 @@ public class ListeIngredientActivity extends ActivitySaveOnClose {
             public void onClick(View v) {
                 Intent secondeActivite = new Intent(ListeIngredientActivity.this, All_IngredientList.class);
                 All_IngredientList.target = ToActivity.LIST_INGREDIENT;
+
+                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                 startActivity(secondeActivite);
             }
         });

@@ -80,6 +80,8 @@ public class ChoicePlatAdapter  extends RecyclerView.Adapter<ChoicePlatAdapter.V
             public void onClick(View v) {
                 Needing.getNeeding().add(new NeedingPlat(list.get(position)));
                 Intent secondeActivite = new Intent(activity,ListePlatActivity.class);
+
+                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                 activity.startActivity(secondeActivite);
             }
         });

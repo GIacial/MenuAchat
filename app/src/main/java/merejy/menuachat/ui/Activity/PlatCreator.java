@@ -82,7 +82,7 @@ public class PlatCreator extends ActivitySaveOnClose {
                     Toast.makeText(PlatCreator.this,R.string.error_Plat_needNameOrIngredient,Toast.LENGTH_LONG).show();
                 }
                 Intent secondeActivite =  new Intent(PlatCreator.this,AllPlatList.class);
-
+                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                 startActivity(secondeActivite);
             }
         });
@@ -94,6 +94,7 @@ public class PlatCreator extends ActivitySaveOnClose {
                 All_IngredientList.target = ToActivity.PLAT_CREATOR;
                 PlatCreator.nom = nom.getText().toString();
                 PlatCreator.catego = cat.getSelectedItemPosition();
+                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                 startActivity(secondeActivite);
             }
         });
