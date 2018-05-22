@@ -19,7 +19,7 @@ public class NeedingIngredient implements Serializable {
     public NeedingIngredient (Ingredient i){
         this.i = i;
         this.take = false;
-        this.quantite = 0;
+        this.quantite = 1;
     }
 
     public boolean isTake() {

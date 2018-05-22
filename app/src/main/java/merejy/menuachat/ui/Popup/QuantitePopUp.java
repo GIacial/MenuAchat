@@ -89,7 +89,7 @@ public class QuantitePopUp extends DialogFragment {
             public void onClick(DialogInterface dialog, int id) {
                 //code de comfirmation
                 NeedingIngredient need = new NeedingIngredient(ingredient);
-                need.addQuantite(number);
+                need.addQuantite(number-1);
 
                 Intent secondeActivite = null ;
                 if(need.getQuantite() == 0){
