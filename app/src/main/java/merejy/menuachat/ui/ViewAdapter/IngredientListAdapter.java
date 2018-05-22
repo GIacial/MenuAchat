@@ -1,5 +1,7 @@
 package merejy.menuachat.ui.ViewAdapter;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -9,9 +11,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import merejy.menuachat.database.CategorieIngredient;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingIngredient;
@@ -30,6 +34,7 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
 
         public ViewHolder(LinearLayout v) {
             super(v);
+            v.setPadding(10,10,10,10);
             this.produitName = new TextView(v.getContext());
             this.produitName.setPadding(10,10,10,10);
             this.prix = new TextView(v.getContext());
@@ -44,12 +49,26 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
+
     public IngredientListAdapter(Collection<Ingredient> myDataset ) {
-        list = new ArrayList<>();
-        Iterator i = myDataset.iterator();
-        while(i.hasNext()){
-            list.add((Ingredient) i.next());
+        list = trie(myDataset.iterator());
+
+    }
+
+    private List<Ingredient> trie(Iterator<Ingredient> iterator){
+        List<ArrayList<Ingredient>> l = new ArrayList<>();
+        for(int i = 0; i < CategorieIngredient.values().length ; i++){
+            l.add(new ArrayList<Ingredient>());
         }
+        while (iterator.hasNext()){
+            Ingredient ingredient = iterator.next();
+            l.get(ingredient.getCategorie().ordinal()).add(ingredient);
+        }
+        List<Ingredient> retour = new ArrayList<>();
+        for(int i = 0 ; i <l.size() ; i++){
+            retour.addAll(l.get(i));
+        }
+        return retour;
     }
 
     // Create new views (invoked by the layout manager)

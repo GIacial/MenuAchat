@@ -1,6 +1,8 @@
 package merejy.menuachat.ui.ViewAdapter;
 
 import android.app.Activity;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +14,16 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import merejy.menuachat.Exception.ItemNotfound;
 import merejy.menuachat.R;
+import merejy.menuachat.database.CategorieIngredient;
+import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingIngredient;
-import merejy.menuachat.ui.Activity.MagasinCreator;
 import merejy.menuachat.ui.Popup.SetPricePopup;
 
 public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
@@ -43,6 +47,7 @@ public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.V
         public ViewHolder(LinearLayout v) {
             super(v);
             this.v = v;
+            v.setPadding(10,10,10,10);
             this.produitName = new TextView(v.getContext());
             this.produitName.setPadding(10,10,10,10);
             this.prix = new TextView(v.getContext());
@@ -64,15 +69,29 @@ public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.V
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public IngredientAdapter(Collection<NeedingIngredient> myDataset ,RecyclerView view,Activity a,TextView total) {
-        list = new ArrayList<>();
+    public IngredientAdapter(Collection<NeedingIngredient> myDataset , RecyclerView view, Activity a, TextView total) {
+        list = trie(myDataset.iterator());
         this.view = view;
         this.activity = a;
         this.listTotalPrix = total;
-        Iterator i = myDataset.iterator();
-        while(i.hasNext()){
-            list.add((NeedingIngredient) i.next());
+
+
+    }
+
+    private List<NeedingIngredient> trie(Iterator<NeedingIngredient> iterator){
+        List<ArrayList<NeedingIngredient>> l = new ArrayList<>();
+        for(int i = 0; i < CategorieIngredient.values().length ; i++){
+            l.add(new ArrayList<NeedingIngredient>());
         }
+        while (iterator.hasNext()){
+            NeedingIngredient ingredient = iterator.next();
+            l.get(ingredient.getCategorie().ordinal()).add(ingredient);
+        }
+        List<NeedingIngredient> retour = new ArrayList<>();
+        for(int i = 0 ; i <l.size() ; i++){
+            retour.addAll(l.get(i));
+        }
+        return retour;
     }
 
     // Create new views (invoked by the layout manager)

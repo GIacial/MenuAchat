@@ -38,6 +38,7 @@ public class ChoicePlatAdapter  extends RecyclerView.Adapter<ChoicePlatAdapter.V
         public ViewHolder(LinearLayout v) {
             super(v);
             this.layout = v;
+            v.setPadding(10,10,10,10);
             this.produitName = new TextView(v.getContext());
             this.produitName.setPadding(10,10,10,10);
             this.categorie = new TextView(v.getContext());

@@ -1,6 +1,8 @@
 package merejy.menuachat.ui.ViewAdapter;
 
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +11,18 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import merejy.menuachat.database.CategorieIngredient;
 import merejy.menuachat.ui.Activity.All_IngredientList;
 import merejy.menuachat.ui.Activity.ListeIngredientActivity;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingIngredient;
 import merejy.menuachat.ui.Activity.PlatCreator;
+import merejy.menuachat.ui.Popup.QuantitePopUp;
 
 public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredientAdapter.ViewHolder> {
     private List<Ingredient> list;
@@ -35,6 +40,7 @@ public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredi
         public ViewHolder(LinearLayout v) {
             super(v);
             this.layout = v;
+            v.setPadding(10,10,10,10);
             this.produitName = new TextView(v.getContext());
             this.produitName.setPadding(10,10,10,10);
             this.categorie = new TextView(v.getContext());
@@ -46,12 +52,27 @@ public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredi
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public ChoiceIngredientAdapter(Collection<Ingredient> myDataset , All_IngredientList activity) {
-        list = new ArrayList<>();
+        list = trie(myDataset.iterator());
         this.activity = activity;
-        Iterator i = myDataset.iterator();
-        while(i.hasNext()){
-            list.add((Ingredient) i.next());
+
+
+
+    }
+
+    private List<Ingredient> trie(Iterator<Ingredient> iterator){
+        List<ArrayList<Ingredient>> l = new ArrayList<>();
+        for(int i = 0; i < CategorieIngredient.values().length ; i++){
+            l.add(new ArrayList<Ingredient>());
         }
+        while (iterator.hasNext()){
+            Ingredient ingredient = iterator.next();
+            l.get(ingredient.getCategorie().ordinal()).add(ingredient);
+        }
+        List<Ingredient> retour = new ArrayList<>();
+        for(int i = 0 ; i <l.size() ; i++){
+            retour.addAll(l.get(i));
+        }
+        return retour;
     }
 
     // Create new views (invoked by the layout manager)
@@ -75,21 +96,8 @@ public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredi
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent secondeActivite = null ;
-                switch (All_IngredientList.target){
-                   case LIST_INGREDIENT :
-                    secondeActivite = new Intent(activity,ListeIngredientActivity.class);
-                    Needing.getNeeding().add(new NeedingIngredient(list.get(position)));
-                    break;
-                    case PLAT_CREATOR:
-                        secondeActivite = new Intent(activity,PlatCreator.class);
-                        PlatCreator.addIngredient(list.get(position));
-                        break;
-                    default:break;
-                }
+                QuantitePopUp.showDialog(activity,list.get(position),All_IngredientList.target);
 
-                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
-                activity.startActivity(secondeActivite);
             }
         });
     }

@@ -38,6 +38,7 @@ public class PlatAdapter  extends RecyclerView.Adapter<PlatAdapter.ViewHolder> {
         public ViewHolder(LinearLayout v) {
             super(v);
             this.v = v;
+            v.setPadding(10,10,10,10);
             this.produitName = new TextView(v.getContext());
             this.produitName.setPadding(10,10,10,10);
             this.prix = new TextView(v.getContext());

@@ -19,7 +19,7 @@ public class NeedingIngredient implements Serializable {
     public NeedingIngredient (Ingredient i){
         this.i = i;
         this.take = false;
-        this.quantite = 1;
+        this.quantite = 0;
     }
 
     public boolean isTake() {
@@ -57,6 +57,7 @@ public class NeedingIngredient implements Serializable {
     public boolean isLessCost(Magasin mag){
         return i.isCostLess(mag);
     }
+
 
 
 }

@@ -29,6 +29,7 @@
     <string name="error_Plat_needNameOrIngredient">Veuillez donnez un nom et une liste d\'ingrédient pour le plat</string>
     <string name="error_ingredientNotFound">Cette ingrédient n\existe pas ou fait partie d'un plat</string>
     <string name="error_platNotFound">Ce plat n\existe pas </string>
+    <string name="error_zeroQuantite">Vous ne voulez pas de ça</string>
 
 
 </resources>

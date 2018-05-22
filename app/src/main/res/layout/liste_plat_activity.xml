@@ -6,10 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.Activity.ListePlatActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:id="@+id/scrollPane"
+        >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -92,14 +97,6 @@
                 android:id="@+id/prixTotal"
                 android:text=""/>
         </LinearLayout>
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/platAjout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="10dp"
-            android:clickable="true"
-            app:srcCompat="@android:drawable/ic_input_add"  />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,5 +106,15 @@
             />
     </LinearLayout>
     </ScrollView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/platAjout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/scrollPane"
+        android:layout_alignBottom="@+id/scrollPane"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_input_add"  />
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

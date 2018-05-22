@@ -1,15 +1,10 @@
 package merejy.menuachat.ui.Activity;
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,16 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import merejy.menuachat.R;
-import merejy.menuachat.database.CategorieIngredient;
-import merejy.menuachat.database.CategoriePlats;
-import merejy.menuachat.database.Ingredient;
-import merejy.menuachat.database.Plat;
 import merejy.menuachat.kernel.Needing;
-import merejy.menuachat.kernel.NeedingPlat;
 import merejy.menuachat.ui.ViewAdapter.PlatAdapter;
 
 public class ListePlatActivity extends ActivitySaveOnClose {
@@ -36,7 +23,7 @@ public class ListePlatActivity extends ActivitySaveOnClose {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.liste_plat_activity);
 
          Needing n = Needing.getNeeding();
 
