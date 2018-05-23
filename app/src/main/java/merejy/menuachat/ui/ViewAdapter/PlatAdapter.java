@@ -12,10 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import merejy.menuachat.Exception.ItemNotfound;
 import merejy.menuachat.R;
+import merejy.menuachat.database.CategoriePlats;
 import merejy.menuachat.database.Plat;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingPlat;
@@ -58,9 +60,26 @@ public class PlatAdapter  extends RecyclerView.Adapter<PlatAdapter.ViewHolder> {
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public PlatAdapter(List<NeedingPlat> myDataset, RecyclerView view ) {
-        list = myDataset;
+        list = trie(myDataset.iterator());
         this.view = view;
     }
+
+    private List<NeedingPlat> trie(Iterator<NeedingPlat> iterator){
+        List<ArrayList<NeedingPlat>> l = new ArrayList<>();
+        for(int i = 0; i < CategoriePlats.values().length ; i++){
+            l.add(new ArrayList<NeedingPlat>());
+        }
+        while (iterator.hasNext()){
+            NeedingPlat plat = iterator.next();
+            l.get(plat.getCategories().ordinal()).add(plat);
+        }
+        List<NeedingPlat> retour = new ArrayList<>();
+        for(int i = 0 ; i <l.size() ; i++){
+            retour.addAll(l.get(i));
+        }
+        return retour;
+    }
+
 
     // Create new views (invoked by the layout manager)
     @Override

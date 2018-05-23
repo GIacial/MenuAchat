@@ -28,7 +28,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/platListAll"
+            android:layout_weight="3"
+            />
+        <Button
+            android:layout_width="match_parent"
             android:layout_weight="@string/layout_weigth_one"
+            android:layout_height="wrap_content"
+            android:text="@string/text_anullation"
+            android:id="@+id/buttonAnuler"
             />
 
     </LinearLayout>
@@ -43,6 +50,7 @@
             android:layout_alignBottom="@+id/scrollPane"
             android:clickable="true"
             app:srcCompat="@android:drawable/ic_input_add"  />
+
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

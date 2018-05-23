@@ -12,6 +12,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import merejy.menuachat.database.CategorieIngredient;
+import merejy.menuachat.database.CategoriePlats;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.database.Plat;
 import merejy.menuachat.kernel.Needing;
@@ -50,12 +52,24 @@ public class ChoicePlatAdapter  extends RecyclerView.Adapter<ChoicePlatAdapter.V
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public ChoicePlatAdapter(Collection<Plat> myDataset , AllPlatList activity) {
-        list = new ArrayList<>();
+        list = trie(myDataset.iterator());
         this.activity = activity;
-        Iterator i = myDataset.iterator();
-        while(i.hasNext()){
-            list.add((Plat) i.next());
+    }
+
+    private List<Plat> trie(Iterator<Plat> iterator){
+        List<ArrayList<Plat>> l = new ArrayList<>();
+        for(int i = 0; i < CategoriePlats.values().length ; i++){
+            l.add(new ArrayList<Plat>());
         }
+        while (iterator.hasNext()){
+            Plat plat = iterator.next();
+            l.get(plat.getCategories().ordinal()).add(plat);
+        }
+        List<Plat> retour = new ArrayList<>();
+        for(int i = 0 ; i <l.size() ; i++){
+            retour.addAll(l.get(i));
+        }
+        return retour;
     }
 
     // Create new views (invoked by the layout manager)

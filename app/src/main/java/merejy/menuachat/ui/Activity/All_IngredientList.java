@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 
 import merejy.menuachat.R;
 import merejy.menuachat.database.CategorieIngredient;
@@ -44,6 +45,29 @@ public class All_IngredientList extends ActivitySaveOnClose {
             @Override
             public void onClick(View v) {
                 Intent secondeActivite =  new Intent(All_IngredientList.this,IngredientCreator.class);
+
+                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
+                startActivity(secondeActivite);
+            }
+        });
+
+        Button anuller = findViewById(R.id.buttonAnuler);
+        anuller.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent secondeActivite = null ;
+
+                switch (All_IngredientList.target){
+                    case LIST_INGREDIENT :
+                        secondeActivite = new Intent(All_IngredientList.this,ListeIngredientActivity.class);
+
+                        break;
+                    case PLAT_CREATOR:
+                        secondeActivite = new Intent(All_IngredientList.this,PlatCreator.class);
+
+
+                    default:break;
+                }
 
                 secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                 startActivity(secondeActivite);
