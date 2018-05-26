@@ -1,4 +1,4 @@
-package merejy.menuachat.kernel;
+package merejy.menuachat.kernel.NeedingIngredient;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ import merejy.menuachat.database.Magasin;
  * Created by Jeremy on 22/04/2018.
  */
 
-public class NeedingIngredient implements Serializable {
+public class NeedingIngredient implements Serializable,InterfaceNeedingIngredient {
 
     private Ingredient i;
     private boolean take;

@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -21,12 +20,10 @@ import android.widget.Toast;
 import merejy.menuachat.R;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.kernel.Needing;
-import merejy.menuachat.kernel.NeedingIngredient;
-import merejy.menuachat.ui.Activity.All_IngredientList;
+import merejy.menuachat.kernel.NeedingIngredient.NeedingIngredient;
 import merejy.menuachat.ui.Activity.ListeIngredientActivity;
 import merejy.menuachat.ui.Activity.PlatCreator;
 import merejy.menuachat.ui.Activity.ToActivity;
-import merejy.menuachat.ui.ViewAdapter.IngredientAdapter;
 
 public class QuantitePopUp extends DialogFragment {
 

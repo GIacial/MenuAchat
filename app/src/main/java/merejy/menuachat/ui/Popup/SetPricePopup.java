@@ -12,28 +12,23 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.Set;
-
 import merejy.menuachat.R;
-import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.kernel.Needing;
-import merejy.menuachat.kernel.NeedingIngredient;
+import merejy.menuachat.kernel.NeedingIngredient.InterfaceNeedingIngredient;
+import merejy.menuachat.kernel.NeedingIngredient.NeedingIngredient;
 import merejy.menuachat.ui.ViewAdapter.IngredientAdapter;
 
 public class SetPricePopup extends DialogFragment {
 
-    static private NeedingIngredient actuel = null;
+    static private InterfaceNeedingIngredient actuel = null;
     static private  RecyclerView view;
     static private Activity a;
     static private TextView total;
 
-    static public void showDialog(NeedingIngredient actuel , RecyclerView view , Activity a, TextView total){
+    static public void showDialog(InterfaceNeedingIngredient actuel , RecyclerView view , Activity a, TextView total){
         SetPricePopup.actuel = actuel;
         SetPricePopup.view = view;
         SetPricePopup.a = a;

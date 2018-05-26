@@ -1,9 +1,7 @@
 package merejy.menuachat.ui.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,9 +13,7 @@ import merejy.menuachat.Exception.ItemAlreadyExist;
 import merejy.menuachat.R;
 import merejy.menuachat.database.CategorieIngredient;
 import merejy.menuachat.database.Database;
-import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.kernel.Needing;
-import merejy.menuachat.kernel.NeedingIngredient;
 
 public class IngredientCreator extends ActivitySaveOnClose {
 

@@ -1,18 +1,12 @@
 package merejy.menuachat.kernel;
 
-import android.Manifest;
 import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -23,10 +17,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import merejy.menuachat.Exception.ItemNotEquals;
 import merejy.menuachat.Exception.ItemNotfound;
-import merejy.menuachat.database.Database;
 import merejy.menuachat.database.Magasin;
-import merejy.menuachat.database.Plat;
+import merejy.menuachat.kernel.NeedingIngredient.FusionNeedingIngredient;
+import merejy.menuachat.kernel.NeedingIngredient.InterfaceNeedingIngredient;
+import merejy.menuachat.kernel.NeedingIngredient.NeedingIngredient;
 
 /**
  * Created by Jeremy on 22/04/2018.
@@ -116,9 +112,9 @@ public class Needing implements Serializable {
         }
     }
 
-    public void remove(NeedingIngredient i) throws ItemNotfound{
-        if(this.ingredients.containsKey(i.getNom())){
-            ingredients.remove(i.getNom());
+    public void remove(String ingredientName) throws ItemNotfound{
+        if(this.ingredients.containsKey(ingredientName)){
+            ingredients.remove(ingredientName);
         }
         else{
             throw  new ItemNotfound();
@@ -129,14 +125,26 @@ public class Needing implements Serializable {
         return  plats;
     }
 
-    public Collection<NeedingIngredient> getIngredients(){
-        List<NeedingIngredient> ing = new ArrayList<>(ingredients.values());
+    public Collection<InterfaceNeedingIngredient> getIngredients(){
+        HashMap<String,InterfaceNeedingIngredient> ing = new HashMap<>();
+        for(NeedingIngredient i : ingredients.values()){
+            ing.put(i.getNom(),i);
+        }
         for(NeedingPlat p : plats){
            for(NeedingIngredient i : p.getNeedingIngredients().values()){
-               ing.add(i);
+               if(ing.containsKey(i.getNom())){
+                   try {
+                       ing.put(i.getNom(),new FusionNeedingIngredient(i,ing.get(i.getNom())));
+                   } catch (ItemNotEquals itemNotEquals) {
+                       itemNotEquals.printStackTrace();
+                   }
+               }
+               else{
+                   ing.put(i.getNom(),i);
+               }
            }
         }
-        return ing;
+        return ing.values();
     }
 
     public double  getTotal(){
@@ -144,6 +152,9 @@ public class Needing implements Serializable {
         for(NeedingPlat p : plats){
             if(p.isTake()){
                 total += p.getPrix(currentMag);
+            }
+            else{
+                total += p.getCurrentIngredientTakePrice(currentMag);
             }
         }
         for(NeedingIngredient i : ingredients.values()){

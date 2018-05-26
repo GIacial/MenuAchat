@@ -1,24 +1,18 @@
 package merejy.menuachat.ui.ViewAdapter;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import merejy.menuachat.database.CategorieIngredient;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.kernel.Needing;
-import merejy.menuachat.kernel.NeedingIngredient;
 
 public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.ViewHolder> {
     private List<Ingredient> list;

@@ -12,16 +12,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import merejy.menuachat.database.CategorieIngredient;
 import merejy.menuachat.database.CategoriePlats;
-import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.database.Plat;
 import merejy.menuachat.kernel.Needing;
-import merejy.menuachat.kernel.NeedingIngredient;
 import merejy.menuachat.kernel.NeedingPlat;
 import merejy.menuachat.ui.Activity.AllPlatList;
-import merejy.menuachat.ui.Activity.All_IngredientList;
-import merejy.menuachat.ui.Activity.ListeIngredientActivity;
 import merejy.menuachat.ui.Activity.ListePlatActivity;
 
 public class ChoicePlatAdapter  extends RecyclerView.Adapter<ChoicePlatAdapter.ViewHolder> {

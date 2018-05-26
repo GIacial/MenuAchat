@@ -1,14 +1,13 @@
 package merejy.menuachat.kernel;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import merejy.menuachat.database.CategoriePlats;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.database.Magasin;
 import merejy.menuachat.database.Plat;
+import merejy.menuachat.kernel.NeedingIngredient.NeedingIngredient;
 
 /**
  * Created by Jeremy on 22/04/2018.
@@ -70,6 +69,16 @@ public class NeedingPlat implements Serializable{
 
     public  double getPrix(Magasin m){
         return this.plat.getPrix(m);
+    }
+
+    public double getCurrentIngredientTakePrice(Magasin m){
+        double res = 0;
+        for(NeedingIngredient i : needingIngredients.values()){
+            if(i.isTake()){
+                res += i.getPrix(m);
+            }
+        }
+        return res;
     }
 
 }
