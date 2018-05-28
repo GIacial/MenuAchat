@@ -1,6 +1,5 @@
 package merejy.menuachat.ui.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 
 import merejy.menuachat.R;
-import merejy.menuachat.database.CategorieIngredient;
 import merejy.menuachat.database.Database;
 import merejy.menuachat.ui.ViewAdapter.ChoiceIngredientAdapter;
 

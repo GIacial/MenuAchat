@@ -2,12 +2,13 @@ package merejy.menuachat.kernel.NeedingIngredient;
 
 import java.io.Serializable;
 
-import merejy.menuachat.database.CategorieIngredient;
+import merejy.menuachat.database.DataEnum.CategorieIngredient;
+import merejy.menuachat.database.DataEnum.PriceComparator;
 import merejy.menuachat.database.Magasin;
 
 public interface InterfaceNeedingIngredient extends Serializable {
 
-    public  boolean isLessCost(Magasin mag);
+    public PriceComparator isLessCost(Magasin mag);
 
     public boolean isTake();
 

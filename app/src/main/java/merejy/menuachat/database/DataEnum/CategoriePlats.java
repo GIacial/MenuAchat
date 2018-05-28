@@ -1,4 +1,4 @@
-package merejy.menuachat.database;
+package merejy.menuachat.database.DataEnum;
 
 import java.io.Serializable;
 
@@ -7,5 +7,8 @@ import java.io.Serializable;
  */
 
 public enum CategoriePlats  implements Serializable {
-    ENTREE,PLAT,DESSERT
+    ENTREE,
+    PLAT,
+    DESSERT,
+    AUTRES
 }

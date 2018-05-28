@@ -3,13 +3,13 @@ package merejy.menuachat.database;
 import android.util.JsonReader;
 import android.util.JsonWriter;
 
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 
 import merejy.menuachat.Exception.ItemAlreadyExist;
+import merejy.menuachat.database.DataEnum.CategorieIngredient;
+import merejy.menuachat.database.DataEnum.PriceComparator;
 
 /**
  * Created by Jeremy on 22/04/2018.
@@ -47,14 +47,35 @@ public class Ingredient  implements Serializable {
         return this.prix.get(mag);
     }
 
-    public boolean isCostLess(Magasin mag) {    //permet de savoir si il est le moins cher ici
+    public PriceComparator isCostLess(Magasin mag) {    //permet de savoir si il est le moins cher ici
         double min = Double.MAX_VALUE;
+        boolean best = true;                    //permet de savoir si c'est le seul
         for (Double magPrix : prix.values()) {
-            if (min > magPrix) {
-                min = magPrix;
+            if (min >= magPrix) {
+                if(min > magPrix){
+                    best = true;
+                    min = magPrix;
+                }
+                else {
+                    best = false;
+                }
             }
         }
-        return prix.containsKey(mag) && prix.get(mag) <= min;
+        PriceComparator result = PriceComparator.NO_PRICE;
+        if(prix.containsKey(mag)){
+            if(prix.get(mag) <= min){
+                if(best){
+                    result = PriceComparator.CHEAPEST;
+                }
+                else{
+                    result = PriceComparator.CHEAPER;
+                }
+            }
+            else{
+                result = PriceComparator.EXPANSIVE;
+            }
+        }
+        return result;
     }
 
     public static void save (Ingredient i , JsonWriter writer){ //sauvegarde un ingredient

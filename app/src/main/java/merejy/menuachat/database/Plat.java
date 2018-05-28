@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import merejy.menuachat.Exception.ItemAlreadyExist;
+import merejy.menuachat.database.DataEnum.CategoriePlats;
 
 /**
  * Created by Jeremy on 22/04/2018.

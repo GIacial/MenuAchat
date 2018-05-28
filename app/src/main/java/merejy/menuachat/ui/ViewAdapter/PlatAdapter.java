@@ -1,30 +1,28 @@
 package merejy.menuachat.ui.ViewAdapter;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import merejy.menuachat.Exception.ItemNotfound;
-import merejy.menuachat.R;
-import merejy.menuachat.database.CategoriePlats;
-import merejy.menuachat.database.Plat;
+import merejy.menuachat.database.DataEnum.CategoriePlats;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingPlat;
+import merejy.menuachat.ui.Popup.QuestionModule.RemoveNeedingPlatModule;
+import merejy.menuachat.ui.Popup.QuestionPopup;
 
 public class PlatAdapter  extends RecyclerView.Adapter<PlatAdapter.ViewHolder> {
     private List<NeedingPlat> list;
     private RecyclerView view;
+    private Activity activity;
+    private TextView prixTotalDisplay;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -59,9 +57,11 @@ public class PlatAdapter  extends RecyclerView.Adapter<PlatAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public PlatAdapter(List<NeedingPlat> myDataset, RecyclerView view ) {
+    public PlatAdapter(List<NeedingPlat> myDataset, RecyclerView view,Activity activity , TextView prixTotalDisplay ) {
         list = trie(myDataset.iterator());
         this.view = view;
+        this.activity = activity;
+        this.prixTotalDisplay = prixTotalDisplay;
     }
 
     private List<NeedingPlat> trie(Iterator<NeedingPlat> iterator){
@@ -104,12 +104,7 @@ public class PlatAdapter  extends RecyclerView.Adapter<PlatAdapter.ViewHolder> {
         holder.v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    Needing.getNeeding().remove(list.get(position));
-                } catch (ItemNotfound itemNotfound) {
-                    Toast.makeText(view.getContext(), R.string.error_platNotFound,Toast.LENGTH_LONG).show();
-                }
-                view.setAdapter(new PlatAdapter(Needing.getNeeding().getPlats(),view));
+                QuestionPopup.showDialog(activity,new RemoveNeedingPlatModule(view,prixTotalDisplay,list.get(position),activity));
             }
         });
     }

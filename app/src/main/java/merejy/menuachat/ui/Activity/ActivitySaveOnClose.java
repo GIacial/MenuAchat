@@ -2,7 +2,9 @@ package merejy.menuachat.ui.Activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -10,7 +12,7 @@ import android.support.v4.content.ContextCompat;
 import merejy.menuachat.database.Database;
 import merejy.menuachat.kernel.Needing;
 
-public class ActivitySaveOnClose extends Activity {
+abstract public class ActivitySaveOnClose extends AbstractActivity {
 
     @Override
     protected void onStop() {
@@ -35,4 +37,6 @@ public class ActivitySaveOnClose extends Activity {
                     1);
         }
     }
+
+
 }

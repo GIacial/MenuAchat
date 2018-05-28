@@ -12,20 +12,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.Activity.MagasinChoiceActivity">
+        <activity android:name=".ui.Activity.MagasinChoiceActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.Activity.ListeIngredientActivity" />
-        <activity android:name=".ui.Activity.All_IngredientList" />
-        <activity android:name=".ui.Activity.IngredientCreator" />
-        <activity android:name=".ui.Activity.AllPlatList" />
-        <activity android:name=".ui.Activity.PlatCreator" />
-        <activity android:name=".ui.Activity.MagasinCreator" />
-        <activity android:name=".ui.Activity.ListePlatActivity" />
+        <activity android:name=".ui.Activity.ListeIngredientActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            />
+        <activity android:name=".ui.Activity.All_IngredientList"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            />
+        <activity android:name=".ui.Activity.IngredientCreator"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            />
+        <activity android:name=".ui.Activity.AllPlatList"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            />
+        <activity android:name=".ui.Activity.PlatCreator"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            />
+        <activity android:name=".ui.Activity.MagasinCreator"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            />
+        <activity android:name=".ui.Activity.ListePlatActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"
+            />
     </application>
 
 </manifest>

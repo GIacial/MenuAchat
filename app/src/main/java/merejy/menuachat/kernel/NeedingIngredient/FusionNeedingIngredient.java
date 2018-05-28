@@ -1,8 +1,8 @@
 package merejy.menuachat.kernel.NeedingIngredient;
 
 import merejy.menuachat.Exception.ItemNotEquals;
-import merejy.menuachat.database.CategorieIngredient;
-import merejy.menuachat.database.Ingredient;
+import merejy.menuachat.database.DataEnum.CategorieIngredient;
+import merejy.menuachat.database.DataEnum.PriceComparator;
 import merejy.menuachat.database.Magasin;
 
 public class FusionNeedingIngredient implements InterfaceNeedingIngredient {
@@ -20,7 +20,7 @@ public class FusionNeedingIngredient implements InterfaceNeedingIngredient {
 
 
     @Override
-    public boolean isLessCost(Magasin mag) {
+    public PriceComparator isLessCost(Magasin mag) {
         return ingredient1.isLessCost(mag);
     }
 

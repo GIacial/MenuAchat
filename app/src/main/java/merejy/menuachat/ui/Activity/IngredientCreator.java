@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import merejy.menuachat.Exception.ItemAlreadyExist;
 import merejy.menuachat.R;
-import merejy.menuachat.database.CategorieIngredient;
+import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.database.Database;
 import merejy.menuachat.kernel.Needing;
 

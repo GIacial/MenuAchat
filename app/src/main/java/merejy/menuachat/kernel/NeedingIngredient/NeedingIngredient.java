@@ -2,7 +2,8 @@ package merejy.menuachat.kernel.NeedingIngredient;
 
 import java.io.Serializable;
 
-import merejy.menuachat.database.CategorieIngredient;
+import merejy.menuachat.database.DataEnum.CategorieIngredient;
+import merejy.menuachat.database.DataEnum.PriceComparator;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.database.Magasin;
 
@@ -54,7 +55,7 @@ public class NeedingIngredient implements Serializable,InterfaceNeedingIngredien
         return  quantite;
     }
 
-    public boolean isLessCost(Magasin mag){
+    public PriceComparator isLessCost(Magasin mag){
         return i.isCostLess(mag);
     }
 

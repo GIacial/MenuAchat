@@ -34,12 +34,15 @@ public class ListePlatActivity extends ActivitySaveOnClose {
 
         // use a linear layout manager
         listUi.setLayoutManager(new LinearLayoutManager(this));
-        //mets un adapter
-        listUi.setAdapter(new PlatAdapter(n.getPlats(),listUi));
+
 
         //calcul du total
         TextView total = findViewById(R.id.prixTotal);
         total.setText(n.getTotal()+"");
+
+        //mets un adapter
+        listUi.setAdapter(new PlatAdapter(n.getPlats(),listUi,this,total));
+
 
         //mise en marche du butoon
         Button b = findViewById(R.id.buttonGenere);

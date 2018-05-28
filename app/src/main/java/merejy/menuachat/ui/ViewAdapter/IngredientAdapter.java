@@ -8,18 +8,19 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import merejy.menuachat.Exception.ItemNotfound;
 import merejy.menuachat.R;
-import merejy.menuachat.database.CategorieIngredient;
+import merejy.menuachat.database.DataEnum.CategorieIngredient;
+import merejy.menuachat.kernel.ColorManager;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingIngredient.InterfaceNeedingIngredient;
+import merejy.menuachat.ui.Popup.QuestionModule.RemoveNeedingIngedientModule;
+import merejy.menuachat.ui.Popup.QuestionPopup;
 import merejy.menuachat.ui.Popup.SetPricePopup;
 
 public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
@@ -115,13 +116,9 @@ public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.V
                 SetPricePopup.showDialog(list.get(position),view,activity,listTotalPrix);
             }
         });
-        if(list.get(position).isLessCost(Needing.getNeeding().getCurrentMag())){
-            holder.prix.setTextColor(activity.getResources().getColor(R.color.goodPrice));
-        }
-        else{
 
-            holder.prix.setTextColor(activity.getResources().getColor(R.color.badPrice));
-        }
+        holder.prix.setTextColor(ColorManager.getPriceColor(list.get(position).isLessCost(Needing.getNeeding().getCurrentMag())));
+
 
         holder.categorie.setText(list.get(position).getCategorie().toString());
         holder.quantite.setText(list.get(position).getQuantite()+"");
@@ -135,12 +132,7 @@ public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.V
         holder.v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    Needing.getNeeding().remove(list.get(position).getNom());
-                } catch (ItemNotfound itemNotfound) {
-                    Toast.makeText(activity, R.string.error_ingredientNotFound,Toast.LENGTH_LONG).show();
-                }
-                view.setAdapter(new IngredientAdapter(Needing.getNeeding().getIngredients(),view,activity,listTotalPrix));
+                QuestionPopup.showDialog(activity,new RemoveNeedingIngedientModule(activity,view,listTotalPrix,list.get(position)));
             }
         });
     }

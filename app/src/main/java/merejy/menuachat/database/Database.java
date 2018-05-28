@@ -1,29 +1,21 @@
 package merejy.menuachat.database;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.RequiresApi;
 import android.util.JsonReader;
 import android.util.JsonWriter;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
 import merejy.menuachat.Exception.ItemAlreadyExist;
-import merejy.menuachat.kernel.Needing;
+import merejy.menuachat.database.DataEnum.CategorieIngredient;
+import merejy.menuachat.database.DataEnum.CategoriePlats;
 
 /**
  * Created by Jeremy on 22/04/2018.
@@ -175,7 +167,7 @@ public class Database  implements Serializable {
         }
     }
 
-    public void addPlat(String nom , CategoriePlats cat ,  List<Ingredient> i) throws ItemAlreadyExist{     //ajoute un plat
+    public void addPlat(String nom , CategoriePlats cat , List<Ingredient> i) throws ItemAlreadyExist{     //ajoute un plat
         if(!plats.containsKey(nom)){
             this.plats.put(nom,new Plat(nom, cat, i));
         }

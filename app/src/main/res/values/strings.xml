@@ -20,6 +20,7 @@
     <string name="text_lieu">Lieu</string>
     <string name="text_nouveauMagasin">Nouveau Magasin</string>
     <string name="text_ajouterIngredient">Ajouter un ingrédient</string>
+    <string name="text_questionSuppression">Voulez vous supprimer </string>
 
     <string name="error_IngredientExistant">Ce nom d\'ingrédient existe déjà</string>
     <string name="error_PlatExistant">Ce nom de plat existe déjà</string>
@@ -30,6 +31,8 @@
     <string name="error_ingredientNotFound">Cette ingrédient n\existe pas ou fait partie d'un plat</string>
     <string name="error_platNotFound">Ce plat n\existe pas </string>
     <string name="error_zeroQuantite">Vous ne voulez pas de ça</string>
+    <string name="error_noQuestion">Pas de question => surement une erreur</string>
+
 
 
 </resources>

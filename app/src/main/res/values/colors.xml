@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="goodPrice">#00FF00</color>
     <color name="badPrice">#FF0000</color>
+    <color name="normalPrice">#000000</color>
+    <color name="noPrice">#888888</color>
 </resources>

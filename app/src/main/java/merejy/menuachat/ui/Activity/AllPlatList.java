@@ -1,6 +1,5 @@
 package merejy.menuachat.ui.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,14 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
-
 import merejy.menuachat.R;
-import merejy.menuachat.database.CategoriePlats;
 import merejy.menuachat.database.Database;
-import merejy.menuachat.database.Ingredient;
-import merejy.menuachat.database.Plat;
-import merejy.menuachat.ui.ViewAdapter.ChoiceIngredientAdapter;
 import merejy.menuachat.ui.ViewAdapter.ChoicePlatAdapter;
 
 public class AllPlatList extends ActivitySaveOnClose {

@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import merejy.menuachat.database.CategorieIngredient;
+import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.ui.Activity.All_IngredientList;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.ui.Popup.QuantitePopUp;

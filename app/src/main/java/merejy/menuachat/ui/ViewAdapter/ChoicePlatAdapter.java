@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import merejy.menuachat.database.CategoriePlats;
+import merejy.menuachat.database.DataEnum.CategoriePlats;
 import merejy.menuachat.database.Plat;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingPlat;

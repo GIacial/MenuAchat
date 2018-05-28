@@ -3,7 +3,7 @@ package merejy.menuachat.kernel;
 import java.io.Serializable;
 import java.util.HashMap;
 
-import merejy.menuachat.database.CategoriePlats;
+import merejy.menuachat.database.DataEnum.CategoriePlats;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.database.Magasin;
 import merejy.menuachat.database.Plat;
