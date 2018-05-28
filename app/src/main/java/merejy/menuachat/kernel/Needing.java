@@ -1,9 +1,6 @@
 package merejy.menuachat.kernel;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.RequiresApi;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -33,55 +30,9 @@ public class Needing implements Serializable {
     private List<NeedingPlat> plats;
     private HashMap<String,NeedingIngredient> ingredients;
     private Magasin currentMag = null;
-
-
-
-    static private Needing n = null;
-    final static String saveName = "ListeCourse.sav";
-
     private Needing(){
         this.plats = new ArrayList<>();
         this.ingredients = new HashMap<>();
-    }
-
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public static Needing getNeeding(){
-        if(n == null){
-            Needing.load();
-            if(n == null){
-                n = new Needing();
-            }
-        }
-        return n;
-    }
-
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public static void save (){
-        if(n != null){
-            try {
-                ObjectOutputStream save = new ObjectOutputStream(new FileOutputStream(new File(Environment.getExternalStorageDirectory(),saveName)));
-                save.writeObject(n);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public static void load(){
-        if(n == null){
-            try {
-                ObjectInputStream save = new ObjectInputStream(new FileInputStream(new File(Environment.getExternalStorageDirectory(),saveName)));
-                n = (Needing) save.readObject();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public void clear(){
@@ -131,18 +82,18 @@ public class Needing implements Serializable {
             ing.put(i.getNom(),i);
         }
         for(NeedingPlat p : plats){
-           for(NeedingIngredient i : p.getNeedingIngredients().values()){
-               if(ing.containsKey(i.getNom())){
-                   try {
-                       ing.put(i.getNom(),new FusionNeedingIngredient(i,ing.get(i.getNom())));
-                   } catch (ItemNotEquals itemNotEquals) {
-                       itemNotEquals.printStackTrace();
-                   }
-               }
-               else{
-                   ing.put(i.getNom(),i);
-               }
-           }
+            for(NeedingIngredient i : p.getNeedingIngredients().values()){
+                if(ing.containsKey(i.getNom())){
+                    try {
+                        ing.put(i.getNom(),new FusionNeedingIngredient(i,ing.get(i.getNom())));
+                    } catch (ItemNotEquals itemNotEquals) {
+                        itemNotEquals.printStackTrace();
+                    }
+                }
+                else{
+                    ing.put(i.getNom(),i);
+                }
+            }
         }
         return ing.values();
     }
@@ -172,4 +123,44 @@ public class Needing implements Serializable {
     public void setCurrentMag(Magasin currentMag) {
         this.currentMag = currentMag;
     }
+
+    //static
+
+    static private Needing n = null;
+    private final static String saveName = "ListeCourse.sav";
+
+    public static Needing getNeeding(){
+        if(n == null){
+            Needing.load();
+            if(n == null){
+                n = new Needing();
+            }
+        }
+        return n;
+    }
+
+    public static void save (){
+        if(n != null){
+            try {
+                ObjectOutputStream save = new ObjectOutputStream(new FileOutputStream(new File(Environment.getExternalStorageDirectory(),saveName)));
+                save.writeObject(n);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    private static void load(){
+        if(n == null){
+            try {
+                ObjectInputStream save = new ObjectInputStream(new FileInputStream(new File(Environment.getExternalStorageDirectory(),saveName)));
+                n = (Needing) save.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 }

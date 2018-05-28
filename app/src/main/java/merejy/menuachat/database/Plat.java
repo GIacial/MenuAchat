@@ -36,7 +36,7 @@ public class Plat implements Serializable{
         for(Ingredient i : ingredients){
             p += i.getPrix(mag);
         }
-        return new Double(p);
+        return p;
     }
 
     public  List<Ingredient> getIngredients() {
@@ -61,6 +61,9 @@ public class Plat implements Serializable{
     public int hashCode() {
         return nom.hashCode();
     }
+
+
+    //static
 
     public static void save (Plat i , JsonWriter writer){
         try {
@@ -89,35 +92,39 @@ public class Plat implements Serializable{
             List<Ingredient> ingredients = new ArrayList<>();
             while (reader.hasNext()){
                 String name = reader.nextName();
-                if(name.equals("Nom")){
-                    nom = reader.nextString();
-                }
-                else if (name.equals("Categorie")){
-                    categoriePlats = CategoriePlats.valueOf(reader.nextString());
-                }
-                else if (name.equals("Ingredients")){
-                    reader.beginArray();    //debut ingredient
-                    while (reader.hasNext()){
-                        reader.beginObject();
-                        while (reader.hasNext()){
-                            String name2 = reader.nextName();
-                            if(name2.equals("Nom")){
-                                Ingredient ingredient = database.getIngredient(reader.nextString());
-                                if(ingredient != null){
-                                    ingredients.add(ingredient);
+                switch (name) {
+                    case "Nom":
+                        nom = reader.nextString();
+                        break;
+                    case "Categorie":
+                        categoriePlats = CategoriePlats.valueOf(reader.nextString());
+                        break;
+                    case "Ingredients":
+                        reader.beginArray();    //debut ingredient
+
+                        while (reader.hasNext()) {
+                            reader.beginObject();
+                            while (reader.hasNext()) {
+                                String name2 = reader.nextName();
+                                if (name2.equals("Nom")) {
+                                    Ingredient ingredient = database.getIngredient(reader.nextString());
+                                    if (ingredient != null) {
+                                        ingredients.add(ingredient);
+                                    }
                                 }
                             }
+                            reader.endObject();
                         }
-                         reader.endObject();
-                    }
-                    reader.endArray();       //fin ingredient
-                    if( nom != null && categoriePlats != null && ingredients.size()>= 1){
-                        try {
-                            database.addPlat(nom,categoriePlats,ingredients);
-                        } catch (ItemAlreadyExist itemAlreadyExist) {
-                            itemAlreadyExist.printStackTrace();
+                        reader.endArray();       //fin ingredient
+
+                        if (nom != null && categoriePlats != null && ingredients.size() >= 1) {
+                            try {
+                                database.addPlat(nom, categoriePlats, ingredients);
+                            } catch (ItemAlreadyExist itemAlreadyExist) {
+                                itemAlreadyExist.printStackTrace();
+                            }
                         }
-                    }
+                        break;
                 }
             }
 

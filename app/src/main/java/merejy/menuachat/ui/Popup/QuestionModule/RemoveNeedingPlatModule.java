@@ -8,9 +8,7 @@ import android.widget.Toast;
 import merejy.menuachat.Exception.ItemNotfound;
 import merejy.menuachat.R;
 import merejy.menuachat.kernel.Needing;
-import merejy.menuachat.kernel.NeedingIngredient.InterfaceNeedingIngredient;
 import merejy.menuachat.kernel.NeedingPlat;
-import merejy.menuachat.ui.ViewAdapter.IngredientAdapter;
 import merejy.menuachat.ui.ViewAdapter.PlatAdapter;
 
 public class RemoveNeedingPlatModule implements QuestionPopupModule {

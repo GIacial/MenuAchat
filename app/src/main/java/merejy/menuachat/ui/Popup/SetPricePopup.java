@@ -25,13 +25,11 @@ public class SetPricePopup extends DialogFragment {
 
     static private InterfaceNeedingIngredient actuel = null;
     static private  RecyclerView view;
-    static private Activity a;
     static private TextView total;
 
     static public void showDialog(InterfaceNeedingIngredient actuel , RecyclerView view , Activity a, TextView total){
         SetPricePopup.actuel = actuel;
         SetPricePopup.view = view;
-        SetPricePopup.a = a;
         SetPricePopup.total = total;
 
         new SetPricePopup().show(a.getFragmentManager(),"priceDialog");
@@ -55,17 +53,19 @@ public class SetPricePopup extends DialogFragment {
         builder.setPositiveButton(R.string.text_confirmation, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 
-                System.err.println("Comfirmation");
-                if(actuel != null && prix!= null && prix.getText().toString()!="" && view != null && a !=null){
+                if(actuel != null && prix!= null && !prix.getText().toString().equals("") && view != null ){
                     actuel.addPrix(Double.parseDouble(prix.getText().toString()),Needing.getNeeding().getCurrentMag());
-                    view.setAdapter(new IngredientAdapter(Needing.getNeeding().getIngredients(),view,a,total));
+                    view.setAdapter(new IngredientAdapter(Needing.getNeeding().getIngredients(),view,SetPricePopup.this.getActivity(),total));
                     total.setText(Needing.getNeeding().getTotal()+"");
                 }
+                SetPricePopup.view = null;
+                SetPricePopup.total = null;
             }
         })
                 .setNegativeButton(R.string.text_anullation, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
+                            SetPricePopup.view = null;
+                            SetPricePopup.total = null;
                     }
                 });
 

@@ -9,7 +9,6 @@ import merejy.menuachat.Exception.ItemNotfound;
 import merejy.menuachat.R;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingIngredient.InterfaceNeedingIngredient;
-import merejy.menuachat.kernel.NeedingIngredient.NeedingIngredient;
 import merejy.menuachat.ui.ViewAdapter.IngredientAdapter;
 
 public class RemoveNeedingIngedientModule implements QuestionPopupModule {

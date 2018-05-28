@@ -66,9 +66,11 @@ public class All_IngredientList extends ActivitySaveOnClose {
 
                     default:break;
                 }
+                if(secondeActivite != null){
+                    secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
+                    startActivity(secondeActivite);
+                }
 
-                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
-                startActivity(secondeActivite);
             }
         });
 

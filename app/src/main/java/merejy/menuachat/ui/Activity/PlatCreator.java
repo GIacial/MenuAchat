@@ -47,7 +47,7 @@ public class PlatCreator extends ActivitySaveOnClose {
         nom.setText(PlatCreator.nom);
 
         //spinner
-        cat.setAdapter(new ArrayAdapter<CategoriePlats>(this,R.layout.support_simple_spinner_dropdown_item, CategoriePlats.values()));
+        cat.setAdapter(new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, CategoriePlats.values()));
         cat.setSelection(PlatCreator.catego);
 
         //recycler
@@ -63,7 +63,7 @@ public class PlatCreator extends ActivitySaveOnClose {
         comfirmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!nom.getText().equals("") && need.size() > 0){
+                if(!nom.getText().toString().equals("") && need.size() > 0){
                     try {
                         Database.getDatabase().addPlat(nom.getText().toString(),(CategoriePlats) cat.getSelectedItem(),need);
                     } catch (ItemAlreadyExist itemAlreadyExist) {

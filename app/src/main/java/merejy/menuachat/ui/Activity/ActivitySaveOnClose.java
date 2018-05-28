@@ -1,10 +1,7 @@
 package merejy.menuachat.ui.Activity;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;

@@ -10,11 +10,9 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
-import merejy.menuachat.database.Magasin;
 import merejy.menuachat.kernel.Needing;
 
 public class MagasinChoiceActivity extends ActivitySaveOnClose {
@@ -33,17 +31,16 @@ public class MagasinChoiceActivity extends ActivitySaveOnClose {
 
         final Database d = Database.getDatabase();
 
-        magasin.setAdapter(new ArrayAdapter<Object>(this,R.layout.support_simple_spinner_dropdown_item,d.getAllMagasin().toArray()));
+        magasin.setAdapter(new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,d.getAllMagasin().toArray()));
         magasin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                lieu.setAdapter(new ArrayAdapter<Object>(MagasinChoiceActivity.this,R.layout.support_simple_spinner_dropdown_item,d.getAllMagasinLocation(magasin.getSelectedItem().toString()).toArray()));
+                lieu.setAdapter(new ArrayAdapter<>(MagasinChoiceActivity.this,R.layout.support_simple_spinner_dropdown_item,d.getAllMagasinLocation(magasin.getSelectedItem().toString()).toArray()));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                List<String> a = new ArrayList<>();
-                lieu.setAdapter(new ArrayAdapter<Object>(MagasinChoiceActivity.this,R.layout.support_simple_spinner_dropdown_item,a.toArray()));
+                lieu.setAdapter(new ArrayAdapter<>(MagasinChoiceActivity.this,R.layout.support_simple_spinner_dropdown_item,new ArrayList<>().toArray()));
             }
         });
 

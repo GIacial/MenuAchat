@@ -42,7 +42,7 @@ public class Ingredient  implements Serializable {
 
     public Double getPrix(Magasin mag){ //recup le prix pour un magasin
         if(!this.prix.containsKey(mag)){
-            return new Double(Double.NaN);
+            return Double.NaN;
         }
         return this.prix.get(mag);
     }
@@ -78,6 +78,8 @@ public class Ingredient  implements Serializable {
         return result;
     }
 
+    //static
+
     public static void save (Ingredient i , JsonWriter writer){ //sauvegarde un ingredient
         try {
             writer.beginObject();               //debut ingredient
@@ -107,39 +109,45 @@ public class Ingredient  implements Serializable {
             HashMap<Magasin,Double> prix = new HashMap<>();
             while (reader.hasNext()){
                 String name = reader.nextName();
-                if(name.equals("Nom")){
-                    nom = reader.nextString();
-                }
-                else if(name.equals("Categorie")){
-                    categorie = CategorieIngredient.valueOf(reader.nextString());
-                }
-                else if (name.equals("Prix")){
-                    reader.beginArray();   //debut prix
-                    while (reader.hasNext()){
-                        reader.beginObject();           //debut magasin
+                switch (name) {
+                    case "Nom":
+                        nom = reader.nextString();
+                        break;
+                    case "Categorie":
+                        categorie = CategorieIngredient.valueOf(reader.nextString());
+                        break;
+                    case "Prix":
+                        reader.beginArray();   //debut prix
 
-                        String nomMag = null;
-                        String localisation = null;
-                        Double prixValue = null;
-                        while (reader.hasNext()){
-                            String name2 = reader.nextName();
-                            if(name2.equals("nom")){
-                                nomMag = reader.nextString();
-                            }
-                            else if (name2.equals("localisation")){
-                                localisation = reader.nextString();
-                            }
-                            else if(name2.equals("prix")){
-                                prixValue = reader.nextDouble();
-                            }
-                        }
-                        reader.endObject();             //fin magasin
-                        if(nomMag != null && localisation != null && prixValue != null){
-                            prix.put(new Magasin(nomMag,localisation),prixValue);
-                        }
+                        while (reader.hasNext()) {
+                            reader.beginObject();           //debut magasin
 
-                    }
-                    reader.endArray(); //fin prix
+                            String nomMag = null;
+                            String localisation = null;
+                            Double prixValue = null;
+                            while (reader.hasNext()) {
+                                String name2 = reader.nextName();
+                                switch (name2) {
+                                    case "nom":
+                                        nomMag = reader.nextString();
+                                        break;
+                                    case "localisation":
+                                        localisation = reader.nextString();
+                                        break;
+                                    case "prix":
+                                        prixValue = reader.nextDouble();
+                                        break;
+                                }
+                            }
+                            reader.endObject();             //fin magasin
+                            if (nomMag != null && localisation != null && prixValue != null) {
+                                prix.put(new Magasin(nomMag, localisation), prixValue);
+                            }
+
+                        }
+                        reader.endArray(); //fin prix
+
+                        break;
                 }
             }
             reader.endObject(); //fin ingredient

@@ -45,7 +45,7 @@ public class IngredientCreator extends ActivitySaveOnClose {
                     } catch (ItemAlreadyExist itemAlreadyExist) {
                         Toast.makeText(IngredientCreator.this,R.string.error_IngredientExistant,Toast.LENGTH_LONG).show();
                     }
-                    catch (NumberFormatException e){
+                    catch (NumberFormatException ignored){
 
                     }
                 }

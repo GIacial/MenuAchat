@@ -6,21 +6,21 @@ import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.database.DataEnum.PriceComparator;
 import merejy.menuachat.database.Magasin;
 
-public interface InterfaceNeedingIngredient extends Serializable {
+ public interface InterfaceNeedingIngredient extends Serializable {
 
-    public PriceComparator isLessCost(Magasin mag);
+     PriceComparator isLessCost(Magasin mag);
 
-    public boolean isTake();
+     boolean isTake();
 
-    public void setTake(boolean take);
+     void setTake(boolean take);
 
-    public String getNom();
+     String getNom();
 
-    public CategorieIngredient getCategorie();
+     CategorieIngredient getCategorie();
 
-    public void addPrix(Double prix , Magasin mag);
+     void addPrix(Double prix , Magasin mag);
 
-    public Double getPrix(Magasin mag);
+     Double getPrix(Magasin mag);
 
-    public int getQuantite();
+     int getQuantite();
 }
