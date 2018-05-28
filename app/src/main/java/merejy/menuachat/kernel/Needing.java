@@ -41,9 +41,10 @@ public class Needing implements Serializable {
     }
 
     public void add(NeedingPlat p){
-        if(!this.plats.contains(p)){
+        if(p != null){
             plats.add(p);
         }
+
     }
 
     public void add(NeedingIngredient i){

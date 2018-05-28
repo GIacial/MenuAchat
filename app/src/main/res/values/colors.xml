@@ -3,6 +3,25 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="default_categorie">#00ffffff</color>
+    <color name="ingredientCat_pain">#b44d1d</color>
+    <color name="ingredientCat_boisson">#00aaff</color>
+    <color name="ingredientCat_viande">#9d2116</color>
+    <color name="ingredientCat_legumes">#084504</color>
+    <color name="ingredientCat_bonbon">#ff00ee</color>
+    <color name="ingredientCat_fruit">#bfff00</color>
+    <color name="ingredientCat_gateau">#ffea00</color>
+    <color name="ingredientCat_poisson">#0062ff</color>
+    <color name="ingredientCat_laitier">#e2e6eb</color>
+    <color name="ingredientCat_surgeler">#04f1f9</color>
+    <color name="ingredientCat_conserve">#9ea0a0</color>
+    <color name="ingredientCat_feculent">#8d3803</color>
+    <color name="ingredientCat_condiment">#6f05fa</color>
+    <color name="ingredientCat_higiene">#05fa63</color>
+    <color name="ingredientCat_animaux">#05fa63</color>
+
+
     <color name="goodPrice">#00FF00</color>
     <color name="badPrice">#FF0000</color>
     <color name="normalPrice">#000000</color>

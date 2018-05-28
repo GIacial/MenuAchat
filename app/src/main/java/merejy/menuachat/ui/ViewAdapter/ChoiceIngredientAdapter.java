@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
+import merejy.menuachat.kernel.ColorManager;
 import merejy.menuachat.ui.Activity.All_IngredientList;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.ui.Popup.QuantitePopUp;
@@ -92,6 +93,7 @@ public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredi
 
             }
         });
+        holder.itemView.setBackgroundColor(ColorManager.getIngredientColor(list.get(position).getCategorie()));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
