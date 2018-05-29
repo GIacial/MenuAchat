@@ -85,7 +85,19 @@ public class Database  implements Serializable {
     }
 
     public  Ingredient getIngredient(String nom){               //donne l'ingredient qui posssede ce nom
-        return ingredients.get(nom);
+        Ingredient i = null;
+        if(ingredients.containsKey(nom)){
+            i = ingredients.get(nom);
+        }
+        return i;
+    }
+
+    public Plat getPlat(String nom){
+        Plat p = null;
+        if(plats.containsKey(nom)){
+            p = plats.get(nom);
+        }
+        return p;
     }
 
     public  Collection<String> getAllMagasinLocation(String nomMag){        //donne toutes les localisation d'un magasin
@@ -120,14 +132,9 @@ public class Database  implements Serializable {
     }
 
     public static void save (){                                             //sauvegarde la database
+        System.err.println("Load");
         if(d != null){
-          /*  try {
-                ObjectOutputStream save = new ObjectOutputStream(new FileOutputStream(new File(Environment.getExternalStorageDirectory(),saveName)));
-                save.writeObject(d);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-            try {
+           try {
                 JsonWriter writer = new JsonWriter(new FileWriter(new File(Environment.getExternalStorageDirectory(),saveName)));
                 writer.beginObject();   //debut database
                 writer.name("Magasins").beginArray();   //debut magasin
@@ -160,18 +167,12 @@ public class Database  implements Serializable {
     }
 
     private static void load(){                                          //charge la database
-        if(d == null){
-           /* try {
-                ObjectInputStream save = new ObjectInputStream(new FileInputStream(new File(Environment.getExternalStorageDirectory(),saveName)));
-                d = (Database) save.readObject();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }*/
+        System.err.println("Load");
+        File fichier = new File(Environment.getExternalStorageDirectory(),saveName);
+        if(d == null && fichier.exists()){
             try {
                 d = new Database();
-                JsonReader reader = new JsonReader(new FileReader(new File(Environment.getExternalStorageDirectory(),saveName)));
+                JsonReader reader = new JsonReader(new FileReader(fichier));
                 reader.beginObject();   //debut database
                 while(reader.hasNext()){
                     String name = reader.nextName();

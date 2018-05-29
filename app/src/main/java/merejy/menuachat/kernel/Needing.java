@@ -1,10 +1,14 @@
 package merejy.menuachat.kernel;
 
 import android.os.Environment;
+import android.util.JsonReader;
+import android.util.JsonWriter;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -16,7 +20,10 @@ import java.util.List;
 
 import merejy.menuachat.Exception.ItemNotEquals;
 import merejy.menuachat.Exception.ItemNotfound;
+import merejy.menuachat.database.Database;
+import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.database.Magasin;
+import merejy.menuachat.database.Plat;
 import merejy.menuachat.kernel.NeedingIngredient.FusionNeedingIngredient;
 import merejy.menuachat.kernel.NeedingIngredient.InterfaceNeedingIngredient;
 import merejy.menuachat.kernel.NeedingIngredient.NeedingIngredient;
@@ -143,8 +150,27 @@ public class Needing implements Serializable {
     public static void save (){
         if(n != null){
             try {
-                ObjectOutputStream save = new ObjectOutputStream(new FileOutputStream(new File(Environment.getExternalStorageDirectory(),saveName)));
-                save.writeObject(n);
+                JsonWriter writer = new JsonWriter(new FileWriter(new File(Environment.getExternalStorageDirectory(),saveName)));
+                writer.beginObject();   //debut databNeeding
+                writer.name("Ingrédients").beginArray();//debut ingredient
+                for(NeedingIngredient i : n.ingredients.values()){
+                    //save des ingredient
+                    writer.beginObject();
+                    writer.name("Nom").value(i.getNom());
+                    writer.name("Quantité").value(i.getQuantite());
+                    writer.endObject();
+                }
+                writer.endArray();//fin ingredient
+                writer.name("Plats").beginArray();//debut plats
+                for(NeedingPlat p : n.plats){
+                    //save des plats
+                    writer.beginObject();
+                    writer.name("Nom").value(p.getNom());
+                    writer.endObject();
+                }
+                writer.endArray();//fin plats
+                writer.endObject();//fin needing
+                writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -153,11 +179,68 @@ public class Needing implements Serializable {
 
 
     private static void load(){
-        if(n == null){
+        File fichier = new File(Environment.getExternalStorageDirectory(),saveName);
+        if(n == null && fichier.exists()){
             try {
-                ObjectInputStream save = new ObjectInputStream(new FileInputStream(new File(Environment.getExternalStorageDirectory(),saveName)));
-                n = (Needing) save.readObject();
-            } catch (IOException | ClassNotFoundException e) {
+                n = new Needing();
+                JsonReader reader = new JsonReader(new FileReader(fichier));
+                reader.beginObject();   //debut Needding
+                while(reader.hasNext()){
+                    String name = reader.nextName();
+                    switch (name) {
+                        case "Ingrédients":
+                            reader.beginArray();//debut ingredient
+                            while (reader.hasNext()) {
+                                //load des ingredient
+                                reader.beginObject();
+                                Ingredient ingredient = null;
+                                int quantite = 0;
+                                while(reader.hasNext()){
+                                    String name2 = reader.nextName();
+                                    if(name2.equals("Nom")){
+                                        ingredient = Database.getDatabase().getIngredient(reader.nextString());
+                                    }
+                                    else if( name2.equals("Quantité")){
+                                        quantite = reader.nextInt();
+                                    }
+                                }
+                               if(quantite != 0 && ingredient != null){
+                                    NeedingIngredient needingIngredient = new NeedingIngredient(ingredient);
+                                   needingIngredient.addQuantite(quantite-1);
+                                    n.add(needingIngredient);
+                               }
+                               reader.endObject();
+                            }
+                            reader.endArray();//fin ingredient
+
+                            break;
+                        case "Plats":
+                            reader.beginArray();//debut plats
+
+                            while (reader.hasNext()) {
+                                //load des plats
+                                reader.beginObject();
+                                Plat plat = null;
+                                while (reader.hasNext()){
+                                    String name2 = reader.nextName();
+                                    if(name2.equals("Nom")){
+                                        plat =  Database.getDatabase().getPlat(reader.nextString());
+                                    }
+                                }
+                                if(plat != null){
+                                    NeedingPlat needingPlat = new NeedingPlat(plat);
+                                    n.add(needingPlat);
+                                }
+                            }
+                            reader.endObject();
+                            reader.endArray();//fin plats
+
+                            break;
+                    }
+                }
+                reader.endObject();//fin database
+                reader.close();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
