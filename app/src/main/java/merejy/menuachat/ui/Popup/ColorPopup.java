@@ -49,6 +49,8 @@ public class ColorPopup extends DialogFragment {
         final SeekBar blue = layout.findViewById(R.id.blueBar);
         final TextView color = layout.findViewById(R.id.colorView);
 
+        color.setBackgroundColor(Color.rgb(rouge,vert,bleu));
+
         SeekBar.OnSeekBarChangeListener colorListener = new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
