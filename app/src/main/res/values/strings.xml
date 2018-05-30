@@ -21,6 +21,9 @@
     <string name="text_nouveauMagasin">Nouveau Magasin</string>
     <string name="text_ajouterIngredient">Ajouter un ingrédient</string>
     <string name="text_questionSuppression">Voulez vous supprimer </string>
+    <string name="text_colorCongigurateur">Configurateur de Couleurs</string>
+    <string name="text_ColorIngredientCat">Couleurs des Catégories d\'ingrédient</string>
+    <string name="text_ColorPrix">Couleurs des prix</string>
 
     <string name="error_IngredientExistant">Ce nom d\'ingrédient existe déjà</string>
     <string name="error_PlatExistant">Ce nom de plat existe déjà</string>
@@ -28,7 +31,7 @@
     <string name="error_Name_notWrite_ingredient">Veuillez donnez un nom à votre ingrédient</string>
     <string name="error_Magasin_needNameOrLocalisation">Veuillez donnez un nom et lieu pour le magasin</string>
     <string name="error_Plat_needNameOrIngredient">Veuillez donnez un nom et une liste d\'ingrédient pour le plat</string>
-    <string name="error_ingredientNotFound">Cette ingrédient n\existe pas ou fait partie d'un plat</string>
+    <string name="error_ingredientNotFound">Cette ingrédient n\'existe pas ou fait partie d'un plat</string>
     <string name="error_platNotFound">Ce plat n\existe pas </string>
     <string name="error_zeroQuantite">Vous ne voulez pas de ça</string>
     <string name="error_noQuestion">Pas de question => surement une erreur</string>

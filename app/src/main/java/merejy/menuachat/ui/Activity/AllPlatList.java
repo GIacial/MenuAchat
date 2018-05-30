@@ -58,4 +58,9 @@ public class AllPlatList extends ActivitySaveOnClose {
 
 
     }
+
+    @Override
+    ToActivity getActivityEnum() {
+        return ToActivity.ALL_PLAT;
+    }
 }

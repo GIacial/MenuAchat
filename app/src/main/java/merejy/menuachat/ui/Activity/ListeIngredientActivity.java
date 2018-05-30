@@ -69,4 +69,9 @@ public class ListeIngredientActivity extends ActivitySaveOnClose {
         });
 
     }
+
+    @Override
+    ToActivity getActivityEnum() {
+        return ToActivity.LIST_INGREDIENT;
+    }
 }

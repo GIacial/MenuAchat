@@ -78,5 +78,10 @@ public class All_IngredientList extends ActivitySaveOnClose {
 
     }
 
+    @Override
+    ToActivity getActivityEnum() {
+        return ToActivity.ALL_INGREDIENT;
+    }
+
 
 }

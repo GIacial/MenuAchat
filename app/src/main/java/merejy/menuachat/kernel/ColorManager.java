@@ -1,17 +1,29 @@
 package merejy.menuachat.kernel;
 
 import android.app.Activity;
+import android.app.admin.DeviceAdminInfo;
+import android.os.Environment;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.HashMap;
 
 import merejy.menuachat.R;
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.database.DataEnum.CategoriePlats;
 import merejy.menuachat.database.DataEnum.PriceComparator;
+import merejy.menuachat.database.Database;
 
-public class ColorManager {
+public class ColorManager implements Serializable {
 
     private static ColorManager colorManager = null;
+    private static String fileSave = "ColorConfig.sav";
 
     static public int getPriceColor(PriceComparator priceComparator){
         int color = 0;
@@ -32,7 +44,30 @@ public class ColorManager {
 
     static public void load (Activity activity){
         if(colorManager == null){
-            colorManager = new ColorManager(activity);
+            try {
+                ObjectInputStream stream = new ObjectInputStream(new FileInputStream(new File(Environment.getExternalStorageDirectory()+File.separator+ Database.dossierSave,fileSave)));
+                colorManager = (ColorManager) stream.readObject();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            if(colorManager == null){
+                colorManager = new ColorManager(activity);
+            }
+        }
+    }
+
+    static public void save (){
+        if(colorManager != null){
+            try {
+                File dossier = new File(Environment.getExternalStorageDirectory(), Database.dossierSave);
+                if(!dossier.exists() || !dossier.isDirectory()){
+                    dossier.mkdir();
+                }
+                ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(new File(Environment.getExternalStorageDirectory()+File.separator+ Database.dossierSave,fileSave)));
+                stream.writeObject(colorManager);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

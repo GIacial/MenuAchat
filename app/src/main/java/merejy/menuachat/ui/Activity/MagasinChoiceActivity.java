@@ -82,4 +82,9 @@ public class MagasinChoiceActivity extends ActivitySaveOnClose {
 
 
     }
+
+    @Override
+    ToActivity getActivityEnum() {
+        return ToActivity.MAGASIN_CHOICE;
+    }
 }

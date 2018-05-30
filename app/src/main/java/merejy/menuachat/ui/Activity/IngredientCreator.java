@@ -62,4 +62,9 @@ public class IngredientCreator extends ActivitySaveOnClose {
 
         cat.setAdapter(new ArrayAdapter<CategorieIngredient>(this,R.layout.support_simple_spinner_dropdown_item,CategorieIngredient.values()));
     }
+
+    @Override
+    ToActivity getActivityEnum() {
+        return ToActivity.INGREDIENT_CREATOR;
+    }
 }

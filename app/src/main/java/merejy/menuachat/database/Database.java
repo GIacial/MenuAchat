@@ -120,6 +120,7 @@ public class Database  implements Serializable {
 
     private static Database d = null;                                       //la database
     private static String saveName = "DatabaseMenuAchat.sav";               //fichier de la database
+    public final static String dossierSave = "MenuAchat";
 
     public static Database getDatabase(){                                   //permet d'obtenir l'instance de la database
         if(d == null){
@@ -132,10 +133,14 @@ public class Database  implements Serializable {
     }
 
     public static void save (){                                             //sauvegarde la database
-        System.err.println("Load");
+
         if(d != null){
            try {
-                JsonWriter writer = new JsonWriter(new FileWriter(new File(Environment.getExternalStorageDirectory(),saveName)));
+               File dossier = new File(Environment.getExternalStorageDirectory(), Database.dossierSave);
+               if(!dossier.exists() || !dossier.isDirectory()){
+                   dossier.mkdir();
+               }
+                JsonWriter writer = new JsonWriter(new FileWriter(new File(Environment.getExternalStorageDirectory()+File.separator+ Database.dossierSave,saveName)));
                 writer.beginObject();   //debut database
                 writer.name("Magasins").beginArray();   //debut magasin
                 for(HashMap<String ,Magasin > magasinList : d.magasins.values()){
@@ -167,8 +172,8 @@ public class Database  implements Serializable {
     }
 
     private static void load(){                                          //charge la database
-        System.err.println("Load");
-        File fichier = new File(Environment.getExternalStorageDirectory(),saveName);
+
+        File fichier = new File(Environment.getExternalStorageDirectory()+File.separator+ Database.dossierSave,saveName);
         if(d == null && fichier.exists()){
             try {
                 d = new Database();

@@ -150,7 +150,11 @@ public class Needing implements Serializable {
     public static void save (){
         if(n != null){
             try {
-                JsonWriter writer = new JsonWriter(new FileWriter(new File(Environment.getExternalStorageDirectory(),saveName)));
+                File dossier = new File(Environment.getExternalStorageDirectory(), Database.dossierSave);
+                if(!dossier.exists() || !dossier.isDirectory()){
+                    dossier.mkdir();
+                }
+                JsonWriter writer = new JsonWriter(new FileWriter(new File(Environment.getExternalStorageDirectory()+File.separator+ Database.dossierSave,saveName)));
                 writer.beginObject();   //debut databNeeding
                 writer.name("Ingrédients").beginArray();//debut ingredient
                 for(NeedingIngredient i : n.ingredients.values()){
@@ -179,7 +183,7 @@ public class Needing implements Serializable {
 
 
     private static void load(){
-        File fichier = new File(Environment.getExternalStorageDirectory(),saveName);
+        File fichier = new File(Environment.getExternalStorageDirectory()+File.separator+ Database.dossierSave,saveName);
         if(n == null && fichier.exists()){
             try {
                 n = new Needing();
@@ -231,8 +235,8 @@ public class Needing implements Serializable {
                                     NeedingPlat needingPlat = new NeedingPlat(plat);
                                     n.add(needingPlat);
                                 }
+                                reader.endObject();
                             }
-                            reader.endObject();
                             reader.endArray();//fin plats
 
                             break;

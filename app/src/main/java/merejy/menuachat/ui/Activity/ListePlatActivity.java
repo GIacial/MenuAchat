@@ -67,4 +67,9 @@ public class ListePlatActivity extends ActivitySaveOnClose {
             }
         });
     }
+
+    @Override
+    ToActivity getActivityEnum() {
+        return ToActivity.LIST_PLAT;
+    }
 }

@@ -86,7 +86,7 @@ public class PlatCreator extends ActivitySaveOnClose {
             @Override
             public void onClick(View v) {
                 Intent secondeActivite = new Intent(PlatCreator.this, All_IngredientList.class);
-                All_IngredientList.target = ToActivity.PLAT_CREATOR;
+                All_IngredientList.target = PlatCreator.this.getActivityEnum();
                 PlatCreator.nom = nom.getText().toString();
                 PlatCreator.catego = cat.getSelectedItemPosition();
                 secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
@@ -95,4 +95,9 @@ public class PlatCreator extends ActivitySaveOnClose {
         });
 
         }
+
+    @Override
+    ToActivity getActivityEnum() {
+        return ToActivity.PLAT_CREATOR;
+    }
 }
