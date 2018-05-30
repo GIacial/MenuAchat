@@ -14,12 +14,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import merejy.menuachat.R;
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.kernel.ColorManager;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingIngredient.InterfaceNeedingIngredient;
-import merejy.menuachat.ui.Popup.QuestionModule.RemoveNeedingIngedientModule;
+import merejy.menuachat.ui.Popup.Module.QuestionModule.RemoveNeedingIngedientModule;
 import merejy.menuachat.ui.Popup.QuestionPopup;
 import merejy.menuachat.ui.Popup.SetPricePopup;
 

@@ -1,4 +1,4 @@
-package merejy.menuachat.ui.Popup.QuestionModule;
+package merejy.menuachat.ui.Popup.Module.QuestionModule;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;

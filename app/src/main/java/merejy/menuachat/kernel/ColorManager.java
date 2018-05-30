@@ -41,6 +41,18 @@ public class ColorManager implements Serializable {
         return color;
     }
 
+    static public void setColor(CategorieIngredient categorieIngredient , int color){
+        if(colorManager != null){
+            colorManager.setColorInst(categorieIngredient,color);
+        }
+    }
+
+    static public void setColor(PriceComparator priceComparator , int color){
+        if(colorManager != null){
+            colorManager.setColorInst(priceComparator,color);
+        }
+    }
+
 
     static public void load (Activity activity){
         if(colorManager == null){
@@ -134,5 +146,13 @@ public class ColorManager implements Serializable {
 
     private int getIngredientColorInst(CategorieIngredient categorieIngredient){
         return this.ingredientCategorieColor.get(categorieIngredient);
+    }
+
+    private void setColorInst(CategorieIngredient categorieIngredient , int color){
+        this.ingredientCategorieColor.put(categorieIngredient,color);
+    }
+
+    private void setColorInst(PriceComparator priceComparator , int color){
+        this.priceColor.put(priceComparator,color);
     }
 }

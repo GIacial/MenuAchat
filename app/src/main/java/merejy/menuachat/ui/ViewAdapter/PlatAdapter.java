@@ -15,7 +15,7 @@ import java.util.List;
 import merejy.menuachat.database.DataEnum.CategoriePlats;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingPlat;
-import merejy.menuachat.ui.Popup.QuestionModule.RemoveNeedingPlatModule;
+import merejy.menuachat.ui.Popup.Module.QuestionModule.RemoveNeedingPlatModule;
 import merejy.menuachat.ui.Popup.QuestionPopup;
 
 public class PlatAdapter  extends RecyclerView.Adapter<PlatAdapter.ViewHolder> {

@@ -1,4 +1,4 @@
-package merejy.menuachat.ui.Popup.QuestionModule;
+package merejy.menuachat.ui.Popup.Module.QuestionModule;
 
 public interface QuestionPopupModule {
 
