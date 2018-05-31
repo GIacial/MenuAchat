@@ -10,8 +10,7 @@ import android.widget.TextView;
 import merejy.menuachat.database.DataEnum.PriceComparator;
 import merejy.menuachat.kernel.ColorManager;
 import merejy.menuachat.ui.Popup.ColorPopup;
-import merejy.menuachat.ui.Popup.Module.ColorModule.IngredientCatColorModule;
-import merejy.menuachat.ui.Popup.Module.ColorModule.PriceComparatorColorModule;
+import merejy.menuachat.ui.Popup.Module.ColorModule.PriceComparatorColorPopupModule;
 
 public class PrixColorAdapter extends RecyclerView.Adapter<PrixColorAdapter.ViewHolder> {
 private PriceComparator[] list;
@@ -65,7 +64,7 @@ public static class ViewHolder extends RecyclerView.ViewHolder {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ColorPopup.showDialog(activity,new PriceComparatorColorModule(list[position],holder.itemView));
+                ColorPopup.showDialog(activity,new PriceComparatorColorPopupModule(list[position],holder.itemView));
             }
         });
     }

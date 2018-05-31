@@ -20,18 +20,18 @@ import merejy.menuachat.kernel.NeedingIngredient.NeedingIngredient;
 import merejy.menuachat.ui.Activity.ListeIngredientActivity;
 import merejy.menuachat.ui.Activity.PlatCreator;
 import merejy.menuachat.ui.Activity.ToActivity;
+import merejy.menuachat.ui.Popup.Module.NumberModule.Entier.EntierNumberPopupModule;
 
-public class QuantitePopUp extends DialogFragment {
+public class EntierNumberPopUp extends DialogFragment {
 
 
-    static private Ingredient ingredient;
-    static private ToActivity target;
+
     private  int number = 1;
+    static private EntierNumberPopupModule module;
 
-    static public void showDialog(Activity a , Ingredient ingredient, ToActivity target){
-        QuantitePopUp.ingredient = ingredient;
-        QuantitePopUp.target = target;
-            new QuantitePopUp().show(a.getFragmentManager(),"quantiteDialog");
+    static public void showDialog(Activity a , EntierNumberPopupModule module){
+            EntierNumberPopUp.module = module;
+            new EntierNumberPopUp().show(a.getFragmentManager(),"quantiteDialog");
     }
 
 
@@ -77,41 +77,20 @@ public class QuantitePopUp extends DialogFragment {
         builder.setPositiveButton(R.string.text_confirmation, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //code de comfirmation
-                NeedingIngredient need = new NeedingIngredient(ingredient);
-                need.addQuantite(number-1);
-
-                Intent secondeActivite = null ;
-                if(need.getQuantite() == 0){
-                    Toast.makeText(QuantitePopUp.this.getActivity(),R.string.error_zeroQuantite,Toast.LENGTH_LONG).show();
+                Runnable method = module.getMethodOnComfirm(number);
+                if(method != null){
+                    method.run();
                 }
-                switch (QuantitePopUp.target){
-                    case LIST_INGREDIENT :
-                        secondeActivite = new Intent(QuantitePopUp.this.getActivity(),ListeIngredientActivity.class);
-                        if(need.getQuantite() != 0){
-                            Needing.getNeeding().add(need);
-                        }
-                                                break;
-                    case PLAT_CREATOR:
-                        secondeActivite = new Intent(QuantitePopUp.this.getActivity(),PlatCreator.class);
-
-                        for(int i = 0 ; i<number ; i++){
-                            PlatCreator.addIngredient(ingredient);
-                        }
-                        break;
-                    default:break;
-                }
-
-                if(secondeActivite != null){
-                    secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
-                    QuantitePopUp.this.getActivity().startActivity(secondeActivite);
-                }
-
 
             }
         })
                 .setNegativeButton(R.string.text_anullation, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                             //code d'annulation
+                        Runnable method = module.getMethodOnAnuller();
+                        if(method != null){
+                            method.run();
+                        }
                     }
                 });
 

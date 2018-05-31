@@ -27,6 +27,10 @@
     <string name="text_rouge">Rouge</string>
     <string name="text_vert">Vert</string>
     <string name="text_bleu">Bleu</string>
+    <string name="text_supplements">Suppléments :</string>
+    <string name="text_questionSuppressionSupplement">Voulez vous supprimer les supplements ? </string>
+
+
     <string name="colorSelectorMinValue">0</string>
     <string name="colorSelectorMaxValue">255</string>
 

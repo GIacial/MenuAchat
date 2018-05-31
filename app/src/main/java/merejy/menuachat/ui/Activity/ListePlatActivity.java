@@ -14,6 +14,10 @@ import android.widget.TextView;
 
 import merejy.menuachat.R;
 import merejy.menuachat.kernel.Needing;
+import merejy.menuachat.ui.Popup.Module.NumberModule.Reel.SupplementModule;
+import merejy.menuachat.ui.Popup.Module.QuestionModule.RemoveSupplementsModule;
+import merejy.menuachat.ui.Popup.QuestionPopup;
+import merejy.menuachat.ui.Popup.ReelNumberPopup;
 import merejy.menuachat.ui.ViewAdapter.PlatAdapter;
 
 public class ListePlatActivity extends ActivitySaveOnClose {
@@ -37,8 +41,27 @@ public class ListePlatActivity extends ActivitySaveOnClose {
 
 
         //calcul du total
-        TextView total = findViewById(R.id.prixTotal);
+        final TextView total = findViewById(R.id.prixTotal);
         total.setText(n.getTotal()+"");
+
+
+        //supplements
+        final TextView supplements = findViewById(R.id.text_supplements);
+        supplements.setText(""+n.getSupplements());
+        supplements.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReelNumberPopup.showDialog(new SupplementModule(supplements,total),ListePlatActivity.this);
+            }
+        });
+
+        TextView textSupplements = findViewById(R.id.text_clearSupplement);
+        textSupplements.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QuestionPopup.showDialog(ListePlatActivity.this,new RemoveSupplementsModule(ListePlatActivity.this,supplements,total));
+            }
+        });
 
         //mets un adapter
         listUi.setAdapter(new PlatAdapter(n.getPlats(),listUi,this,total));

@@ -13,14 +13,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import merejy.menuachat.R;
-import merejy.menuachat.ui.Popup.Module.ColorModule.ColorModule;
+import merejy.menuachat.ui.Popup.Module.ColorModule.ColorPopupModule;
 
 public class ColorPopup extends DialogFragment {
 
 
-    static ColorModule module;
+    static ColorPopupModule module;
 
-    static public void showDialog(Activity a , ColorModule module){
+    static public void showDialog(Activity a , ColorPopupModule module){
         ColorPopup.module = module;
         new ColorPopup().show(a.getFragmentManager(),"colorDialog");
     }

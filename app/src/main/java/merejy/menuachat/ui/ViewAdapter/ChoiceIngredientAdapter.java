@@ -15,7 +15,8 @@ import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.kernel.ColorManager;
 import merejy.menuachat.ui.Activity.All_IngredientList;
 import merejy.menuachat.database.Ingredient;
-import merejy.menuachat.ui.Popup.QuantitePopUp;
+import merejy.menuachat.ui.Popup.EntierNumberPopUp;
+import merejy.menuachat.ui.Popup.Module.NumberModule.Entier.QuantiteIngredientModule;
 
 public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredientAdapter.ViewHolder> {
     private List<Ingredient> list;
@@ -89,7 +90,7 @@ public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredi
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                QuantitePopUp.showDialog(activity,list.get(position),All_IngredientList.target);
+                EntierNumberPopUp.showDialog(activity,new QuantiteIngredientModule(activity,All_IngredientList.target,list.get(position)));
 
             }
         });

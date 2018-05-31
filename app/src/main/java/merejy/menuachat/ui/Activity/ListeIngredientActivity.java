@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import merejy.menuachat.R;
 import merejy.menuachat.kernel.Needing;
+import merejy.menuachat.ui.Popup.Module.NumberModule.Reel.SupplementModule;
+import merejy.menuachat.ui.Popup.Module.QuestionModule.RemoveSupplementsModule;
+import merejy.menuachat.ui.Popup.QuestionPopup;
+import merejy.menuachat.ui.Popup.ReelNumberPopup;
 import merejy.menuachat.ui.ViewAdapter.IngredientAdapter;
 
 public class ListeIngredientActivity extends ActivitySaveOnClose {
@@ -36,8 +40,26 @@ public class ListeIngredientActivity extends ActivitySaveOnClose {
 
 
         //total
-        TextView total = findViewById(R.id.prixTotal);
+        final TextView total = findViewById(R.id.prixTotal);
         total.setText(n.getTotal()+"");
+
+        //supplements
+        final TextView supplements = findViewById(R.id.text_supplements);
+        supplements.setText(""+n.getSupplements());
+        supplements.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReelNumberPopup.showDialog(new SupplementModule(supplements,total),ListeIngredientActivity.this);
+            }
+        });
+
+        TextView textSupplements = findViewById(R.id.text_clearSupplement);
+        textSupplements.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QuestionPopup.showDialog(ListeIngredientActivity.this,new RemoveSupplementsModule(ListeIngredientActivity.this,supplements,total));
+            }
+        });
 
         //mets un adapter
         listUi.setAdapter(new IngredientAdapter(n.getIngredients(),listUi,this,total));

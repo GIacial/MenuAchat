@@ -18,21 +18,17 @@ import android.widget.TextView;
 import merejy.menuachat.R;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingIngredient.InterfaceNeedingIngredient;
-import merejy.menuachat.kernel.NeedingIngredient.NeedingIngredient;
+import merejy.menuachat.ui.Popup.Module.NumberModule.Reel.ReelNumberPopupModule;
 import merejy.menuachat.ui.ViewAdapter.IngredientAdapter;
 
-public class SetPricePopup extends DialogFragment {
+public class ReelNumberPopup extends DialogFragment {
 
-    static private InterfaceNeedingIngredient actuel = null;
-    static private  RecyclerView view;
-    static private TextView total;
+    static private ReelNumberPopupModule module;
 
-    static public void showDialog(InterfaceNeedingIngredient actuel , RecyclerView view , Activity a, TextView total){
-        SetPricePopup.actuel = actuel;
-        SetPricePopup.view = view;
-        SetPricePopup.total = total;
+    static public void showDialog(ReelNumberPopupModule module, Activity activity){
+        ReelNumberPopup.module = module;
 
-        new SetPricePopup().show(a.getFragmentManager(),"priceDialog");
+        new ReelNumberPopup().show(activity.getFragmentManager(),"priceDialog");
     }
 
 
@@ -52,20 +48,22 @@ public class SetPricePopup extends DialogFragment {
         builder.setView(layout);
         builder.setPositiveButton(R.string.text_confirmation, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                if(!prix.getText().toString().equals("")){
 
-                if(actuel != null && prix!= null && !prix.getText().toString().equals("") && view != null ){
-                    actuel.addPrix(Double.parseDouble(prix.getText().toString()),Needing.getNeeding().getCurrentMag());
-                    view.setAdapter(new IngredientAdapter(Needing.getNeeding().getIngredients(),view,SetPricePopup.this.getActivity(),total));
-                    total.setText(Needing.getNeeding().getTotal()+"");
+                    Runnable method = module.getMethodOnComfirm(Double.parseDouble(prix.getText().toString()));
+                    if(method != null){
+                        method.run();
+                    }
                 }
-                SetPricePopup.view = null;
-                SetPricePopup.total = null;
+
             }
         })
                 .setNegativeButton(R.string.text_anullation, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                            SetPricePopup.view = null;
-                            SetPricePopup.total = null;
+                        Runnable method = module.getMethodOnAnuller();
+                        if(method != null){
+                            method.run();
+                        }
                     }
                 });
 

@@ -3,16 +3,15 @@ package merejy.menuachat.ui.Popup.Module.ColorModule;
 import android.graphics.Color;
 import android.view.View;
 
-import merejy.menuachat.database.DataEnum.CategorieIngredient;
+import merejy.menuachat.database.DataEnum.PriceComparator;
 import merejy.menuachat.kernel.ColorManager;
 
-public class IngredientCatColorModule implements ColorModule {
-
-    private CategorieIngredient categorieIngredient;
+public class PriceComparatorColorPopupModule implements ColorPopupModule {
+    private PriceComparator priceComparator;
     private View itemView;
 
-    public IngredientCatColorModule (CategorieIngredient cat, View itemView){
-        categorieIngredient = cat;
+    public PriceComparatorColorPopupModule(PriceComparator cat, View itemView){
+        priceComparator = cat;
         this.itemView = itemView;
     }
 
@@ -21,8 +20,8 @@ public class IngredientCatColorModule implements ColorModule {
         return new Runnable() {
             @Override
             public void run() {
-                ColorManager.setColor(categorieIngredient, Color.rgb(red,green,blue));
-                itemView.setBackgroundColor(ColorManager.getIngredientColor(categorieIngredient));
+                ColorManager.setColor(priceComparator, Color.rgb(red,green,blue));
+                itemView.setBackgroundColor(ColorManager.getPriceColor(priceComparator));
             }
         };
     }

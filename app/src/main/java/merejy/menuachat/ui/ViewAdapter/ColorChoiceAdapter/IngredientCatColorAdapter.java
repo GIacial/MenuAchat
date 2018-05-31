@@ -7,19 +7,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
-import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.kernel.ColorManager;
-import merejy.menuachat.ui.Activity.All_IngredientList;
 import merejy.menuachat.ui.Popup.ColorPopup;
-import merejy.menuachat.ui.Popup.Module.ColorModule.IngredientCatColorModule;
-import merejy.menuachat.ui.Popup.QuantitePopUp;
-import merejy.menuachat.ui.ViewAdapter.ChoiceIngredientAdapter;
+import merejy.menuachat.ui.Popup.Module.ColorModule.IngredientCatColorPopupModule;
 
 public class IngredientCatColorAdapter extends RecyclerView.Adapter<IngredientCatColorAdapter.ViewHolder> {
     private CategorieIngredient[] list;
@@ -73,7 +64,7 @@ public class IngredientCatColorAdapter extends RecyclerView.Adapter<IngredientCa
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ColorPopup.showDialog(activity,new IngredientCatColorModule(list[position],holder.itemView));
+                ColorPopup.showDialog(activity,new IngredientCatColorPopupModule(list[position],holder.itemView));
             }
         });
     }

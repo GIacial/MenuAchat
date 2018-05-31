@@ -18,9 +18,10 @@ import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.kernel.ColorManager;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingIngredient.InterfaceNeedingIngredient;
+import merejy.menuachat.ui.Popup.Module.NumberModule.Reel.SetIngredientPriceModule;
 import merejy.menuachat.ui.Popup.Module.QuestionModule.RemoveNeedingIngedientModule;
 import merejy.menuachat.ui.Popup.QuestionPopup;
-import merejy.menuachat.ui.Popup.SetPricePopup;
+import merejy.menuachat.ui.Popup.ReelNumberPopup;
 
 public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
     private List<InterfaceNeedingIngredient> list;
@@ -112,7 +113,7 @@ public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.V
         holder.prix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SetPricePopup.showDialog(list.get(position),view,activity,listTotalPrix);
+                ReelNumberPopup.showDialog(new SetIngredientPriceModule(activity,list.get(position),view,listTotalPrix),activity);
             }
         });
 
