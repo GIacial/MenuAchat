@@ -75,7 +75,10 @@ public class NeedingPlat implements Serializable{
         double res = 0;
         for(NeedingIngredient i : needingIngredients.values()){
             if(i.isTake()){
-                res += i.getPrix(m);
+                double prix = i.getPrix(m);
+                if(!Double.isNaN(prix)){
+                    res += prix;
+                }
             }
         }
         return res;

@@ -109,16 +109,18 @@ public class Needing implements Serializable {
     public double  getTotal(){
         double total = 0;
         for(NeedingPlat p : plats){
-            if(p.isTake()){
-                total += p.getPrix(currentMag);
+            double platPrix = p.getPrix(currentMag);
+            if(p.isTake() && !Double.isNaN(platPrix )){
+                total += platPrix;
             }
             else{
                 total += p.getCurrentIngredientTakePrice(currentMag);
             }
         }
         for(NeedingIngredient i : ingredients.values()){
-            if(i.isTake()){
-                total += i.getPrix(currentMag);
+            double ingredientPrix = i.getPrix(currentMag);
+            if(i.isTake() &&  !Double.isNaN(ingredientPrix)){
+                total += ingredientPrix;
             }
         }
         return total;
