@@ -13,6 +13,7 @@ import merejy.menuachat.Exception.ItemAlreadyExist;
 import merejy.menuachat.R;
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.database.Database;
+import merejy.menuachat.database.Materiaux;
 import merejy.menuachat.kernel.Needing.NeedingList;
 
 public class IngredientCreator extends ActivitySaveOnClose {
@@ -29,14 +30,16 @@ public class IngredientCreator extends ActivitySaveOnClose {
         Button   comfirmer = findViewById(R.id.button_comfimer_creator_ingredient);
         final  EditText prix = findViewById(R.id.prixEdit);
         prix.setText("");
+        final Spinner materiaux = findViewById(R.id.materiauxSelect);
+        final EditText quantite = findViewById(R.id.quantiteEdit);
 
         comfirmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (nom.getText().toString().length() > 0 ) {
+                if (!nom.getText().toString().isEmpty()  && !quantite.getText().toString().isEmpty() && materiaux.getSelectedItem() != null) {
                     try {
-                        Database.getDatabase().addIngedient(nom.getText().toString(), (CategorieIngredient) cat.getSelectedItem());
+                        Database.getDatabase().addIngedient(nom.getText().toString(), (CategorieIngredient) cat.getSelectedItem(), (Materiaux) materiaux.getSelectedItem(),Integer.parseInt(quantite.getText().toString()));
                         if (prix.getText().toString().length() > 0) {
                                 double prixValue = Double.parseDouble(prix.getText().toString());
                                 Database.getDatabase().getIngredient(nom.getText().toString()).addPrix(prixValue, NeedingList.getNeeding().getCurrentMag());
@@ -61,6 +64,8 @@ public class IngredientCreator extends ActivitySaveOnClose {
         });
 
         cat.setAdapter(new ArrayAdapter<CategorieIngredient>(this,R.layout.support_simple_spinner_dropdown_item,CategorieIngredient.values()));
+
+        materiaux.setAdapter(new ArrayAdapter<Object>(this,R.layout.support_simple_spinner_dropdown_item,Database.getDatabase().getAllMateriaux().toArray()));
     }
 
     @Override

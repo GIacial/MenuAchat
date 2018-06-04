@@ -6,26 +6,26 @@ import android.widget.Toast;
 
 import merejy.menuachat.R;
 import merejy.menuachat.database.Ingredient;
-import merejy.menuachat.kernel.Needing.NeedingList;
+import merejy.menuachat.database.Materiaux;
 import merejy.menuachat.kernel.Needing.NeedingIngredient.NeedingIngredient;
+import merejy.menuachat.kernel.Needing.NeedingList;
 import merejy.menuachat.ui.Activity.ListeIngredientActivity;
 import merejy.menuachat.ui.Activity.PlatCreator;
 import merejy.menuachat.ui.Activity.ToActivity;
 
-
-public class QuantiteIngredientModule implements EntierNumberPopupModule {
-
+public class QuantiteMateriauxModule implements EntierNumberPopupModule {
 
 
-     private Ingredient ingredient;
-     private ToActivity target;
-     private Activity activity;
 
-     public QuantiteIngredientModule(Activity activity , ToActivity target , Ingredient ingredient){
-         this.ingredient = ingredient;
-         this.activity = activity;
-         this.target = target;
-     }
+    private Materiaux ingredient;
+    private ToActivity target;
+    private Activity activity;
+
+    public QuantiteMateriauxModule(Activity activity , ToActivity target , Materiaux ingredient){
+        this.ingredient = ingredient;
+        this.activity = activity;
+        this.target = target;
+    }
 
 
     @Override
@@ -33,18 +33,17 @@ public class QuantiteIngredientModule implements EntierNumberPopupModule {
         return new Runnable() {
             @Override
             public void run() {
-                NeedingIngredient need = new NeedingIngredient(ingredient);
-                need.addQuantite(val-1);
+
 
                 Intent secondeActivite = null ;
-                if(need.getQuantite() == 0){
+                if(val == 0){
                     Toast.makeText(activity, R.string.error_zeroQuantite,Toast.LENGTH_LONG).show();
                 }
 
-                secondeActivite = new Intent(activity,ListeIngredientActivity.class);
-                if(need.getQuantite() != 0){
-                    NeedingList.getNeeding().add(need);
-                }
+                secondeActivite = new Intent(activity,PlatCreator.class);
+
+                PlatCreator.addIngredient(ingredient,val);
+
 
 
                 if(secondeActivite != null){
@@ -66,3 +65,4 @@ public class QuantiteIngredientModule implements EntierNumberPopupModule {
         return activity.getResources().getString(R.string.text_questionQuantite);
     }
 }
+

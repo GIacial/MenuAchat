@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import merejy.menuachat.Exception.ItemAlreadyExist;
@@ -20,16 +21,21 @@ import merejy.menuachat.R;
 import merejy.menuachat.database.DataEnum.CategoriePlats;
 import merejy.menuachat.database.Database;
 import merejy.menuachat.database.Ingredient;
+import merejy.menuachat.database.Materiaux;
 import merejy.menuachat.ui.ViewAdapter.IngredientListAdapter;
+import merejy.menuachat.ui.ViewAdapter.MateriauxQuantiteAdapter;
 
 public class PlatCreator extends ActivitySaveOnClose {
 
-    static private List<Ingredient> need = new ArrayList<>();
+    static private HashMap<Materiaux,Integer> need = new HashMap<>();
     static private String nom = "";
     static private int catego = 0;
 
-    public static void  addIngredient(Ingredient i){
-        need.add(i);
+    public static void  addIngredient(Materiaux i,int quantite){
+        if(need.containsKey(i)){
+            need.put(i,quantite+need.get(i));
+        }
+        need.put(i,quantite);
     }
 
     @Override
@@ -50,26 +56,27 @@ public class PlatCreator extends ActivitySaveOnClose {
         cat.setAdapter(new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, CategoriePlats.values()));
         cat.setSelection(PlatCreator.catego);
 
-        //recycler
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        ingredient.setHasFixedSize(true);
+        //nb personne
+        final EditText nbPersonne = findViewById(R.id.nbPersonneEdit);
 
         // use a linear layout manager
         ingredient.setLayoutManager(new LinearLayoutManager(this));
         //mets un adapter
-        ingredient.setAdapter(new IngredientListAdapter(need));
+        ingredient.setAdapter(new MateriauxQuantiteAdapter(need,this));
         //button
         comfirmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!nom.getText().toString().equals("") && need.size() > 0){
                     try {
-                        Database.getDatabase().addPlat(nom.getText().toString(),(CategoriePlats) cat.getSelectedItem(),need);
+                        Database.getDatabase().addPlat(nom.getText().toString(),(CategoriePlats) cat.getSelectedItem(),need,Integer.parseInt(nbPersonne.getText().toString()));
                     } catch (ItemAlreadyExist itemAlreadyExist) {
                         Toast.makeText(PlatCreator.this,R.string.error_PlatExistant,Toast.LENGTH_LONG).show();
                     }
-                    need = new ArrayList<>();
+                    catch (NumberFormatException e){
+
+                    }
+                    need = new HashMap<>();
                     PlatCreator.nom = "";
                     PlatCreator.catego = 0;
                 }
@@ -85,12 +92,12 @@ public class PlatCreator extends ActivitySaveOnClose {
         addIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent secondeActivite = new Intent(PlatCreator.this, All_IngredientList.class);
+               /* Intent secondeActivite = new Intent(PlatCreator.this, All_IngredientList.class);
                 All_IngredientList.target = PlatCreator.this.getActivityEnum();
                 PlatCreator.nom = nom.getText().toString();
                 PlatCreator.catego = cat.getSelectedItemPosition();
                 secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
-                startActivity(secondeActivite);
+                startActivity(secondeActivite);*/
             }
         });
 
