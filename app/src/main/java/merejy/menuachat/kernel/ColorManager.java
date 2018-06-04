@@ -1,12 +1,10 @@
 package merejy.menuachat.kernel;
 
 import android.app.Activity;
-import android.app.admin.DeviceAdminInfo;
 import android.os.Environment;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;

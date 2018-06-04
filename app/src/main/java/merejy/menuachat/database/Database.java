@@ -15,7 +15,9 @@ import java.util.List;
 
 import merejy.menuachat.Exception.ItemAlreadyExist;
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
+import merejy.menuachat.database.DataEnum.CategorieMateriaux;
 import merejy.menuachat.database.DataEnum.CategoriePlats;
+import merejy.menuachat.kernel.ColorManager;
 
 /**
  * Created by Jeremy on 22/04/2018.
@@ -26,11 +28,13 @@ public class Database  implements Serializable {
     private HashMap<String,Ingredient> ingredients;                         //tous les ingredient
     private HashMap<String,Plat> plats;                                     //tous les plats
     private HashMap<String,HashMap<String,Magasin>> magasins;               //nom,loc   => tous les magasin
+    private HashMap<String,Materiaux> materiaux;                            //tous les materiaux
 
     private Database (){                                                    //constructeur
         this.ingredients = new HashMap<>();
         this.plats = new HashMap<>();
         this.magasins = new HashMap<>();
+        this.materiaux = new HashMap<>();
     }
 
     public void addMagasin(String nom , String localisation) throws ItemAlreadyExist{               //ajoute un magasin
@@ -54,22 +58,38 @@ public class Database  implements Serializable {
         }
     }
 
-    public void addIngedient(String nom , CategorieIngredient cat ) throws ItemAlreadyExist{        //ajoute un ingredient
+    public void addIngedient(String nom , CategorieIngredient cat , Materiaux materiaux,int quantite ) throws ItemAlreadyExist{        //ajoute un ingredient
         if(!ingredients.containsKey(nom)){
-            this.ingredients.put(nom,new Ingredient(nom,cat));
+            this.ingredients.put(nom,new Ingredient(nom,cat,materiaux,quantite));
         }
         else{
             throw new ItemAlreadyExist();
         }
     }
 
-    public void addPlat(String nom , CategoriePlats cat , List<Ingredient> i) throws ItemAlreadyExist{     //ajoute un plat
-        if(!plats.containsKey(nom)){
-            this.plats.put(nom,new Plat(nom, cat, i));
+    public void addIngedient(String nom , CategorieIngredient cat ,int quantite ) throws ItemAlreadyExist{        //ajoute un ingredient
+        if(!ingredients.containsKey(nom)){
+            this.ingredients.put(nom,new Ingredient(nom,cat,quantite));
         }
         else{
             throw new ItemAlreadyExist();
         }
+    }
+
+    public void addPlat(String nom , CategoriePlats cat , HashMap<Materiaux,Integer> i,int nbPersonne) throws ItemAlreadyExist{     //ajoute un plat
+        if(!plats.containsKey(nom)){
+            this.plats.put(nom,new Plat(nom, cat, i,nbPersonne));
+        }
+        else{
+            throw new ItemAlreadyExist();
+        }
+    }
+
+    public void addMateriaux(String nom , CategorieMateriaux cat) throws ItemAlreadyExist {
+        if(materiaux.containsKey(nom)){
+            throw new ItemAlreadyExist();
+        }
+        this.materiaux.put(nom,new Materiaux(nom,cat));
     }
 
     public Collection<Ingredient> getAllIngredient(){           //donne tous les ingredient
@@ -82,6 +102,10 @@ public class Database  implements Serializable {
 
     public  Collection<String> getAllMagasin(){                 //donne tous les noms magasin
         return magasins.keySet();
+    }
+
+    public Collection<Materiaux> getAllMateriaux(){
+        return materiaux.values();
     }
 
     public  Ingredient getIngredient(String nom){               //donne l'ingredient qui posssede ce nom
@@ -98,6 +122,14 @@ public class Database  implements Serializable {
             p = plats.get(nom);
         }
         return p;
+    }
+
+    public Materiaux getMateriaux(String nom){
+        Materiaux n = null;
+        if(materiaux.containsKey(nom)){
+            n = materiaux.get(nom);
+        }
+        return  n;
     }
 
     public  Collection<String> getAllMagasinLocation(String nomMag){        //donne toutes les localisation d'un magasin
@@ -132,6 +164,12 @@ public class Database  implements Serializable {
         return d;
     }
 
+    final static  private String saveTag_Magasin  = "Magasins";
+    final static  private String saveTag_Materiaux  = "Materiaux";
+    final static  private String saveTag_Ingredient  = "Ingrédients";
+    final static  private String saveTag_Plat  = "Plats";
+
+
     public static void save (){                                             //sauvegarde la database
 
         if(d != null){
@@ -142,7 +180,7 @@ public class Database  implements Serializable {
                }
                 JsonWriter writer = new JsonWriter(new FileWriter(new File(Environment.getExternalStorageDirectory()+File.separator+ Database.dossierSave,saveName)));
                 writer.beginObject();   //debut database
-                writer.name("Magasins").beginArray();   //debut magasin
+                writer.name(saveTag_Magasin).beginArray();   //debut magasin
                 for(HashMap<String ,Magasin > magasinList : d.magasins.values()){
                     for(Magasin m : magasinList.values()){
                         //save des magasin
@@ -150,13 +188,18 @@ public class Database  implements Serializable {
                     }
                 }
                 writer.endArray();  //fin magasin
-                writer.name("Ingrédients").beginArray();//debut ingredient
+                writer.name(saveTag_Ingredient).beginArray();//debut ingredient
                 for(Ingredient i : d.ingredients.values()){
                     //save des ingredient
                     Ingredient.save(i,writer);
                 }
                 writer.endArray();//fin ingredient
-                writer.name("Plats").beginArray();//debut plats
+               writer.name(saveTag_Materiaux).beginArray();
+               for(Materiaux m : d.materiaux.values()){
+                   Materiaux.save(m,writer);
+               }
+               writer.endArray();
+                writer.name(saveTag_Plat).beginArray();//debut plats
                 for(Plat p : d.plats.values()){
                     //save des plats
                     Plat.save(p,writer);
@@ -182,7 +225,7 @@ public class Database  implements Serializable {
                 while(reader.hasNext()){
                     String name = reader.nextName();
                     switch (name) {
-                        case "Magasins":
+                        case saveTag_Magasin:
                             reader.beginArray();   //debut magasin
 
                             while (reader.hasNext()) {
@@ -193,7 +236,7 @@ public class Database  implements Serializable {
                             reader.endArray();  //fin magasin
 
                             break;
-                        case "Ingrédients":
+                        case saveTag_Ingredient:
                             reader.beginArray();//debut ingredient
 
                             while (reader.hasNext()) {
@@ -203,7 +246,7 @@ public class Database  implements Serializable {
                             reader.endArray();//fin ingredient
 
                             break;
-                        case "Plats":
+                        case saveTag_Plat:
                             reader.beginArray();//debut plats
 
                             while (reader.hasNext()) {
@@ -212,6 +255,13 @@ public class Database  implements Serializable {
                             }
                             reader.endArray();//fin plats
 
+                            break;
+                        case saveTag_Materiaux:
+                            reader.beginArray(); //debut materiaux
+                            while(reader.hasNext()){
+                                Materiaux.load(reader,d);
+                            }
+                            reader.endArray();//fin materiaux
                             break;
                     }
                 }

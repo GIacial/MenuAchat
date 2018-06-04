@@ -20,15 +20,26 @@ public class Ingredient  implements Serializable {
     private HashMap<Magasin,Double> prix;               //les prix selon les magasin
     private String nom;                                 //le nom de l'ingredient
     private CategorieIngredient categorie;              //la categorie de l'ingredient
+    private int quantite;                               //quantite en gramme
 
-    public Ingredient(String nom , CategorieIngredient cat){                    //constructeur
+    public Ingredient(String nom , CategorieIngredient cat ,Materiaux materiauxAssocie , int quantite) throws ItemAlreadyExist {                    //constructeur
+        this(nom,cat,quantite);
+        materiauxAssocie.addIngredient(this);
+    }
+
+    public Ingredient (String nom , CategorieIngredient cat , int quantite){
         this.nom = nom;
         this.categorie = cat;
         this.prix = new HashMap<>();
+        this.quantite = quantite;
     }
 
     public String getNom() {//recup le nom de l'ingredient
         return nom;
+    }
+
+    public int getQuantite() {
+        return quantite;
     }
 
     public CategorieIngredient getCategorie() {
@@ -80,17 +91,26 @@ public class Ingredient  implements Serializable {
 
     //static
 
+    final static  private String saveTag_Nom = "Nom";
+    final static  private String saveTag_Categorie = "Categorie";
+    final static  private String saveTag_Prix = "Prix";
+    final static  private String saveTag_Quantite = "quantite";
+    final static  private String saveTag_MagasinNom = "nom";
+    final static  private String saveTag_MagasinLocalisation = "localisation";
+    final static  private String saveTag_MagasinPrix = "prix";
+
     public static void save (Ingredient i , JsonWriter writer){ //sauvegarde un ingredient
         try {
             writer.beginObject();               //debut ingredient
-            writer.name("Nom").value(i.nom);
-            writer.name("Categorie").value(i.categorie.toString());
-            writer.name("Prix").beginArray();   //debut prix
+            writer.name(saveTag_Nom).value(i.nom);
+            writer.name(saveTag_Categorie).value(i.categorie.toString());
+            writer.name(saveTag_Quantite).value(i.quantite);
+            writer.name(saveTag_Prix).beginArray();   //debut prix
             for(Magasin m : i.prix.keySet()){
                 writer.beginObject();           //debut magasin
-                writer.name("nom").value(m.getNom());
-                writer.name("localisation").value(m.getLocalisation());
-                writer.name("prix").value(i.prix.get(m));
+                writer.name(saveTag_MagasinNom).value(m.getNom());
+                writer.name(saveTag_MagasinLocalisation).value(m.getLocalisation());
+                writer.name(saveTag_MagasinPrix).value(i.prix.get(m));
                 writer.endObject();             //fin magasin
 
             }
@@ -107,16 +127,20 @@ public class Ingredient  implements Serializable {
             String nom = null;
             CategorieIngredient categorie = null;
             HashMap<Magasin,Double> prix = new HashMap<>();
+            int quantite = 0;
             while (reader.hasNext()){
                 String name = reader.nextName();
                 switch (name) {
-                    case "Nom":
+                    case saveTag_Nom:
                         nom = reader.nextString();
                         break;
-                    case "Categorie":
+                    case saveTag_Quantite:
+                        quantite = reader.nextInt();
+                        break;
+                    case saveTag_Categorie:
                         categorie = CategorieIngredient.valueOf(reader.nextString());
                         break;
-                    case "Prix":
+                    case saveTag_Prix:
                         reader.beginArray();   //debut prix
 
                         while (reader.hasNext()) {
@@ -128,13 +152,13 @@ public class Ingredient  implements Serializable {
                             while (reader.hasNext()) {
                                 String name2 = reader.nextName();
                                 switch (name2) {
-                                    case "nom":
+                                    case saveTag_MagasinNom:
                                         nomMag = reader.nextString();
                                         break;
-                                    case "localisation":
+                                    case saveTag_MagasinLocalisation:
                                         localisation = reader.nextString();
                                         break;
-                                    case "prix":
+                                    case saveTag_Prix:
                                         prixValue = reader.nextDouble();
                                         break;
                                 }
@@ -151,9 +175,9 @@ public class Ingredient  implements Serializable {
                 }
             }
             reader.endObject(); //fin ingredient
-            if(nom != null && categorie != null){
+            if(nom != null && categorie != null && quantite != 0){
                 try {
-                    database.addIngedient(nom,categorie);
+                    database.addIngedient(nom,categorie,quantite);
                     Ingredient ingredient = database.getIngredient(nom);
                     for(Magasin m : prix.keySet()){
                         Magasin magasin = database.getMagasin(m.getNom(),m.getLocalisation());

@@ -6,6 +6,7 @@ import android.util.JsonWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import merejy.menuachat.Exception.ItemAlreadyExist;
@@ -18,29 +19,25 @@ import merejy.menuachat.database.DataEnum.CategoriePlats;
 public class Plat implements Serializable{
 
     private String nom;
-    private List<Ingredient> ingredients;
+    private HashMap<Materiaux,Integer> materiaux;
     private CategoriePlats categories;
 
-    public Plat(String nom , CategoriePlats cat , List<Ingredient> i){
+    public Plat(String nom , CategoriePlats cat , HashMap<Materiaux,Integer> i,int nombrePersonne){
         this.nom = nom;
         this.categories = cat;
-        this.ingredients = i;
+        this.materiaux = new HashMap<>();
+        for(Materiaux materiaux : i.keySet()){
+            this.materiaux.put(materiaux, (int) Math.ceil(i.get(materiaux)/(double)nombrePersonne));
+        }
     }
 
     public String getNom() {
         return nom;
     }
 
-    public Double getPrix(Magasin mag){
-        double p = 0.0;
-        for(Ingredient i : ingredients){
-            p += i.getPrix(mag);
-        }
-        return p;
-    }
 
-    public  List<Ingredient> getIngredients() {
-        return ingredients;
+    public  HashMap<Materiaux,Integer> getIngredients() {
+        return materiaux;
     }
 
     public CategoriePlats getCategories() {
@@ -64,16 +61,22 @@ public class Plat implements Serializable{
 
 
     //static
+    static  final private String saveTag_nom = "Nom";
+    static  final private String saveTag_categorie = "Categorie";
+    static  final private String saveTag_materiaux = "Ingredients";
+    static  final private String saveTag_materiaux_nom = "Nom";
+    static  final private String saveTag_materiaux_quantite = "Grammage";
 
     public static void save (Plat i , JsonWriter writer){
         try {
             writer.beginObject();   //debut plat
-            writer.name("Nom").value(i.nom);
-            writer.name("Categorie").value(i.categories.toString());
-            writer.name("Ingredients").beginArray();    //debut ingredient
-            for (Ingredient ingredient : i.ingredients){
+            writer.name(saveTag_nom).value(i.nom);
+            writer.name(saveTag_categorie).value(i.categories.toString());
+            writer.name(saveTag_materiaux).beginArray();    //debut ingredient
+            for (Materiaux ingredient : i.materiaux.keySet()){
                 writer.beginObject();
-                writer.name("Nom").value(ingredient.getNom());
+                writer.name(saveTag_materiaux_nom).value(ingredient.getNom());
+                writer.name(saveTag_materiaux_quantite).value(i.materiaux.get(ingredient));
                 writer.endObject();
             }
             writer.endArray();       //fin ingredient
@@ -89,29 +92,35 @@ public class Plat implements Serializable{
             reader.beginObject();   //debut plat
             String nom = null;
             CategoriePlats categoriePlats = null;
-            List<Ingredient> ingredients = new ArrayList<>();
+            HashMap<Materiaux,Integer> ingredients = new HashMap<>();
             while (reader.hasNext()){
                 String name = reader.nextName();
                 switch (name) {
-                    case "Nom":
+                    case saveTag_nom:
                         nom = reader.nextString();
                         break;
-                    case "Categorie":
+                    case saveTag_categorie:
                         categoriePlats = CategoriePlats.valueOf(reader.nextString());
                         break;
-                    case "Ingredients":
+                    case saveTag_materiaux:
                         reader.beginArray();    //debut ingredient
 
                         while (reader.hasNext()) {
                             reader.beginObject();
+                            Materiaux ingredient = null;
+                            int quantite = 0;
                             while (reader.hasNext()) {
                                 String name2 = reader.nextName();
-                                if (name2.equals("Nom")) {
-                                    Ingredient ingredient = database.getIngredient(reader.nextString());
-                                    if (ingredient != null) {
-                                        ingredients.add(ingredient);
-                                    }
+                                if (name2.equals(saveTag_materiaux_nom)) {
+                                    ingredient = database.getMateriaux(reader.nextString());
+
                                 }
+                                else if(name2.equals(saveTag_materiaux_quantite)){
+                                    quantite = reader.nextInt();
+                                }
+                            }
+                            if(ingredient != null && quantite != 0){
+                                ingredients.put(ingredient,quantite);
                             }
                             reader.endObject();
                         }
@@ -119,7 +128,7 @@ public class Plat implements Serializable{
 
                         if (nom != null && categoriePlats != null && ingredients.size() >= 1) {
                             try {
-                                database.addPlat(nom, categoriePlats, ingredients);
+                                database.addPlat(nom, categoriePlats, ingredients,1);
                             } catch (ItemAlreadyExist itemAlreadyExist) {
                                 itemAlreadyExist.printStackTrace();
                             }

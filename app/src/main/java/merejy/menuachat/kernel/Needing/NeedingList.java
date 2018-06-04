@@ -129,6 +129,9 @@ public class NeedingList implements Serializable {
 
     public void setCurrentMag(Magasin currentMag) {
         this.currentMag = currentMag;
+        for(NeedingPlat plat : this.plats){
+            plat.calculateNeedingIngredient();
+        }
     }
 
     public  void addSupplements(double supplements){
