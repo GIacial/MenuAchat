@@ -49,7 +49,7 @@ public class ListeIngredientActivity extends ActivitySaveOnClose {
 
         //supplements
         final TextView supplements = findViewById(R.id.text_supplements);
-        supplements.setText(""+n.getSupplements());
+        supplements.setText(priceFormat.format(n.getSupplements()));
         supplements.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
