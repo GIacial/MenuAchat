@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
-import merejy.menuachat.kernel.Needing;
+import merejy.menuachat.kernel.Needing.NeedingList;
 
 public class MagasinChoiceActivity extends ActivitySaveOnClose {
 
@@ -60,7 +60,7 @@ public class MagasinChoiceActivity extends ActivitySaveOnClose {
             @Override
             public void onClick(View v) {
                 if(ok){
-                    Needing.getNeeding().setCurrentMag(d.getMagasin(magasin.getSelectedItem().toString(),lieu.getSelectedItem().toString()));
+                    NeedingList.getNeeding().setCurrentMag(d.getMagasin(magasin.getSelectedItem().toString(),lieu.getSelectedItem().toString()));
                     Intent secondeActivite =  new Intent(MagasinChoiceActivity.this,ListePlatActivity.class);
 
                     secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity

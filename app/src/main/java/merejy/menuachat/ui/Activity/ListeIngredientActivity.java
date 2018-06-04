@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import merejy.menuachat.R;
-import merejy.menuachat.kernel.Needing;
+import merejy.menuachat.kernel.Needing.NeedingList;
 import merejy.menuachat.ui.Popup.Module.NumberModule.Reel.SupplementModule;
 import merejy.menuachat.ui.Popup.Module.QuestionModule.RemoveSupplementsModule;
 import merejy.menuachat.ui.Popup.QuestionPopup;
@@ -29,7 +29,7 @@ public class ListeIngredientActivity extends ActivitySaveOnClose {
 
 
 
-         Needing n = Needing.getNeeding();
+         NeedingList n = NeedingList.getNeeding();
 
      //recup de la liste
         RecyclerView listUi = findViewById(R.id.ingredientList);

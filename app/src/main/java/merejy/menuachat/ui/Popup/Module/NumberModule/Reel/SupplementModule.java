@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import merejy.menuachat.R;
-import merejy.menuachat.kernel.Needing;
+import merejy.menuachat.kernel.Needing.NeedingList;
 
 public class SupplementModule implements ReelNumberPopupModule {
 
@@ -26,11 +26,11 @@ public class SupplementModule implements ReelNumberPopupModule {
         return new Runnable() {
             @Override
             public void run() {
-                Needing needing = Needing.getNeeding();
+                NeedingList needingList = NeedingList.getNeeding();
                 if(val != 0 && !Double.isNaN(val)){
-                    needing.addSupplements(val);
-                    text_supplments.setText(priceFormat.format(needing.getSupplements()));
-                    text_total.setText(priceFormat.format(needing.getTotal()));
+                    needingList.addSupplements(val);
+                    text_supplments.setText(priceFormat.format(needingList.getSupplements()));
+                    text_total.setText(priceFormat.format(needingList.getTotal()));
                 }
             }
         };

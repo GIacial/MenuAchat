@@ -1,17 +1,13 @@
-package merejy.menuachat.kernel;
+package merejy.menuachat.kernel.Needing;
 
 import android.os.Environment;
 import android.util.JsonReader;
 import android.util.JsonWriter;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,15 +20,16 @@ import merejy.menuachat.database.Database;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.database.Magasin;
 import merejy.menuachat.database.Plat;
-import merejy.menuachat.kernel.NeedingIngredient.FusionNeedingIngredient;
-import merejy.menuachat.kernel.NeedingIngredient.InterfaceNeedingIngredient;
-import merejy.menuachat.kernel.NeedingIngredient.NeedingIngredient;
+import merejy.menuachat.kernel.Needing.NeedingIngredient.FusionNeedingIngredient;
+import merejy.menuachat.kernel.Needing.NeedingIngredient.InterfaceNeedingIngredient;
+import merejy.menuachat.kernel.Needing.NeedingIngredient.NeedingIngredient;
+import merejy.menuachat.kernel.Needing.NeedingPlat.NeedingPlat;
 
 /**
  * Created by Jeremy on 22/04/2018.
  */
 
-public class Needing implements Serializable {
+public class NeedingList implements Serializable {
 
     private List<NeedingPlat> plats;
     private HashMap<String,NeedingIngredient> ingredients;
@@ -40,7 +37,7 @@ public class Needing implements Serializable {
     private double supplements = 0;
 
 
-    private Needing(){
+    private NeedingList(){
         this.plats = new ArrayList<>();
         this.ingredients = new HashMap<>();
     }
@@ -113,12 +110,9 @@ public class Needing implements Serializable {
         double total = supplements;
         for(NeedingPlat p : plats){
             double platPrix = p.getPrix(currentMag);
-            if(p.isTake() && !Double.isNaN(platPrix )){
-                total += platPrix;
-            }
-            else{
-                total += p.getCurrentIngredientTakePrice(currentMag);
-            }
+
+            total += p.getCurrentIngredientTakePrice(currentMag);
+
         }
         for(NeedingIngredient i : ingredients.values()){
             double ingredientPrix = i.getPrix(currentMag);
@@ -154,7 +148,7 @@ public class Needing implements Serializable {
 
     //static
 
-    static private Needing n = null;
+    static private NeedingList n = null;
     private final static String saveName = "ListeCourse.sav";
 
     private final static String saveTag_supplements = "Supplements";
@@ -164,11 +158,11 @@ public class Needing implements Serializable {
     private final static String saveTag_nomPlat = "Nom";
     private final static String saveTag_plat = "Plats";
 
-    public static Needing getNeeding(){
+    public static NeedingList getNeeding(){
         if(n == null){
-            Needing.load();
+            NeedingList.load();
             if(n == null){
-                n = new Needing();
+                n = new NeedingList();
             }
         }
         return n;
@@ -214,7 +208,7 @@ public class Needing implements Serializable {
         File fichier = new File(Environment.getExternalStorageDirectory()+File.separator+ Database.dossierSave,saveName);
         if(n == null && fichier.exists()){
             try {
-                n = new Needing();
+                n = new NeedingList();
                 JsonReader reader = new JsonReader(new FileReader(fichier));
                 reader.beginObject();   //debut Needding
                 while(reader.hasNext()){

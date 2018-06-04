@@ -16,7 +16,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import merejy.menuachat.R;
-import merejy.menuachat.kernel.Needing;
+import merejy.menuachat.kernel.Needing.NeedingList;
 import merejy.menuachat.ui.Popup.Module.NumberModule.Reel.SupplementModule;
 import merejy.menuachat.ui.Popup.Module.QuestionModule.RemoveSupplementsModule;
 import merejy.menuachat.ui.Popup.QuestionPopup;
@@ -32,7 +32,7 @@ public class ListePlatActivity extends ActivitySaveOnClose {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.liste_plat_activity);
 
-         Needing n = Needing.getNeeding();
+         NeedingList n = NeedingList.getNeeding();
 
         //ui
 

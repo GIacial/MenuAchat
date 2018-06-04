@@ -1,4 +1,4 @@
-package merejy.menuachat.kernel.NeedingIngredient;
+package merejy.menuachat.kernel.Needing.NeedingIngredient;
 
 import java.io.Serializable;
 
@@ -16,11 +16,13 @@ public class NeedingIngredient implements Serializable,InterfaceNeedingIngredien
     private Ingredient i;
     private boolean take;
     private int quantite;
+    private boolean atHome;
 
     public NeedingIngredient (Ingredient i){
         this.i = i;
         this.take = false;
         this.quantite = 1;
+        this.atHome = false;
     }
 
     public boolean isTake() {
@@ -29,6 +31,16 @@ public class NeedingIngredient implements Serializable,InterfaceNeedingIngredien
 
     public void setTake(boolean take) {
         this.take = take;
+    }
+
+    @Override
+    public boolean isAtHome() {
+        return atHome;
+    }
+
+    @Override
+    public void setAtHome(boolean atHome) {
+            this.atHome = atHome;
     }
 
     public String getNom() {

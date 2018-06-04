@@ -7,7 +7,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import merejy.menuachat.database.Database;
-import merejy.menuachat.kernel.Needing;
+import merejy.menuachat.kernel.Needing.NeedingList;
 
 abstract public class ActivitySaveOnClose extends AbstractActivity {
 
@@ -15,7 +15,7 @@ abstract public class ActivitySaveOnClose extends AbstractActivity {
     protected void onStop() {
         super.onStop();
         Database.save();
-        Needing.save();
+        NeedingList.save();
     }
 
     @Override

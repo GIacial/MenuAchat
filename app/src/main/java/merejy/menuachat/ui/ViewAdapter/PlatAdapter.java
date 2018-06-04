@@ -15,8 +15,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import merejy.menuachat.database.DataEnum.CategoriePlats;
-import merejy.menuachat.kernel.Needing;
-import merejy.menuachat.kernel.NeedingPlat;
+import merejy.menuachat.kernel.Needing.NeedingList;
+import merejy.menuachat.kernel.Needing.NeedingPlat.NeedingPlat;
 import merejy.menuachat.ui.Popup.Module.QuestionModule.RemoveNeedingPlatModule;
 import merejy.menuachat.ui.Popup.QuestionPopup;
 
@@ -102,7 +102,7 @@ public class PlatAdapter  extends RecyclerView.Adapter<PlatAdapter.ViewHolder> {
         //ici on mets a jour les info des composant du Holder
         holder.take.setChecked(list.get(position).isTake());
         holder.produitName.setText(list.get(position).getNom());
-        holder.prix.setText(priceFormat.format(list.get(position).getPrix(Needing.getNeeding().getCurrentMag())));
+        holder.prix.setText(priceFormat.format(list.get(position).getPrix(NeedingList.getNeeding().getCurrentMag())));
         holder.categorie.setText(list.get(position).getCategories().toString());
         holder.v.setOnClickListener(new View.OnClickListener() {
             @Override

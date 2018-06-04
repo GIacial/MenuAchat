@@ -14,8 +14,8 @@ import java.util.List;
 
 import merejy.menuachat.database.DataEnum.CategoriePlats;
 import merejy.menuachat.database.Plat;
-import merejy.menuachat.kernel.Needing;
-import merejy.menuachat.kernel.NeedingPlat;
+import merejy.menuachat.kernel.Needing.NeedingList;
+import merejy.menuachat.kernel.Needing.NeedingPlat.NeedingPlat;
 import merejy.menuachat.ui.Activity.AllPlatList;
 import merejy.menuachat.ui.Activity.ListePlatActivity;
 
@@ -88,7 +88,7 @@ public class ChoicePlatAdapter  extends RecyclerView.Adapter<ChoicePlatAdapter.V
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Needing.getNeeding().add(new NeedingPlat(list.get(position)));
+                NeedingList.getNeeding().add(new NeedingPlat(list.get(position)));
                 Intent secondeActivite = new Intent(activity,ListePlatActivity.class);
 
                 secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity

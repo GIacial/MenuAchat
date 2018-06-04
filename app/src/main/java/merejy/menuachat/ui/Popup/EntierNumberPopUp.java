@@ -5,21 +5,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import merejy.menuachat.R;
-import merejy.menuachat.database.Ingredient;
-import merejy.menuachat.kernel.Needing;
-import merejy.menuachat.kernel.NeedingIngredient.NeedingIngredient;
-import merejy.menuachat.ui.Activity.ListeIngredientActivity;
-import merejy.menuachat.ui.Activity.PlatCreator;
-import merejy.menuachat.ui.Activity.ToActivity;
 import merejy.menuachat.ui.Popup.Module.NumberModule.Entier.EntierNumberPopupModule;
 
 public class EntierNumberPopUp extends DialogFragment {

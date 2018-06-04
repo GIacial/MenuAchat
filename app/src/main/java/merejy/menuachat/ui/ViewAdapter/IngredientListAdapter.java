@@ -12,7 +12,7 @@ import java.util.List;
 
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.database.Ingredient;
-import merejy.menuachat.kernel.Needing;
+import merejy.menuachat.kernel.Needing.NeedingList;
 
 public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.ViewHolder> {
     private List<Ingredient> list;
@@ -82,7 +82,7 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
     public void onBindViewHolder(final IngredientListAdapter.ViewHolder holder, final int position) {
         //ici on mets a jour les info des composant du Holder
         holder.produitName.setText(list.get(position).getNom());
-        holder.prix.setText(list.get(position).getPrix(Needing.getNeeding().getCurrentMag())+"");
+        holder.prix.setText(list.get(position).getPrix(NeedingList.getNeeding().getCurrentMag())+"");
         holder.categorie.setText(list.get(position).getCategorie().toString());
     }
 

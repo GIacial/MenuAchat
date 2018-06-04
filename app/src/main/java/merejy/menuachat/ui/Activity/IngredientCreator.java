@@ -13,7 +13,7 @@ import merejy.menuachat.Exception.ItemAlreadyExist;
 import merejy.menuachat.R;
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.database.Database;
-import merejy.menuachat.kernel.Needing;
+import merejy.menuachat.kernel.Needing.NeedingList;
 
 public class IngredientCreator extends ActivitySaveOnClose {
 
@@ -39,7 +39,7 @@ public class IngredientCreator extends ActivitySaveOnClose {
                         Database.getDatabase().addIngedient(nom.getText().toString(), (CategorieIngredient) cat.getSelectedItem());
                         if (prix.getText().toString().length() > 0) {
                                 double prixValue = Double.parseDouble(prix.getText().toString());
-                                Database.getDatabase().getIngredient(nom.getText().toString()).addPrix(prixValue, Needing.getNeeding().getCurrentMag());
+                                Database.getDatabase().getIngredient(nom.getText().toString()).addPrix(prixValue, NeedingList.getNeeding().getCurrentMag());
 
                         }
                     } catch (ItemAlreadyExist itemAlreadyExist) {

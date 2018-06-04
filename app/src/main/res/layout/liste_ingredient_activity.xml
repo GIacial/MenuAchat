@@ -34,8 +34,17 @@
                 android:layout_margin="10dp"
                 android:text="@string/text_pris"
                 android:textAllCaps="true"
-                android:textSize="12sp"
+                android:textSize="8dp"
                 />
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_weight="@string/layout_weigth_one"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/text_dejaMaison"
+            android:textAllCaps="true"
+            android:textSize="8sp"
+            />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_weight="@string/layout_weigth_one"
@@ -43,7 +52,7 @@
                 android:layout_margin="10dp"
                 android:text="@string/text_categorie"
                 android:textAllCaps="true"
-                android:textSize="12sp"
+                android:textSize="8dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -52,7 +61,7 @@
                 android:layout_margin="10dp"
                 android:text="@string/text_ingredient"
                 android:textAllCaps="true"
-                android:textSize="12sp"
+                android:textSize="8dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -61,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/text_quantite"
                 android:textAllCaps="true"
-                android:textSize="12sp"
+                android:textSize="8dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -70,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/text_prix"
                 android:textAllCaps="true"
-                android:textSize="12sp"/>
+                android:textSize="8dp"/>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
@@ -86,7 +95,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="8dp"
                 android:id="@+id/text_clearSupplement"
                 android:text="@string/text_supplements"
                 android:layout_weight="2"
@@ -101,7 +110,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_weight="@string/layout_weigth_one"
-                android:layout_margin="10dp"
+                android:layout_margin="8dp"
                 android:layout_height="wrap_content"
                 android:text="@string/text_prixTotal"
                 android:textAllCaps="true"

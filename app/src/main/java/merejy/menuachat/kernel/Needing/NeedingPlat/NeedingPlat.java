@@ -1,4 +1,4 @@
-package merejy.menuachat.kernel;
+package merejy.menuachat.kernel.Needing.NeedingPlat;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -7,7 +7,7 @@ import merejy.menuachat.database.DataEnum.CategoriePlats;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.database.Magasin;
 import merejy.menuachat.database.Plat;
-import merejy.menuachat.kernel.NeedingIngredient.NeedingIngredient;
+import merejy.menuachat.kernel.Needing.NeedingIngredient.NeedingIngredient;
 
 /**
  * Created by Jeremy on 22/04/2018.
@@ -39,7 +39,7 @@ public class NeedingPlat implements Serializable{
     public boolean isTake() {
         boolean take = true;
         for(NeedingIngredient i : needingIngredients.values()){
-            take = take && i.isTake();
+            take = take && (i.isTake() || i.isAtHome());
         }
         return take;
     }

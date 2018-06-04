@@ -7,8 +7,8 @@ import android.widget.Toast;
 
 import merejy.menuachat.Exception.ItemNotfound;
 import merejy.menuachat.R;
-import merejy.menuachat.kernel.Needing;
-import merejy.menuachat.kernel.NeedingPlat;
+import merejy.menuachat.kernel.Needing.NeedingList;
+import merejy.menuachat.kernel.Needing.NeedingPlat.NeedingPlat;
 import merejy.menuachat.ui.ViewAdapter.PlatAdapter;
 
 public class RemoveNeedingPlatModule implements QuestionPopupModule {
@@ -38,11 +38,11 @@ public class RemoveNeedingPlatModule implements QuestionPopupModule {
             @Override
             public void run() {
                 try {
-                    Needing.getNeeding().remove(plat);
+                    NeedingList.getNeeding().remove(plat);
                 } catch (ItemNotfound itemNotfound) {
                     Toast.makeText(recyclerView.getContext(), R.string.error_platNotFound,Toast.LENGTH_LONG).show();
                 }
-                recyclerView.setAdapter(new PlatAdapter(Needing.getNeeding().getPlats(),recyclerView,activity,listTotalPrix));
+                recyclerView.setAdapter(new PlatAdapter(NeedingList.getNeeding().getPlats(),recyclerView,activity,listTotalPrix));
             }
         };
     }

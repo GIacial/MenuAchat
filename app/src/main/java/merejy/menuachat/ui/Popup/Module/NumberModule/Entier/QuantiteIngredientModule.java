@@ -6,12 +6,11 @@ import android.widget.Toast;
 
 import merejy.menuachat.R;
 import merejy.menuachat.database.Ingredient;
-import merejy.menuachat.kernel.Needing;
-import merejy.menuachat.kernel.NeedingIngredient.NeedingIngredient;
+import merejy.menuachat.kernel.Needing.NeedingList;
+import merejy.menuachat.kernel.Needing.NeedingIngredient.NeedingIngredient;
 import merejy.menuachat.ui.Activity.ListeIngredientActivity;
 import merejy.menuachat.ui.Activity.PlatCreator;
 import merejy.menuachat.ui.Activity.ToActivity;
-import merejy.menuachat.ui.Popup.EntierNumberPopUp;
 
 
 public class QuantiteIngredientModule implements EntierNumberPopupModule {
@@ -45,7 +44,7 @@ public class QuantiteIngredientModule implements EntierNumberPopupModule {
                     case LIST_INGREDIENT :
                         secondeActivite = new Intent(activity,ListeIngredientActivity.class);
                         if(need.getQuantite() != 0){
-                            Needing.getNeeding().add(need);
+                            NeedingList.getNeeding().add(need);
                         }
                         break;
                     case PLAT_CREATOR:

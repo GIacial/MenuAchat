@@ -1,4 +1,4 @@
-package merejy.menuachat.kernel.NeedingIngredient;
+package merejy.menuachat.kernel.Needing.NeedingIngredient;
 
 import merejy.menuachat.Exception.ItemNotEquals;
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
@@ -33,6 +33,17 @@ public class FusionNeedingIngredient implements InterfaceNeedingIngredient {
     public void setTake(boolean take) {
         ingredient2.setTake(take);
         ingredient1.setTake(take);
+    }
+
+    @Override
+    public boolean isAtHome() {
+        return ingredient1.isAtHome() && ingredient2.isAtHome();
+    }
+
+    @Override
+    public void setAtHome(boolean atHome) {
+        ingredient2.setAtHome(atHome);
+        ingredient1.setAtHome(atHome);
     }
 
     @Override

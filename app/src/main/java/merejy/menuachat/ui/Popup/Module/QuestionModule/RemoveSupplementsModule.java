@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.widget.TextView;
 
 import merejy.menuachat.R;
-import merejy.menuachat.kernel.Needing;
+import merejy.menuachat.kernel.Needing.NeedingList;
 
 public class RemoveSupplementsModule implements QuestionPopupModule {
 
@@ -30,9 +30,9 @@ public class RemoveSupplementsModule implements QuestionPopupModule {
         return new Runnable() {
             @Override
             public void run() {
-                Needing.getNeeding().resetSupplements();
-                text_supplments.setText(""+Needing.getNeeding().getSupplements());
-                text_total.setText(""+Needing.getNeeding().getTotal());
+                NeedingList.getNeeding().resetSupplements();
+                text_supplments.setText(""+ NeedingList.getNeeding().getSupplements());
+                text_total.setText(""+ NeedingList.getNeeding().getTotal());
             }
         };
     }

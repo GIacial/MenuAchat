@@ -8,8 +8,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import merejy.menuachat.R;
-import merejy.menuachat.kernel.Needing;
-import merejy.menuachat.kernel.NeedingIngredient.InterfaceNeedingIngredient;
+import merejy.menuachat.kernel.Needing.NeedingList;
+import merejy.menuachat.kernel.Needing.NeedingIngredient.InterfaceNeedingIngredient;
 import merejy.menuachat.ui.ViewAdapter.NeedingIngredientAdapter;
 
 public class SetIngredientPriceModule implements ReelNumberPopupModule {
@@ -34,9 +34,9 @@ public class SetIngredientPriceModule implements ReelNumberPopupModule {
         return new Runnable() {
             @Override
             public void run() {
-                    ingredient.addPrix(val, Needing.getNeeding().getCurrentMag());
-                    listView.setAdapter(new NeedingIngredientAdapter(Needing.getNeeding().getIngredients(),listView,activity,textTotal));
-                    textTotal.setText(priceFormat.format(Needing.getNeeding().getTotal()));
+                    ingredient.addPrix(val, NeedingList.getNeeding().getCurrentMag());
+                    listView.setAdapter(new NeedingIngredientAdapter(NeedingList.getNeeding().getIngredients(),listView,activity,textTotal));
+                    textTotal.setText(priceFormat.format(NeedingList.getNeeding().getTotal()));
 
             }
         };
