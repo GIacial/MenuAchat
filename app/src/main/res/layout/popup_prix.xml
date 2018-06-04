@@ -11,6 +11,13 @@
         android:layout_weight="@string/layout_weigth_one"
         android:orientation="vertical"
         >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="@string/layout_weigth_one"
+            android:gravity="center"
+            android:id="@+id/textQuestion"/>
+
         <EditText
             android:id="@+id/popup_priceEditor"
             android:layout_width="match_parent"

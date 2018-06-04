@@ -9,13 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import merejy.menuachat.R;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.ui.Popup.Module.NumberModule.Reel.SupplementModule;
 import merejy.menuachat.ui.Popup.Module.QuestionModule.RemoveSupplementsModule;
 import merejy.menuachat.ui.Popup.QuestionPopup;
 import merejy.menuachat.ui.Popup.ReelNumberPopup;
-import merejy.menuachat.ui.ViewAdapter.IngredientAdapter;
+import merejy.menuachat.ui.ViewAdapter.NeedingIngredientAdapter;
 
 public class ListeIngredientActivity extends ActivitySaveOnClose {
 
@@ -40,8 +43,9 @@ public class ListeIngredientActivity extends ActivitySaveOnClose {
 
 
         //total
+        NumberFormat priceFormat = new DecimalFormat("#.##");
         final TextView total = findViewById(R.id.prixTotal);
-        total.setText(n.getTotal()+"");
+        total.setText(priceFormat.format(n.getTotal()));
 
         //supplements
         final TextView supplements = findViewById(R.id.text_supplements);
@@ -62,7 +66,7 @@ public class ListeIngredientActivity extends ActivitySaveOnClose {
         });
 
         //mets un adapter
-        listUi.setAdapter(new IngredientAdapter(n.getIngredients(),listUi,this,total));
+        listUi.setAdapter(new NeedingIngredientAdapter(n.getIngredients(),listUi,this,total));
 
 
 

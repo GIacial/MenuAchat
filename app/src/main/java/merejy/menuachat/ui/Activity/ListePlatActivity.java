@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import merejy.menuachat.R;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.ui.Popup.Module.NumberModule.Reel.SupplementModule;
@@ -41,8 +44,9 @@ public class ListePlatActivity extends ActivitySaveOnClose {
 
 
         //calcul du total
+        NumberFormat priceFormat = new DecimalFormat("#.##");
         final TextView total = findViewById(R.id.prixTotal);
-        total.setText(n.getTotal()+"");
+        total.setText(priceFormat.format(n.getTotal()));
 
 
         //supplements

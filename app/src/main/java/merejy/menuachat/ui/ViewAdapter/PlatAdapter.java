@@ -8,6 +8,8 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,6 +25,7 @@ public class PlatAdapter  extends RecyclerView.Adapter<PlatAdapter.ViewHolder> {
     private RecyclerView view;
     private Activity activity;
     private TextView prixTotalDisplay;
+    static private NumberFormat priceFormat = new DecimalFormat("#.##");
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -99,7 +102,7 @@ public class PlatAdapter  extends RecyclerView.Adapter<PlatAdapter.ViewHolder> {
         //ici on mets a jour les info des composant du Holder
         holder.take.setChecked(list.get(position).isTake());
         holder.produitName.setText(list.get(position).getNom());
-        holder.prix.setText(list.get(position).getPrix(Needing.getNeeding().getCurrentMag())+"");
+        holder.prix.setText(priceFormat.format(list.get(position).getPrix(Needing.getNeeding().getCurrentMag())));
         holder.categorie.setText(list.get(position).getCategories().toString());
         holder.v.setOnClickListener(new View.OnClickListener() {
             @Override

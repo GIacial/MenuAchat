@@ -53,6 +53,8 @@ public class EntierNumberPopUp extends DialogFragment {
         ImageButton moins = layout.findViewById(R.id.buttonMoins);
         final TextView text = layout.findViewById(R.id.textQuantite);
         text.setText(number+"");
+        TextView msg = layout.findViewById(R.id.textQuestion);
+        msg.setText(module.getQuestion());
 
         plus.setOnClickListener(new View.OnClickListener() {
             @Override

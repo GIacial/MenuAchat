@@ -9,6 +9,8 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -23,11 +25,12 @@ import merejy.menuachat.ui.Popup.Module.QuestionModule.RemoveNeedingIngedientMod
 import merejy.menuachat.ui.Popup.QuestionPopup;
 import merejy.menuachat.ui.Popup.ReelNumberPopup;
 
-public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
+public class NeedingIngredientAdapter extends RecyclerView.Adapter<NeedingIngredientAdapter.ViewHolder> {
     private List<InterfaceNeedingIngredient> list;
     private RecyclerView view;
     private Activity activity;
     private TextView listTotalPrix;
+    static private NumberFormat priceFormat = new DecimalFormat("#.##");
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -66,7 +69,7 @@ public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.V
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public IngredientAdapter(Collection<InterfaceNeedingIngredient> myDataset , RecyclerView view, Activity a, TextView total) {
+    public NeedingIngredientAdapter(Collection<InterfaceNeedingIngredient> myDataset , RecyclerView view, Activity a, TextView total) {
         list = trie(myDataset.iterator());
         this.view = view;
         this.activity = a;
@@ -93,8 +96,8 @@ public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.V
 
     // Create new views (invoked by the layout manager)
     @Override
-    public IngredientAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                     int viewType) {
+    public NeedingIngredientAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                  int viewType) {
         // create a new view
         LinearLayout v = new LinearLayout(parent.getContext());
         v.setOrientation(LinearLayout.HORIZONTAL);
@@ -109,7 +112,7 @@ public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.V
         //ici on mets a jour les info des composant du Holder
         holder.take.setChecked(list.get(position).isTake());
         holder.produitName.setText(list.get(position).getNom());
-        holder.prix.setText(list.get(position).getPrix(Needing.getNeeding().getCurrentMag())+"");
+        holder.prix.setText(priceFormat.format(list.get(position).getPrix(Needing.getNeeding().getCurrentMag())));
         holder.prix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,11 +125,12 @@ public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.V
 
         holder.categorie.setText(list.get(position).getCategorie().toString());
         holder.quantite.setText(list.get(position).getQuantite()+"");
-        holder.take.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.take.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                list.get(position).setTake(isChecked);
+            public void onClick(View v) {
+                list.get(position).setTake(!list.get(position).isTake());
                 listTotalPrix.setText(Needing.getNeeding().getTotal()+"");
+                holder.take.setChecked(list.get(position).isTake());
             }
         });
         holder.v.setOnClickListener(new View.OnClickListener() {
@@ -135,6 +139,7 @@ public class IngredientAdapter  extends RecyclerView.Adapter<IngredientAdapter.V
                 QuestionPopup.showDialog(activity,new RemoveNeedingIngedientModule(activity,view,listTotalPrix,list.get(position)));
             }
         });
+        holder.itemView.setBackgroundColor(ColorManager.getIngredientColor(list.get(position).getCategorie()));
     }
 
     // Return the size of your dataset (invoked by the layout manager)

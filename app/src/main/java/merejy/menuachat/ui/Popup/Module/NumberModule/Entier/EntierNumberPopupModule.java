@@ -5,4 +5,6 @@ public interface EntierNumberPopupModule {
     Runnable getMethodOnComfirm(int val);
 
     Runnable getMethodOnAnuller();
+
+    String getQuestion();
 }

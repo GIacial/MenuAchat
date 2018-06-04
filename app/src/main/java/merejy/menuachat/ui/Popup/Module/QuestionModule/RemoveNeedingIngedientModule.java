@@ -9,7 +9,7 @@ import merejy.menuachat.Exception.ItemNotfound;
 import merejy.menuachat.R;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingIngredient.InterfaceNeedingIngredient;
-import merejy.menuachat.ui.ViewAdapter.IngredientAdapter;
+import merejy.menuachat.ui.ViewAdapter.NeedingIngredientAdapter;
 
 public class RemoveNeedingIngedientModule implements QuestionPopupModule {
 
@@ -42,7 +42,7 @@ public class RemoveNeedingIngedientModule implements QuestionPopupModule {
                 } catch (ItemNotfound itemNotfound) {
                     Toast.makeText(activity, R.string.error_ingredientNotFound,Toast.LENGTH_LONG).show();
                 }
-                recyclerView.setAdapter(new IngredientAdapter(Needing.getNeeding().getIngredients(),recyclerView,activity,listTotalPrix));
+                recyclerView.setAdapter(new NeedingIngredientAdapter(Needing.getNeeding().getIngredients(),recyclerView,activity,listTotalPrix));
             }
         };
     }

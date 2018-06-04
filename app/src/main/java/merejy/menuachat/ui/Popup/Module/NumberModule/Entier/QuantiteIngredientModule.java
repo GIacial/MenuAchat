@@ -71,4 +71,9 @@ public class QuantiteIngredientModule implements EntierNumberPopupModule {
     public Runnable getMethodOnAnuller() {
         return null;
     }
+
+    @Override
+    public String getQuestion() {
+        return activity.getResources().getString(R.string.text_questionQuantite);
+    }
 }

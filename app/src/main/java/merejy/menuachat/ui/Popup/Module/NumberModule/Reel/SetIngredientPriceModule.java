@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
+import merejy.menuachat.R;
 import merejy.menuachat.kernel.Needing;
 import merejy.menuachat.kernel.NeedingIngredient.InterfaceNeedingIngredient;
-import merejy.menuachat.ui.Popup.ReelNumberPopup;
-import merejy.menuachat.ui.ViewAdapter.IngredientAdapter;
+import merejy.menuachat.ui.ViewAdapter.NeedingIngredientAdapter;
 
 public class SetIngredientPriceModule implements ReelNumberPopupModule {
 
@@ -15,6 +18,7 @@ public class SetIngredientPriceModule implements ReelNumberPopupModule {
      private RecyclerView listView;
      private TextView textTotal;
      private Activity activity;
+    static private NumberFormat priceFormat = new DecimalFormat("#.##");
 
 
      public SetIngredientPriceModule (Activity activity,InterfaceNeedingIngredient ingredient , RecyclerView listView , TextView textTotal){
@@ -31,8 +35,8 @@ public class SetIngredientPriceModule implements ReelNumberPopupModule {
             @Override
             public void run() {
                     ingredient.addPrix(val, Needing.getNeeding().getCurrentMag());
-                    listView.setAdapter(new IngredientAdapter(Needing.getNeeding().getIngredients(),listView,activity,textTotal));
-                    textTotal.setText(Needing.getNeeding().getTotal()+"");
+                    listView.setAdapter(new NeedingIngredientAdapter(Needing.getNeeding().getIngredients(),listView,activity,textTotal));
+                    textTotal.setText(priceFormat.format(Needing.getNeeding().getTotal()));
 
             }
         };
@@ -41,5 +45,10 @@ public class SetIngredientPriceModule implements ReelNumberPopupModule {
     @Override
     public Runnable getMethodOnAnuller() {
         return null;
+    }
+
+    @Override
+    public String getQuestion() {
+        return activity.getResources().getString(R.string.text_question_prix);
     }
 }
