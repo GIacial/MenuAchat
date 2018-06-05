@@ -138,7 +138,7 @@ public class NeedingPlat implements Serializable{
             retour = new NeedingIngredient(onlyOne);
             NeedingIngredient plusieur = findIngredientNumber(m,quantite);
             Magasin mag = NeedingList.getNeeding().getCurrentMag();
-            if(plusieur.getGrammage() < retour.getGrammage()){
+            if(plusieur.getGrammage() <= retour.getGrammage()){
                 if(Double.isNaN(plusieur.getPrix(mag)) || Double.isNaN(retour.getPrix(mag))){
                     retour = plusieur;
                 }
@@ -168,7 +168,9 @@ public class NeedingPlat implements Serializable{
                 }
                 else{
 
-                    if(nbFois*gramme < retour.getGrammage()){
+
+                    if(nbFois*gramme <= retour.getGrammage()){
+                        System.err.println("Coucou");
                         NeedingIngredient plusieur = new NeedingIngredient(findBestPrice(allIngredient.get(gramme)));
                         plusieur.addQuantite((int) (nbFois-1));
 
@@ -177,7 +179,9 @@ public class NeedingPlat implements Serializable{
                             retour = plusieur;
                         }
                         else{
+
                             if(plusieur.getPrix(mag) < retour.getPrix(mag)){
+
                                 retour = plusieur;
                             }
                         }
