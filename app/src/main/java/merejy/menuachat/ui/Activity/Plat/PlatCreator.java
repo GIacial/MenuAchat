@@ -1,4 +1,4 @@
-package merejy.menuachat.ui.Activity;
+package merejy.menuachat.ui.Activity.Plat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,18 +12,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import merejy.menuachat.Exception.ItemAlreadyExist;
 import merejy.menuachat.R;
 import merejy.menuachat.database.DataEnum.CategoriePlats;
 import merejy.menuachat.database.Database;
-import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.database.Materiaux;
-import merejy.menuachat.ui.ViewAdapter.IngredientListAdapter;
-import merejy.menuachat.ui.ViewAdapter.MateriauxQuantiteAdapter;
+import merejy.menuachat.ui.Activity.Abstract.ActivitySaveOnClose;
+import merejy.menuachat.ui.Activity.ToActivity;
+import merejy.menuachat.ui.ViewAdapter.Materiaux.MateriauxQuantiteAdapter;
 
 public class PlatCreator extends ActivitySaveOnClose {
 
@@ -74,7 +72,7 @@ public class PlatCreator extends ActivitySaveOnClose {
                         Toast.makeText(PlatCreator.this,R.string.error_PlatExistant,Toast.LENGTH_LONG).show();
                     }
                     catch (NumberFormatException e){
-
+                        e.printStackTrace();
                     }
                     need = new HashMap<>();
                     PlatCreator.nom = "";
@@ -92,19 +90,19 @@ public class PlatCreator extends ActivitySaveOnClose {
         addIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* Intent secondeActivite = new Intent(PlatCreator.this, All_IngredientList.class);
-                All_IngredientList.target = PlatCreator.this.getActivityEnum();
+                Intent secondeActivite = ToActivity.getIntentToGoTo(PlatCreator.this, ToActivity.ALL_MATERIAUX);
                 PlatCreator.nom = nom.getText().toString();
                 PlatCreator.catego = cat.getSelectedItemPosition();
-                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
-                startActivity(secondeActivite);*/
+                if(secondeActivite != null){
+                    startActivity(secondeActivite);
+                }
             }
         });
 
         }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.PLAT_CREATOR;
     }
 }

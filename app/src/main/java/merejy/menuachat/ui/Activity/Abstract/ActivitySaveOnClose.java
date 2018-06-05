@@ -1,4 +1,4 @@
-package merejy.menuachat.ui.Activity;
+package merejy.menuachat.ui.Activity.Abstract;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 
 import merejy.menuachat.database.Database;
 import merejy.menuachat.kernel.Needing.NeedingList;
+import merejy.menuachat.ui.Activity.Abstract.AbstractActivity;
 
 abstract public class ActivitySaveOnClose extends AbstractActivity {
 

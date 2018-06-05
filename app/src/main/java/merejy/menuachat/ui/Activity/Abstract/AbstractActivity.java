@@ -1,6 +1,5 @@
-package merejy.menuachat.ui.Activity;
+package merejy.menuachat.ui.Activity.Abstract;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -12,6 +11,8 @@ import android.widget.Toast;
 
 import merejy.menuachat.R;
 import merejy.menuachat.kernel.ColorManager;
+import merejy.menuachat.ui.Activity.ColorConfigurationActivity;
+import merejy.menuachat.ui.Activity.ToActivity;
 
 abstract public class AbstractActivity extends AppCompatActivity {
 
@@ -40,7 +41,7 @@ abstract public class AbstractActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(getActivityEnum() != ToActivity.COLOR_CONFIGURATOR){
-            ColorConfigurationactivity.nextActivity = this.getActivityEnum();
+            ColorConfigurationActivity.nextActivity = this.getActivityEnum();
             Intent home = null;
             switch (item.getItemId()) {
                 case R.id.colorCongigurateur:
@@ -64,5 +65,5 @@ abstract public class AbstractActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    abstract ToActivity getActivityEnum();
+    public abstract ToActivity getActivityEnum();
 }

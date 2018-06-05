@@ -1,4 +1,4 @@
-package merejy.menuachat.ui.Activity;
+package merejy.menuachat.ui.Activity.Magasin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.Toast;
 import merejy.menuachat.Exception.ItemAlreadyExist;
 import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
+import merejy.menuachat.ui.Activity.Abstract.ActivitySaveOnClose;
+import merejy.menuachat.ui.Activity.ToActivity;
 
 public class MagasinCreator extends ActivitySaveOnClose {
 
@@ -45,7 +47,7 @@ public class MagasinCreator extends ActivitySaveOnClose {
     }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.MAGASIN_CREATOR;
     }
 

@@ -1,4 +1,4 @@
-package merejy.menuachat.ui.Activity;
+package merejy.menuachat.ui.Activity.Plat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,9 @@ import android.widget.Button;
 
 import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
-import merejy.menuachat.ui.ViewAdapter.ChoicePlatAdapter;
+import merejy.menuachat.ui.Activity.Abstract.ActivitySaveOnClose;
+import merejy.menuachat.ui.Activity.ToActivity;
+import merejy.menuachat.ui.ViewAdapter.Plat.ChoicePlatAdapter;
 
 public class AllPlatList extends ActivitySaveOnClose {
     @Override
@@ -60,7 +62,7 @@ public class AllPlatList extends ActivitySaveOnClose {
     }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.ALL_PLAT;
     }
 }

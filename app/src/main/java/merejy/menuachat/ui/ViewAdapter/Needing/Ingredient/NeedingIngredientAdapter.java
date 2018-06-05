@@ -1,4 +1,4 @@
-package merejy.menuachat.ui.ViewAdapter;
+package merejy.menuachat.ui.ViewAdapter.Needing.Ingredient;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
@@ -107,8 +107,7 @@ public class NeedingIngredientAdapter extends RecyclerView.Adapter<NeedingIngred
         LinearLayout v = new LinearLayout(parent.getContext());
         v.setOrientation(LinearLayout.HORIZONTAL);
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -122,7 +121,7 @@ public class NeedingIngredientAdapter extends RecyclerView.Adapter<NeedingIngred
         holder.prix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReelNumberPopup.showDialog(new SetIngredientPriceModule(activity,list.get(position),view,listTotalPrix),activity);
+                ReelNumberPopup.showDialog(new SetIngredientPriceModule(activity,list.get(holder.getAdapterPosition()),view,listTotalPrix),activity);
             }
         });
 
@@ -134,23 +133,23 @@ public class NeedingIngredientAdapter extends RecyclerView.Adapter<NeedingIngred
         holder.take.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                list.get(position).setTake(!list.get(position).isTake());
+                list.get(holder.getAdapterPosition()).setTake(!list.get(holder.getAdapterPosition()).isTake());
                 listTotalPrix.setText(priceFormat.format(NeedingList.getNeeding().getTotal()));
-                holder.take.setChecked(list.get(position).isTake());
+                holder.take.setChecked(list.get(holder.getAdapterPosition()).isTake());
             }
         });
 
         holder.atHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                list.get(position).setAtHome(!list.get(position).isAtHome());
-                holder.atHome.setChecked(list.get(position).isAtHome());
+                list.get(holder.getAdapterPosition()).setAtHome(!list.get(holder.getAdapterPosition()).isAtHome());
+                holder.atHome.setChecked(list.get(holder.getAdapterPosition()).isAtHome());
             }
         });
         holder.v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                QuestionPopup.showDialog(activity,new RemoveNeedingIngedientModule(activity,view,listTotalPrix,list.get(position)));
+                QuestionPopup.showDialog(activity,new RemoveNeedingIngedientModule(activity,view,listTotalPrix,list.get(holder.getAdapterPosition())));
             }
         });
         holder.itemView.setBackgroundColor(ColorManager.getIngredientColor(list.get(position).getCategorie()));

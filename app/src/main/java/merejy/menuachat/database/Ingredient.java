@@ -158,7 +158,7 @@ public class Ingredient  implements Serializable {
                                     case saveTag_MagasinLocalisation:
                                         localisation = reader.nextString();
                                         break;
-                                    case saveTag_Prix:
+                                    case saveTag_MagasinPrix:
                                         prixValue = reader.nextDouble();
                                         break;
                                 }

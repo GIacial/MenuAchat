@@ -67,6 +67,11 @@ public class NeedingIngredient implements Serializable,InterfaceNeedingIngredien
         return  quantite;
     }
 
+    @Override
+    public int getGrammage() {
+        return i.getQuantite()*getQuantite();
+    }
+
     public PriceComparator isLessCost(Magasin mag){
         return i.isCostLess(mag);
     }

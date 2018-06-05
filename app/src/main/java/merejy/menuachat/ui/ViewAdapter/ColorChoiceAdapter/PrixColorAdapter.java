@@ -20,12 +20,10 @@ private Activity activity;
 
 public static class ViewHolder extends RecyclerView.ViewHolder {
 
-    private LinearLayout layout;
     private TextView categorieName;
 
     public ViewHolder(LinearLayout v) {
         super(v);
-        this.layout = v;
         v.setPadding(10,10,10,10);
         categorieName = new TextView(v.getContext());
         categorieName.setGravity(TextView.TEXT_ALIGNMENT_CENTER);
@@ -51,8 +49,7 @@ public static class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout v = new LinearLayout(parent.getContext());
         v.setOrientation(LinearLayout.HORIZONTAL);
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        PrixColorAdapter.ViewHolder vh = new PrixColorAdapter.ViewHolder(v);
-        return vh;
+        return new PrixColorAdapter.ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -64,7 +61,7 @@ public static class ViewHolder extends RecyclerView.ViewHolder {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ColorPopup.showDialog(activity,new PriceComparatorColorPopupModule(list[position],holder.itemView));
+                ColorPopup.showDialog(activity,new PriceComparatorColorPopupModule(list[holder.getAdapterPosition()],holder.itemView));
             }
         });
     }

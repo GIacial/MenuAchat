@@ -5,26 +5,19 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import merejy.menuachat.R;
-import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.database.Materiaux;
-import merejy.menuachat.kernel.Needing.NeedingIngredient.NeedingIngredient;
-import merejy.menuachat.kernel.Needing.NeedingList;
-import merejy.menuachat.ui.Activity.ListeIngredientActivity;
-import merejy.menuachat.ui.Activity.PlatCreator;
-import merejy.menuachat.ui.Activity.ToActivity;
+import merejy.menuachat.ui.Activity.Plat.PlatCreator;
 
 public class QuantiteMateriauxModule implements EntierNumberPopupModule {
 
 
 
     private Materiaux ingredient;
-    private ToActivity target;
     private Activity activity;
 
-    public QuantiteMateriauxModule(Activity activity , ToActivity target , Materiaux ingredient){
+    public QuantiteMateriauxModule(Activity activity , Materiaux ingredient){
         this.ingredient = ingredient;
         this.activity = activity;
-        this.target = target;
     }
 
 
@@ -35,21 +28,21 @@ public class QuantiteMateriauxModule implements EntierNumberPopupModule {
             public void run() {
 
 
-                Intent secondeActivite = null ;
                 if(val == 0){
                     Toast.makeText(activity, R.string.error_zeroQuantite,Toast.LENGTH_LONG).show();
                 }
+                else{
+                    Intent secondeActivite = new Intent(activity,PlatCreator.class);
 
-                secondeActivite = new Intent(activity,PlatCreator.class);
-
-                PlatCreator.addIngredient(ingredient,val);
+                    PlatCreator.addIngredient(ingredient,val);
 
 
-
-                if(secondeActivite != null){
                     secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                     activity.startActivity(secondeActivite);
                 }
+
+
+
 
             }
         };

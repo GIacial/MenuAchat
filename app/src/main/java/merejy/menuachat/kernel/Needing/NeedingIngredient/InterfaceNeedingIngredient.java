@@ -15,6 +15,7 @@ public interface InterfaceNeedingIngredient extends Serializable, NeedingInterfa
 
      void addPrix(Double prix , Magasin mag);
 
-
      int getQuantite();
+
+     int getGrammage();
 }

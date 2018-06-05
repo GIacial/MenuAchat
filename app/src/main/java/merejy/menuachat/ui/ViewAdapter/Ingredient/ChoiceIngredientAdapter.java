@@ -1,4 +1,4 @@
-package merejy.menuachat.ui.ViewAdapter;
+package merejy.menuachat.ui.ViewAdapter.Ingredient;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,14 +13,14 @@ import java.util.List;
 
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.kernel.ColorManager;
-import merejy.menuachat.ui.Activity.All_IngredientList;
+import merejy.menuachat.ui.Activity.Abstract.AbstractActivity;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.ui.Popup.EntierNumberPopUp;
 import merejy.menuachat.ui.Popup.Module.NumberModule.Entier.QuantiteIngredientModule;
 
 public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredientAdapter.ViewHolder> {
     private List<Ingredient> list;
-    private All_IngredientList activity;
+    private AbstractActivity activity;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -45,7 +45,7 @@ public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredi
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ChoiceIngredientAdapter(Collection<Ingredient> myDataset , All_IngredientList activity) {
+    public ChoiceIngredientAdapter(Collection<Ingredient> myDataset , AbstractActivity activity) {
         list = trie(myDataset.iterator());
         this.activity = activity;
 
@@ -77,8 +77,7 @@ public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredi
         LinearLayout v = new LinearLayout(parent.getContext());
         v.setOrientation(LinearLayout.HORIZONTAL);
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -90,7 +89,7 @@ public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredi
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EntierNumberPopUp.showDialog(activity,new QuantiteIngredientModule(activity,All_IngredientList.target,list.get(position)));
+                EntierNumberPopUp.showDialog(activity,new QuantiteIngredientModule(activity,list.get(holder.getAdapterPosition())));
 
             }
         });

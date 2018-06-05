@@ -1,9 +1,6 @@
-package merejy.menuachat.ui.Activity;
+package merejy.menuachat.ui.Activity.Plat;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,16 +14,17 @@ import java.text.NumberFormat;
 
 import merejy.menuachat.R;
 import merejy.menuachat.kernel.Needing.NeedingList;
+import merejy.menuachat.ui.Activity.Abstract.ActivitySaveOnClose;
+import merejy.menuachat.ui.Activity.Ingredient.ListeIngredientActivity;
+import merejy.menuachat.ui.Activity.ToActivity;
 import merejy.menuachat.ui.Popup.Module.NumberModule.Reel.SupplementModule;
 import merejy.menuachat.ui.Popup.Module.QuestionModule.RemoveSupplementsModule;
 import merejy.menuachat.ui.Popup.QuestionPopup;
 import merejy.menuachat.ui.Popup.ReelNumberPopup;
-import merejy.menuachat.ui.ViewAdapter.PlatAdapter;
+import merejy.menuachat.ui.ViewAdapter.Needing.Plat.PlatAdapter;
 
 public class ListePlatActivity extends ActivitySaveOnClose {
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +94,7 @@ public class ListePlatActivity extends ActivitySaveOnClose {
     }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.LIST_PLAT;
     }
 }

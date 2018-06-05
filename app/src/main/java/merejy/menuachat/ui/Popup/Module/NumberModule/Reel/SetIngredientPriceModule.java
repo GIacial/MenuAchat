@@ -10,11 +10,11 @@ import java.text.NumberFormat;
 import merejy.menuachat.R;
 import merejy.menuachat.kernel.Needing.NeedingList;
 import merejy.menuachat.kernel.Needing.NeedingIngredient.InterfaceNeedingIngredient;
-import merejy.menuachat.ui.ViewAdapter.NeedingIngredientAdapter;
+import merejy.menuachat.ui.ViewAdapter.Needing.Ingredient.NeedingIngredientAdapter;
 
 public class SetIngredientPriceModule implements ReelNumberPopupModule {
 
-     private InterfaceNeedingIngredient ingredient = null;
+     private InterfaceNeedingIngredient ingredient;
      private RecyclerView listView;
      private TextView textTotal;
      private Activity activity;

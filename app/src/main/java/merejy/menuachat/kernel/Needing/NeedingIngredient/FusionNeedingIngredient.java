@@ -71,4 +71,9 @@ public class FusionNeedingIngredient implements InterfaceNeedingIngredient {
     public int getQuantite() {
         return ingredient1.getQuantite()+ingredient2.getQuantite();
     }
+
+    @Override
+    public int getGrammage() {
+        return ingredient1.getGrammage()*getQuantite();
+    }
 }

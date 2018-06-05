@@ -53,6 +53,11 @@ public class Materiaux {
         return  ingredientsAssocie;
     }
 
+    @Override
+    public String toString() {
+        return nom;
+    }
+
     //static
 
     final static  private String saveTag_Nom = "Nom";
@@ -68,7 +73,9 @@ public class Materiaux {
             writer.name(saveTag_IngredientAssocie).beginArray();
             for(int quantite : i.ingredientsAssocie.keySet()){
                 for(Ingredient ingredient : i.ingredientsAssocie.get(quantite)){
+                    writer.beginObject();
                     writer.name(saveTag_IngredientAssocie).value(ingredient.getNom());
+                    writer.endObject();
                 }
             }
             writer.endArray();
@@ -98,14 +105,18 @@ public class Materiaux {
 
                         reader.beginArray();
                         while (reader.hasNext()){
-                            switch (reader.nextName()){
-                                case saveTag_IngredientAssocie:
-                                    Ingredient ingredient = database.getIngredient(reader.nextString());
-                                    if(ingredient != null){
-                                        ingredients.add(ingredient);
-                                    }
-                                    break;
+                            reader.beginObject();
+                            while (reader.hasNext()){
+                                switch (reader.nextName()){
+                                    case saveTag_IngredientAssocie:
+                                        Ingredient ingredient = database.getIngredient(reader.nextString());
+                                        if(ingredient != null){
+                                            ingredients.add(ingredient);
+                                        }
+                                        break;
+                                }
                             }
+                            reader.endObject();
                         }
                         reader.endArray();
 

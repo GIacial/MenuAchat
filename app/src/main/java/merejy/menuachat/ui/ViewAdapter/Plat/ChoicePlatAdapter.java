@@ -1,6 +1,7 @@
-package merejy.menuachat.ui.ViewAdapter;
+package merejy.menuachat.ui.ViewAdapter.Plat;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -10,12 +11,15 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import merejy.menuachat.database.DataEnum.CategorieIngredient;
-import merejy.menuachat.database.Ingredient;
-import merejy.menuachat.kernel.Needing.NeedingList;
+import merejy.menuachat.database.DataEnum.CategoriePlats;
+import merejy.menuachat.database.Plat;
+import merejy.menuachat.ui.Activity.Abstract.AbstractActivity;
+import merejy.menuachat.ui.Popup.EntierNumberPopUp;
+import merejy.menuachat.ui.Popup.Module.NumberModule.Entier.NbPersonneModule;
 
-public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.ViewHolder> {
-    private List<Ingredient> list;
+public class ChoicePlatAdapter  extends RecyclerView.Adapter<ChoicePlatAdapter.ViewHolder> {
+    private List<Plat> list;
+    private AbstractActivity activity;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -23,42 +27,38 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         private TextView produitName;
-        private TextView prix;
         private TextView categorie;
+        private LinearLayout layout;
 
         public ViewHolder(LinearLayout v) {
             super(v);
+            this.layout = v;
             v.setPadding(10,10,10,10);
             this.produitName = new TextView(v.getContext());
             this.produitName.setPadding(10,10,10,10);
-            this.prix = new TextView(v.getContext());
-            this.prix.setPadding(10,10,10,10);
             this.categorie = new TextView(v.getContext());
             this.categorie.setPadding(10,10,10,10);
-
             v.addView(categorie,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
             v.addView(produitName,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-            v.addView(prix,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-
-    public IngredientListAdapter(Collection<Ingredient> myDataset ) {
+    public ChoicePlatAdapter(Collection<Plat> myDataset , AbstractActivity activity) {
         list = trie(myDataset.iterator());
-
+        this.activity = activity;
     }
 
-    private List<Ingredient> trie(Iterator<Ingredient> iterator){
-        List<ArrayList<Ingredient>> l = new ArrayList<>();
-        for(int i = 0; i < CategorieIngredient.values().length ; i++){
-            l.add(new ArrayList<Ingredient>());
+    private List<Plat> trie(Iterator<Plat> iterator){
+        List<ArrayList<Plat>> l = new ArrayList<>();
+        for(int i = 0; i < CategoriePlats.values().length ; i++){
+            l.add(new ArrayList<Plat>());
         }
         while (iterator.hasNext()){
-            Ingredient ingredient = iterator.next();
-            l.get(ingredient.getCategorie().ordinal()).add(ingredient);
+            Plat plat = iterator.next();
+            l.get(plat.getCategories().ordinal()).add(plat);
         }
-        List<Ingredient> retour = new ArrayList<>();
+        List<Plat> retour = new ArrayList<>();
         for(int i = 0 ; i <l.size() ; i++){
             retour.addAll(l.get(i));
         }
@@ -67,23 +67,27 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
 
     // Create new views (invoked by the layout manager)
     @Override
-    public IngredientListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                           int viewType) {
+    public ChoicePlatAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                 int viewType) {
         // create a new view
         LinearLayout v = new LinearLayout(parent.getContext());
         v.setOrientation(LinearLayout.HORIZONTAL);
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        IngredientListAdapter.ViewHolder vh = new IngredientListAdapter.ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(final IngredientListAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         //ici on mets a jour les info des composant du Holder
         holder.produitName.setText(list.get(position).getNom());
-        holder.prix.setText(list.get(position).getPrix(NeedingList.getNeeding().getCurrentMag())+"");
-        holder.categorie.setText(list.get(position).getCategorie().toString());
+        holder.categorie.setText(list.get(position).getCategories().toString());
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EntierNumberPopUp.showDialog(activity,new NbPersonneModule(activity,list.get(holder.getAdapterPosition())));
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)

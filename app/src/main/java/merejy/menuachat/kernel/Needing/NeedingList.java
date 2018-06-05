@@ -16,6 +16,7 @@ import java.util.List;
 
 import merejy.menuachat.Exception.ItemNotEquals;
 import merejy.menuachat.Exception.ItemNotfound;
+import merejy.menuachat.Exception.NoIngredientAvalilable;
 import merejy.menuachat.database.Database;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.database.Magasin;
@@ -130,7 +131,11 @@ public class NeedingList implements Serializable {
     public void setCurrentMag(Magasin currentMag) {
         this.currentMag = currentMag;
         for(NeedingPlat plat : this.plats){
-            plat.calculateNeedingIngredient();
+            try {
+                plat.calculateNeedingIngredient();
+            } catch (NoIngredientAvalilable noIngredientAvalilable) {
+                noIngredientAvalilable.printStackTrace();
+            }
         }
     }
 
@@ -160,6 +165,8 @@ public class NeedingList implements Serializable {
     private final static String saveTag_quantite = "Quantité";
     private final static String saveTag_nomPlat = "Nom";
     private final static String saveTag_plat = "Plats";
+    private final static String saveTag_nbPersonnePlat = "Nombre Personne";
+
 
     public static NeedingList getNeeding(){
         if(n == null){
@@ -195,6 +202,7 @@ public class NeedingList implements Serializable {
                     //save des plats
                     writer.beginObject();
                     writer.name(saveTag_nomPlat).value(p.getNom());
+                    writer.name(saveTag_nbPersonnePlat).value(p.getNbPersonne());
                     writer.endObject();
                 }
                 writer.endArray();//fin plats
@@ -253,14 +261,23 @@ public class NeedingList implements Serializable {
                                 //load des plats
                                 reader.beginObject();
                                 Plat plat = null;
+                                int nbPersonne = 0;
                                 while (reader.hasNext()){
                                     String name2 = reader.nextName();
                                     if(name2.equals(saveTag_nomPlat)){
                                         plat =  Database.getDatabase().getPlat(reader.nextString());
                                     }
+                                    else if(name2.equals(saveTag_nbPersonnePlat)){
+                                        nbPersonne = reader.nextInt();
+                                    }
                                 }
-                                if(plat != null){
-                                    NeedingPlat needingPlat = new NeedingPlat(plat);
+                                if(plat != null && nbPersonne != 0){
+                                    NeedingPlat needingPlat = null;
+                                    try {
+                                        needingPlat = new NeedingPlat(plat,nbPersonne);
+                                    } catch (NoIngredientAvalilable noIngredientAvalilable) {
+                                        noIngredientAvalilable.printStackTrace();
+                                    }
                                     n.add(needingPlat);
                                 }
                                 reader.endObject();

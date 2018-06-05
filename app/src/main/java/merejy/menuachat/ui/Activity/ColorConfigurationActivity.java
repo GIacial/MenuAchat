@@ -6,18 +6,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import merejy.menuachat.R;
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.database.DataEnum.PriceComparator;
 import merejy.menuachat.kernel.ColorManager;
+import merejy.menuachat.ui.Activity.Abstract.AbstractActivity;
 import merejy.menuachat.ui.ViewAdapter.ColorChoiceAdapter.IngredientCatColorAdapter;
 import merejy.menuachat.ui.ViewAdapter.ColorChoiceAdapter.PrixColorAdapter;
 
 
-public class ColorConfigurationactivity extends AbstractActivity {
+public class ColorConfigurationActivity extends AbstractActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -38,7 +37,7 @@ public class ColorConfigurationactivity extends AbstractActivity {
         comfirmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent secondActivity = ToActivity.getIntentToGoTo(ColorConfigurationactivity.this,ColorConfigurationactivity.nextActivity);
+                Intent secondActivity = ToActivity.getIntentToGoTo(ColorConfigurationActivity.this, ColorConfigurationActivity.nextActivity);
                 if(secondActivity != null){
                     secondActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(secondActivity);
@@ -48,7 +47,7 @@ public class ColorConfigurationactivity extends AbstractActivity {
     }
 
     @Override
-    ToActivity getActivityEnum() {
+     public ToActivity getActivityEnum() {
         return ToActivity.COLOR_CONFIGURATOR;
     }
 

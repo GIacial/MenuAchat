@@ -1,4 +1,4 @@
-package merejy.menuachat.ui.Activity;
+package merejy.menuachat.ui.Activity.Ingredient;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +14,14 @@ import java.text.NumberFormat;
 
 import merejy.menuachat.R;
 import merejy.menuachat.kernel.Needing.NeedingList;
+import merejy.menuachat.ui.Activity.Abstract.ActivitySaveOnClose;
+import merejy.menuachat.ui.Activity.Plat.ListePlatActivity;
+import merejy.menuachat.ui.Activity.ToActivity;
 import merejy.menuachat.ui.Popup.Module.NumberModule.Reel.SupplementModule;
 import merejy.menuachat.ui.Popup.Module.QuestionModule.RemoveSupplementsModule;
 import merejy.menuachat.ui.Popup.QuestionPopup;
 import merejy.menuachat.ui.Popup.ReelNumberPopup;
-import merejy.menuachat.ui.ViewAdapter.NeedingIngredientAdapter;
+import merejy.menuachat.ui.ViewAdapter.Needing.Ingredient.NeedingIngredientAdapter;
 
 public class ListeIngredientActivity extends ActivitySaveOnClose {
 
@@ -86,18 +89,17 @@ public class ListeIngredientActivity extends ActivitySaveOnClose {
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent secondeActivite = new Intent(ListeIngredientActivity.this, All_IngredientList.class);
-                All_IngredientList.target = ToActivity.LIST_INGREDIENT;
-
-                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
-                startActivity(secondeActivite);
+                Intent secondeActivite = ToActivity.getIntentToGoTo(ListeIngredientActivity.this, ToActivity.ALL_INGREDIENT);
+                if(secondeActivite != null){
+                    startActivity(secondeActivite);
+                }
             }
         });
 
     }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.LIST_INGREDIENT;
     }
 }

@@ -20,12 +20,10 @@ public class IngredientCatColorAdapter extends RecyclerView.Adapter<IngredientCa
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private LinearLayout layout;
         private TextView categorieName;
 
         public ViewHolder(LinearLayout v) {
             super(v);
-            this.layout = v;
             v.setPadding(10,10,10,10);
             categorieName = new TextView(v.getContext());
             categorieName.setGravity(TextView.TEXT_ALIGNMENT_CENTER);
@@ -51,20 +49,19 @@ public class IngredientCatColorAdapter extends RecyclerView.Adapter<IngredientCa
         LinearLayout v = new LinearLayout(parent.getContext());
         v.setOrientation(LinearLayout.HORIZONTAL);
         v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        IngredientCatColorAdapter.ViewHolder vh = new IngredientCatColorAdapter.ViewHolder(v);
-        return vh;
+        return  new IngredientCatColorAdapter.ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(final IngredientCatColorAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final IngredientCatColorAdapter.ViewHolder holder,  int position) {
         //ici on mets a jour les info des composant du Holder
         holder.categorieName.setText(list[position].toString());
         holder.itemView.setBackgroundColor(ColorManager.getIngredientColor(list[position]));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ColorPopup.showDialog(activity,new IngredientCatColorPopupModule(list[position],holder.itemView));
+                ColorPopup.showDialog(activity,new IngredientCatColorPopupModule(list[holder.getAdapterPosition()],holder.itemView));
             }
         });
     }

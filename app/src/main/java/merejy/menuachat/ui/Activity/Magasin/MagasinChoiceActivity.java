@@ -1,4 +1,4 @@
-package merejy.menuachat.ui.Activity;
+package merejy.menuachat.ui.Activity.Magasin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
 import merejy.menuachat.kernel.Needing.NeedingList;
+import merejy.menuachat.ui.Activity.Abstract.ActivitySaveOnClose;
+import merejy.menuachat.ui.Activity.Plat.ListePlatActivity;
+import merejy.menuachat.ui.Activity.ToActivity;
 
 public class MagasinChoiceActivity extends ActivitySaveOnClose {
 
@@ -84,7 +87,7 @@ public class MagasinChoiceActivity extends ActivitySaveOnClose {
     }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.MAGASIN_CHOICE;
     }
 }

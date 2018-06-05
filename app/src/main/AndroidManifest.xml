@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.Activity.MagasinChoiceActivity"
+        <activity android:name=".ui.Activity.Magasin.MagasinChoiceActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation"
             >
@@ -22,37 +22,43 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.Activity.ListeIngredientActivity"
+        <activity android:name=".ui.Activity.Ingredient.ListeIngredientActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation"
             />
-        <activity android:name=".ui.Activity.All_IngredientList"
+        <activity android:name=".ui.Activity.Ingredient.All_IngredientList"
             android:screenOrientation="portrait"
             android:configChanges="orientation"
             />
-        <activity android:name=".ui.Activity.IngredientCreator"
+        <activity android:name=".ui.Activity.Ingredient.IngredientCreator"
             android:screenOrientation="portrait"
             android:configChanges="orientation"
             />
-        <activity android:name=".ui.Activity.AllPlatList"
+        <activity android:name=".ui.Activity.Plat.AllPlatList"
             android:screenOrientation="portrait"
             android:configChanges="orientation"
             />
-        <activity android:name=".ui.Activity.PlatCreator"
+        <activity android:name=".ui.Activity.Plat.PlatCreator"
             android:screenOrientation="portrait"
             android:configChanges="orientation"
             />
-        <activity android:name=".ui.Activity.MagasinCreator"
+        <activity android:name=".ui.Activity.Magasin.MagasinCreator"
             android:screenOrientation="portrait"
             android:configChanges="orientation"
             />
-        <activity android:name=".ui.Activity.ListePlatActivity"
+        <activity android:name=".ui.Activity.Plat.ListePlatActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation"
             />
-        <activity android:name=".ui.Activity.ColorConfigurationactivity"
+        <activity android:name=".ui.Activity.ColorConfigurationActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation"/>
+        <activity android:name=".ui.Activity.Materiaux.MateriauxCreator"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
+        <activity android:name=".ui.Activity.Materiaux.AllMateriauxActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation" />
     </application>
 
 </manifest>

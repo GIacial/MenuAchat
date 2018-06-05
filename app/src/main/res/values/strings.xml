@@ -36,6 +36,9 @@
     <string name="text_Materiaux">Matieres premieres</string>
     <string name="text_gramme">g</string>
     <string name="text_nombrePersonne">Nombre de personne</string>
+    <string name="text_nouveauMateriaux">Nouvelle matieres premieres</string>
+    <string name="text_questionNbPersonne">Pour combien de personne ?</string>
+    <string name="text_questionQuantiteGramme">Combien de gramme ?</string>
 
 
     <string name="colorSelectorMinValue">0</string>

@@ -1,4 +1,4 @@
-package merejy.menuachat.ui.Activity;
+package merejy.menuachat.ui.Activity.Ingredient;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +10,13 @@ import android.widget.Button;
 
 import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
-import merejy.menuachat.ui.ViewAdapter.ChoiceIngredientAdapter;
+import merejy.menuachat.ui.Activity.Abstract.ActivitySaveOnClose;
+import merejy.menuachat.ui.Activity.ToActivity;
+import merejy.menuachat.ui.ViewAdapter.Ingredient.ChoiceIngredientAdapter;
 
 public class All_IngredientList extends ActivitySaveOnClose {
 
-    public static ToActivity target = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,21 +55,9 @@ public class All_IngredientList extends ActivitySaveOnClose {
         anuller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent secondeActivite = null ;
+                Intent secondeActivite = ToActivity.getIntentToGoTo(All_IngredientList.this,ToActivity.LIST_INGREDIENT) ;
 
-                switch (All_IngredientList.target){
-                    case LIST_INGREDIENT :
-                        secondeActivite = new Intent(All_IngredientList.this,ListeIngredientActivity.class);
-
-                        break;
-                    case PLAT_CREATOR:
-                        secondeActivite = new Intent(All_IngredientList.this,PlatCreator.class);
-
-
-                    default:break;
-                }
                 if(secondeActivite != null){
-                    secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
                     startActivity(secondeActivite);
                 }
 
@@ -79,7 +69,7 @@ public class All_IngredientList extends ActivitySaveOnClose {
     }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.ALL_INGREDIENT;
     }
 

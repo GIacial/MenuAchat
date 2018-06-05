@@ -1,7 +1,8 @@
-package merejy.menuachat.ui.Activity;
+package merejy.menuachat.ui.Activity.Ingredient;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +16,8 @@ import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.database.Database;
 import merejy.menuachat.database.Materiaux;
 import merejy.menuachat.kernel.Needing.NeedingList;
+import merejy.menuachat.ui.Activity.Abstract.ActivitySaveOnClose;
+import merejy.menuachat.ui.Activity.ToActivity;
 
 public class IngredientCreator extends ActivitySaveOnClose {
 
@@ -56,20 +59,32 @@ public class IngredientCreator extends ActivitySaveOnClose {
                     Toast.makeText(IngredientCreator.this,R.string.error_Name_notWrite_ingredient,Toast.LENGTH_LONG).show();
                 }
 
-                Intent secondeActivite =  new Intent(IngredientCreator.this,All_IngredientList.class);
-
-                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
-                startActivity(secondeActivite);
+                Intent secondeActivite =  ToActivity.getIntentToGoTo(IngredientCreator.this,ToActivity.ALL_INGREDIENT);
+                if(secondeActivite != null){
+                    startActivity(secondeActivite);
+                }
             }
         });
 
-        cat.setAdapter(new ArrayAdapter<CategorieIngredient>(this,R.layout.support_simple_spinner_dropdown_item,CategorieIngredient.values()));
+        cat.setAdapter(new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,CategorieIngredient.values()));
 
-        materiaux.setAdapter(new ArrayAdapter<Object>(this,R.layout.support_simple_spinner_dropdown_item,Database.getDatabase().getAllMateriaux().toArray()));
+        materiaux.setAdapter(new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,Database.getDatabase().getAllMateriaux().toArray()));
+
+        FloatingActionButton ajouteMateriaux = findViewById(R.id.creeMateriaux);
+        ajouteMateriaux.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent secondAct = ToActivity.getIntentToGoTo(IngredientCreator.this,ToActivity.MATERIAUX_CREATOR);
+                if(secondAct != null){
+                    startActivity(secondAct);
+                }
+            }
+        });
+
     }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.INGREDIENT_CREATOR;
     }
 }
