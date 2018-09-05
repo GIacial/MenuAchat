@@ -19,6 +19,7 @@ import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.kernel.ColorManager;
 import merejy.menuachat.kernel.Needing.NeedingList;
 import merejy.menuachat.kernel.Needing.NeedingIngredient.InterfaceNeedingIngredient;
+import merejy.menuachat.ui.Button.TakingIngredientButton;
 import merejy.menuachat.ui.Popup.Module.NumberModule.Reel.SetIngredientPriceModule;
 import merejy.menuachat.ui.Popup.Module.QuestionModule.RemoveNeedingIngedientModule;
 import merejy.menuachat.ui.Popup.QuestionPopup;
@@ -39,8 +40,7 @@ public class NeedingIngredientAdapter extends RecyclerView.Adapter<NeedingIngred
         private TextView produitName;
         private TextView prix;
         private TextView categorie;
-        private CheckBox take;
-        private CheckBox atHome;
+        private TakingIngredientButton take;
         private TextView quantite;
         private LinearLayout v;
 
@@ -54,18 +54,11 @@ public class NeedingIngredientAdapter extends RecyclerView.Adapter<NeedingIngred
             this.prix.setPadding(10,10,10,10);
             this.categorie = new TextView(v.getContext());
             this.categorie.setPadding(10,10,10,10);
-            this.take = new CheckBox(v.getContext());
-            this.take.setChecked(false);
-            this.take.setClickable(true);
+            this.take = new TakingIngredientButton(v.getContext());
             this.take.setPadding(10,10,10,10);
-            this.atHome = new CheckBox(v.getContext());
-            this.atHome.setClickable(true);
-            this.atHome.setChecked(false);
-            this.atHome.setPadding(10,10,10,10);
             this.quantite = new TextView(v.getContext());
             this.quantite.setPadding(10,10,10,10);
             v.addView(take,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-            v.addView(atHome,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
             v.addView(categorie,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
             v.addView(produitName,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
             v.addView(quantite,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
@@ -115,8 +108,7 @@ public class NeedingIngredientAdapter extends RecyclerView.Adapter<NeedingIngred
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         //ici on mets a jour les info des composant du Holder
-        holder.take.setChecked(list.get(position).isTake());
-        holder.atHome.setChecked(list.get(position).isAtHome());
+        holder.take.setState(list.get(position));
         holder.produitName.setText(list.get(position).getNom());
         holder.prix.setText(priceFormat.format(list.get(position).getPrix(NeedingList.getNeeding().getCurrentMag())));
         holder.prix.setOnClickListener(new View.OnClickListener() {
@@ -134,19 +126,13 @@ public class NeedingIngredientAdapter extends RecyclerView.Adapter<NeedingIngred
         holder.take.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                list.get(position).setTake(!list.get(position).isTake());
+                holder.take.nextState();
+                list.get(position).setTake(holder.take.getTake());
+                list.get(position).setAtHome(holder.take.getAlreadyHave());
                 listTotalPrix.setText(priceFormat.format(NeedingList.getNeeding().getTotal()));
-                holder.take.setChecked(list.get(position).isTake());
             }
         });
 
-        holder.atHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                list.get(position).setAtHome(!list.get(position).isAtHome());
-                holder.atHome.setChecked(list.get(position).isAtHome());
-            }
-        });
         holder.v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
