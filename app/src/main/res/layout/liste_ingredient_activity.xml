@@ -8,20 +8,17 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:id="@+id/scrollPane">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:id="@+id/mainLayout"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="top"
@@ -81,16 +78,24 @@
                 android:textAllCaps="true"
                 android:textSize="8dp"/>
         </LinearLayout>
-
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_weight="8"
+            android:fillViewport="true"
+            android:id="@+id/scrollPane">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/ingredientList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="@string/layout_weigth_one" />
+
+        </ScrollView>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
             android:layout_weight="@string/layout_weigth_one"
+
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -135,7 +140,6 @@
             />
 
     </LinearLayout>
-    </ScrollView>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/IngredientAjout"
         android:layout_width="wrap_content"
@@ -143,8 +147,8 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="10dp"
         android:clickable="true"
-        android:layout_alignEnd="@+id/scrollPane"
-        android:layout_alignBottom="@+id/scrollPane"
+        android:layout_alignEnd = "@+id/mainLayout"
+        android:layout_alignBottom="@+id/mainLayout"
         app:srcCompat="@android:drawable/ic_input_add" />
 </RelativeLayout>
 
