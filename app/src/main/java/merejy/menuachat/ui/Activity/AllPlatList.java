@@ -33,8 +33,8 @@ public class AllPlatList extends ActivitySaveOnClose {
         listUi.setAdapter(new ChoicePlatAdapter(d.getAllPlat(), this));
 
         //butoon
-        FloatingActionButton p = findViewById(R.id.platAjoutDatabase);
-        p.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton ajouterPlat = findViewById(R.id.platAjoutDatabase);
+        ajouterPlat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent secondeActivite =  new Intent(AllPlatList.this,PlatCreator.class);

@@ -18,6 +18,8 @@ import merejy.menuachat.kernel.Needing.NeedingList;
 import merejy.menuachat.kernel.Needing.NeedingPlat.NeedingPlat;
 import merejy.menuachat.ui.Activity.AllPlatList;
 import merejy.menuachat.ui.Activity.ListePlatActivity;
+import merejy.menuachat.ui.Popup.Module.QuestionModule.SelectedPlatQuestionModule;
+import merejy.menuachat.ui.Popup.QuestionPopup;
 
 public class ChoicePlatAdapter  extends RecyclerView.Adapter<ChoicePlatAdapter.ViewHolder> {
     private List<Plat> list;
@@ -88,11 +90,7 @@ public class ChoicePlatAdapter  extends RecyclerView.Adapter<ChoicePlatAdapter.V
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NeedingList.getNeeding().add(new NeedingPlat(list.get(position)));
-                Intent secondeActivite = new Intent(activity,ListePlatActivity.class);
-
-                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
-                activity.startActivity(secondeActivite);
+                QuestionPopup.showDialog(activity,new SelectedPlatQuestionModule(list.get(position),activity));
             }
         });
     }
