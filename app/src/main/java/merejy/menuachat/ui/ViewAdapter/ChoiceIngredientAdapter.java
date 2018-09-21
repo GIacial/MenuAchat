@@ -39,8 +39,8 @@ public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredi
             this.produitName.setPadding(10,10,10,10);
             this.categorie = new TextView(v.getContext());
             this.categorie.setPadding(10,10,10,10);
-            v.addView(categorie,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-            v.addView(produitName,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
+            v.addView(categorie,new LinearLayout.LayoutParams(10, ViewGroup.LayoutParams.WRAP_CONTENT,1));
+            v.addView(produitName,new LinearLayout.LayoutParams(10, ViewGroup.LayoutParams.WRAP_CONTENT,2));
         }
     }
 

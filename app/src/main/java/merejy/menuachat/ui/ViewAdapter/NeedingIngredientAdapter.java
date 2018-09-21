@@ -50,6 +50,7 @@ public class NeedingIngredientAdapter extends RecyclerView.Adapter<NeedingIngred
             v.setPadding(10,10,10,10);
             this.produitName = new TextView(v.getContext());
             this.produitName.setPadding(10,10,10,10);
+            this.produitName.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
             this.prix = new TextView(v.getContext());
             this.prix.setPadding(10,10,10,10);
             this.categorie = new TextView(v.getContext());
@@ -58,11 +59,11 @@ public class NeedingIngredientAdapter extends RecyclerView.Adapter<NeedingIngred
             this.take.setPadding(10,10,10,10);
             this.quantite = new TextView(v.getContext());
             this.quantite.setPadding(10,10,10,10);
-            v.addView(take,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-            v.addView(categorie,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-            v.addView(produitName,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-            v.addView(quantite,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
-            v.addView(prix,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,1));
+            v.addView(take,new LinearLayout.LayoutParams(10, ViewGroup.LayoutParams.WRAP_CONTENT,10));
+            v.addView(categorie,new LinearLayout.LayoutParams(20, ViewGroup.LayoutParams.WRAP_CONTENT,20));
+            v.addView(produitName,new LinearLayout.LayoutParams(40, ViewGroup.LayoutParams.WRAP_CONTENT,40));
+            v.addView(quantite,new LinearLayout.LayoutParams(10, ViewGroup.LayoutParams.WRAP_CONTENT,10));
+            v.addView(prix,new LinearLayout.LayoutParams(20, ViewGroup.LayoutParams.WRAP_CONTENT,20));
         }
     }
 
