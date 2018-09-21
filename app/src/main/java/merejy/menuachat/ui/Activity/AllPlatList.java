@@ -12,7 +12,7 @@ import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
 import merejy.menuachat.ui.ViewAdapter.ChoicePlatAdapter;
 
-public class AllPlatList extends ActivitySaveOnClose {
+public class AllPlatList extends AbstractActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +60,7 @@ public class AllPlatList extends ActivitySaveOnClose {
     }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.ALL_PLAT;
     }
 }

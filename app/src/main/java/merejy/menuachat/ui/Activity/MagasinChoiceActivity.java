@@ -15,7 +15,7 @@ import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
 import merejy.menuachat.kernel.Needing.NeedingList;
 
-public class MagasinChoiceActivity extends ActivitySaveOnClose {
+public class MagasinChoiceActivity extends AbstractActivity {
 
     private boolean ok = false;
 
@@ -84,7 +84,7 @@ public class MagasinChoiceActivity extends ActivitySaveOnClose {
     }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.MAGASIN_CHOICE;
     }
 }

@@ -64,7 +64,7 @@ public class IngredientCreator extends ActivitySaveOnClose {
     }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.INGREDIENT_CREATOR;
     }
 }

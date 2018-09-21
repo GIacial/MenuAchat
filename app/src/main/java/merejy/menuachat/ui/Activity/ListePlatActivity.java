@@ -96,7 +96,7 @@ public class ListePlatActivity extends ActivitySaveOnClose {
     }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.LIST_PLAT;
     }
 }

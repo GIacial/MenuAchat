@@ -97,7 +97,7 @@ public class PlatCreator extends ActivitySaveOnClose {
         }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.PLAT_CREATOR;
     }
 }

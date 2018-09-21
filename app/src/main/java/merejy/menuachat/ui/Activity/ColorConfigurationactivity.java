@@ -48,7 +48,7 @@ public class ColorConfigurationactivity extends AbstractActivity {
     }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.COLOR_CONFIGURATOR;
     }
 

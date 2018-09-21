@@ -9,5 +9,8 @@
     <item
         android:id="@+id/magasinSelector"
         android:title="@string/text_choice_magasin"/>
+    <item
+        android:id="@+id/clearList"
+        android:title="@string/text_ClearList"/>
 
 </menu>

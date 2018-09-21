@@ -45,7 +45,7 @@ public class MagasinCreator extends ActivitySaveOnClose {
     }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.MAGASIN_CREATOR;
     }
 

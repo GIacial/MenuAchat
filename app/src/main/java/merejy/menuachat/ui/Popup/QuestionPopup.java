@@ -70,5 +70,11 @@ public class QuestionPopup extends DialogFragment {
         // Create the AlertDialog object and return it
         return builder.create();
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        QuestionPopup.module = null;
+    }
 }
 

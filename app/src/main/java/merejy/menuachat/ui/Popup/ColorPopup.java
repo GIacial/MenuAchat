@@ -105,4 +105,10 @@ public class ColorPopup extends DialogFragment {
         // Create the AlertDialog object and return it
         return builder.create();
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ColorPopup.module = null;
+    }
 }

@@ -33,6 +33,7 @@
     <string name="text_question_prix">Quel est le prix de cette ingrédient ?</string>
     <string name="text_question_supplements">Quel est le prix du suppléments à ajouter ?</string>
     <string name="text_dejaMaison">En stock</string>
+    <string name="text_ClearList">Vider la liste</string>
 
 
     <string name="colorSelectorMinValue">0</string>

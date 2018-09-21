@@ -12,7 +12,7 @@ import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
 import merejy.menuachat.ui.ViewAdapter.ChoiceIngredientAdapter;
 
-public class All_IngredientList extends ActivitySaveOnClose {
+public class All_IngredientList extends AbstractActivity {
 
     public static ToActivity target = null;
 
@@ -79,7 +79,7 @@ public class All_IngredientList extends ActivitySaveOnClose {
     }
 
     @Override
-    ToActivity getActivityEnum() {
+    public ToActivity getActivityEnum() {
         return ToActivity.ALL_INGREDIENT;
     }
 

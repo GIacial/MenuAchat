@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import merejy.menuachat.R;
 import merejy.menuachat.kernel.ColorManager;
+import merejy.menuachat.kernel.Needing.NeedingList;
+import merejy.menuachat.ui.Popup.Module.QuestionModule.ClearListQuestionModule;
+import merejy.menuachat.ui.Popup.QuestionPopup;
 
 abstract public class AbstractActivity extends AppCompatActivity {
 
@@ -44,19 +47,20 @@ abstract public class AbstractActivity extends AppCompatActivity {
             Intent home = null;
             switch (item.getItemId()) {
                 case R.id.colorCongigurateur:
-                    home = ToActivity.getIntentToGoTo(this,ToActivity.COLOR_CONFIGURATOR);
+                    home = ToActivity.getIntentToGoTo(this, ToActivity.COLOR_CONFIGURATOR);
                     break;
                 case R.id.magasinSelector:
-                    home = ToActivity.getIntentToGoTo(this,ToActivity.MAGASIN_CHOICE);
+                    home = ToActivity.getIntentToGoTo(this, ToActivity.MAGASIN_CHOICE);
                     break;
-
+                case R.id.clearList:
+                    QuestionPopup.showDialog(this, new ClearListQuestionModule(this));
+                    break;
                 default:
-                    Toast.makeText(this,"Menu Inutile",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Menu Inutile", Toast.LENGTH_SHORT).show();
                     break;
 
             }
             if( home != null){
-                home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(home);
                 return true;
             }
@@ -64,5 +68,5 @@ abstract public class AbstractActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    abstract ToActivity getActivityEnum();
+    public abstract ToActivity getActivityEnum();
 }
