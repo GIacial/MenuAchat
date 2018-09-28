@@ -45,6 +45,7 @@ public class NeedingList implements Serializable {
     public void clear(){
         this.plats.clear();
         this.ingredients.clear();
+        this.resetSupplements();
     }
 
     public void add(NeedingPlat p){
