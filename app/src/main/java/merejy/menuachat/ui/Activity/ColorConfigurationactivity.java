@@ -40,7 +40,6 @@ public class ColorConfigurationactivity extends AbstractActivity {
             public void onClick(View v) {
                 Intent secondActivity = ToActivity.getIntentToGoTo(ColorConfigurationactivity.this,ColorConfigurationactivity.nextActivity);
                 if(secondActivity != null){
-                    secondActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(secondActivity);
                 }
             }

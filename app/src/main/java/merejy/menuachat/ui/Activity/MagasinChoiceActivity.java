@@ -61,10 +61,10 @@ public class MagasinChoiceActivity extends AbstractActivity {
             public void onClick(View v) {
                 if(ok){
                     NeedingList.getNeeding().setCurrentMag(d.getMagasin(magasin.getSelectedItem().toString(),lieu.getSelectedItem().toString()));
-                    Intent secondeActivite =  new Intent(MagasinChoiceActivity.this,ListePlatActivity.class);
-
-                    secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
-                    startActivity(secondeActivite);
+                    Intent secondeActivite =  ToActivity.getIntentToGoTo(MagasinChoiceActivity.this,ToActivity.LIST_INGREDIENT);
+                    if(secondeActivite != null){
+                        startActivity(secondeActivite);
+                    }
                 }
 
             }
@@ -73,10 +73,10 @@ public class MagasinChoiceActivity extends AbstractActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent secondeActivite =  new Intent(MagasinChoiceActivity.this,MagasinCreator.class);
-
-                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
-                startActivity(secondeActivite);
+                Intent secondeActivite =  ToActivity.getIntentToGoTo(MagasinChoiceActivity.this,ToActivity.MAGASIN_CREATOR);
+                if(secondeActivite != null){
+                    startActivity(secondeActivite);
+                }
             }
         });
 

@@ -49,6 +49,9 @@ public enum ToActivity {
                 Toast.makeText(activity,"L'activité de retour est incorrect",Toast.LENGTH_SHORT).show();
                 break;
         }
+        if(secondActivity != null){
+            secondActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        }
         return  secondActivity;
     }
 }
