@@ -20,6 +20,8 @@ public enum CategorieIngredient  implements Serializable {
         PAIN,
         POISSON,
         PRODUIT_LAITIER,
+        SALADE,
+        SNACK,
         SURGELE,
         VIANDE ,
         AUTRES

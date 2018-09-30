@@ -100,13 +100,29 @@
 
         </LinearLayout>
 
+
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ingredientListForPlat"
             android:layout_weight="@string/layout_weigth_one"
             />
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="@string/layout_weigth_one"
+                android:text="@string/text_Accompagnement"/>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_weight="@string/layout_weigth_one"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkAccompagnement"/>
+        </LinearLayout>
 
         <Button
             android:layout_width="match_parent"

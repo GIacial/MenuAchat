@@ -16,12 +16,26 @@ import merejy.menuachat.kernel.Needing.NeedingIngredient.NeedingIngredient;
 public class NeedingPlat implements Serializable{
 
     private Plat plat;
+    private Plat accompagnement;
     private HashMap<String,NeedingIngredient> needingIngredients;
 
-    public NeedingPlat(Plat p){
-        this.plat = p;
+    public  NeedingPlat(Plat plat , Plat accompagnement){
+        this.plat = plat;
+        this.accompagnement = accompagnement;
         this.needingIngredients = new HashMap<>();
-        for(Ingredient i : p.getIngredients()){
+        this.createNeedingIngredientList(plat);
+        if(accompagnement != null){
+            this.createNeedingIngredientList(accompagnement);
+        }
+    }
+
+
+    public NeedingPlat(Plat p){
+        this(p,null);
+    }
+
+    private void createNeedingIngredientList(Plat plat){
+        for(Ingredient i : plat.getIngredients()){
             if(needingIngredients.containsKey(i.getNom())){
                 needingIngredients.get(i.getNom()).addQuantite(1);
             }
@@ -64,11 +78,19 @@ public class NeedingPlat implements Serializable{
     }
 
     public String getNom(){
-        return this.plat.getNom();
+        String nomPlat = this.plat.getNom();
+        if(accompagnement != null){
+            nomPlat += " + " + accompagnement.getNom();
+        }
+        return nomPlat;
     }
 
     public  double getPrix(Magasin m){
-        return this.plat.getPrix(m);
+        double prix = this.plat.getPrix(m);
+        if(accompagnement != null){
+            prix += accompagnement.getPrix(m);
+        }
+        return prix;
     }
 
     public double getCurrentIngredientTakePrice(Magasin m){

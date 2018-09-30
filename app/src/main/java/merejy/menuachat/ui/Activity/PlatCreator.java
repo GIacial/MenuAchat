@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -42,8 +43,9 @@ public class PlatCreator extends ActivitySaveOnClose {
         Button comfirmer = findViewById(R.id.button_comfimer_creator_Plat);
         RecyclerView ingredient = findViewById(R.id.ingredientListForPlat);
         FloatingActionButton addIngredient = findViewById(R.id.IngredientAjoutPlat);
+        final CheckBox accompagnement = findViewById(R.id.checkAccompagnement);//Recup CheckBox accompagnement
 
-        //nom
+                //nom
         nom.setText(PlatCreator.nom);
 
         //spinner
@@ -59,13 +61,16 @@ public class PlatCreator extends ActivitySaveOnClose {
         ingredient.setLayoutManager(new LinearLayoutManager(this));
         //mets un adapter
         ingredient.setAdapter(new IngredientListAdapter(need));
+
+
+
         //button
         comfirmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!nom.getText().toString().equals("") && need.size() > 0){
                     try {
-                        Database.getDatabase().addPlat(nom.getText().toString(),(CategoriePlats) cat.getSelectedItem(),need);
+                        Database.getDatabase().addPlat(nom.getText().toString(),(CategoriePlats) cat.getSelectedItem(),need,accompagnement.isChecked());
                     } catch (ItemAlreadyExist itemAlreadyExist) {
                         Toast.makeText(PlatCreator.this,R.string.error_PlatExistant,Toast.LENGTH_LONG).show();
                     }

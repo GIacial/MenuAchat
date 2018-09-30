@@ -63,9 +63,9 @@ public class Database  implements Serializable {
         }
     }
 
-    public void addPlat(String nom , CategoriePlats cat , List<Ingredient> i) throws ItemAlreadyExist{     //ajoute un plat
+    public void addPlat(String nom , CategoriePlats cat , List<Ingredient> i,boolean accompagner) throws ItemAlreadyExist{     //ajoute un plat
         if(!plats.containsKey(nom)){
-            this.plats.put(nom,new Plat(nom, cat, i));
+            this.plats.put(nom,new Plat(nom, cat, i,accompagner));
         }
         else{
             throw new ItemAlreadyExist();
