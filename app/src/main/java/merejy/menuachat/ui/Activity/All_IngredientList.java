@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
+import merejy.menuachat.ui.ViewAdapter.ChoiceInSortedIngredientListAdapter;
 import merejy.menuachat.ui.ViewAdapter.ChoiceIngredientAdapter;
 
 public class All_IngredientList extends AbstractActivity {
@@ -29,13 +30,12 @@ public class All_IngredientList extends AbstractActivity {
         RecyclerView listUi = findViewById(R.id.ingredientListAll);
 
         // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        listUi.setHasFixedSize(true);
 
         // use a linear layout manager
         listUi.setLayoutManager(new LinearLayoutManager(this));
         //mets un adapter
-        listUi.setAdapter(new ChoiceIngredientAdapter(n.getAllIngredient(),this));
+        listUi.setAdapter(new ChoiceInSortedIngredientListAdapter(n.getAllIngredient(),this));
+        //listUi.setAdapter(new ChoiceIngredientAdapter(n.getAllIngredient(),this));
 
         //butoon
         FloatingActionButton p = findViewById(R.id.IngredientAjoutDatabase);
