@@ -2,6 +2,7 @@ package merejy.menuachat.ui.Popup.Module.NumberModule.Reel;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -50,5 +51,10 @@ public class SetIngredientPriceModule implements ReelNumberPopupModule {
     @Override
     public String getQuestion() {
         return activity.getResources().getString(R.string.text_question_prix);
+    }
+
+    @Override
+    public void configLayout(View layout) {
+
     }
 }

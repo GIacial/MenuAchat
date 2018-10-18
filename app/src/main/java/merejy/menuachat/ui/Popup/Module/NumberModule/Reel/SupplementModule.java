@@ -1,5 +1,8 @@
 package merejy.menuachat.ui.Popup.Module.NumberModule.Reel;
 
+import android.text.InputType;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -44,5 +47,12 @@ public class SupplementModule implements ReelNumberPopupModule {
     @Override
     public String getQuestion() {
         return text_supplments.getContext().getResources().getString(R.string.text_question_supplements);
+    }
+
+    @Override
+    public void configLayout(View layout) {
+
+        final EditText prix = layout.findViewById(R.id.popup_priceEditor);
+        prix.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
     }
 }

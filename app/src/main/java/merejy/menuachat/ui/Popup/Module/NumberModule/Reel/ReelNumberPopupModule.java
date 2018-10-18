@@ -1,5 +1,7 @@
 package merejy.menuachat.ui.Popup.Module.NumberModule.Reel;
 
+import android.view.View;
+
 public interface ReelNumberPopupModule {
 
     Runnable getMethodOnComfirm(double val);
@@ -7,4 +9,6 @@ public interface ReelNumberPopupModule {
     Runnable getMethodOnAnuller();
 
     String getQuestion();
+
+    void configLayout(View layout);
 }

@@ -134,9 +134,6 @@ public class NeedingList implements Serializable {
 
     public  void addSupplements(double supplements){
         this.supplements += supplements;
-        if(supplements < 0){
-            supplements = 0;
-        }
     }
 
     public  double getSupplements (){

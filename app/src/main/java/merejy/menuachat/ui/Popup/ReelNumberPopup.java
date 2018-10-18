@@ -40,6 +40,7 @@ public class ReelNumberPopup extends DialogFragment {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         View layout = inflater.inflate(R.layout.popup_prix, null);
+        module.configLayout(layout);
         final EditText prix = layout.findViewById(R.id.popup_priceEditor);
 
 
