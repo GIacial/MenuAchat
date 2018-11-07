@@ -2,6 +2,7 @@ package merejy.menuachat.kernel;
 
 import android.app.Activity;
 import android.app.admin.DeviceAdminInfo;
+import android.graphics.Color;
 import android.os.Environment;
 
 import java.io.File;
@@ -141,11 +142,18 @@ public class ColorManager implements Serializable {
     }
 
     private int getPriceColorInst(PriceComparator priceComparator){
-        return this.priceColor.get(priceComparator);
+        if(priceColor.containsKey(priceComparator)){
+
+            return this.priceColor.get(priceComparator);
+        }
+        return 0;
     }
 
     private int getIngredientColorInst(CategorieIngredient categorieIngredient){
-        return this.ingredientCategorieColor.get(categorieIngredient);
+        if(ingredientCategorieColor.containsKey(categorieIngredient)) {
+            return this.ingredientCategorieColor.get(categorieIngredient);
+        }
+        return 0;
     }
 
     private void setColorInst(CategorieIngredient categorieIngredient , int color){
