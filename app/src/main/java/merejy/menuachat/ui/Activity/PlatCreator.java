@@ -32,6 +32,9 @@ public class PlatCreator extends ActivitySaveOnClose {
     public static void  addIngredient(Ingredient i){
         need.add(i);
     }
+    public static void  deleteIngredient(Ingredient i) {
+        need.remove(i);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +55,11 @@ public class PlatCreator extends ActivitySaveOnClose {
         cat.setAdapter(new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item, CategoriePlats.values()));
         cat.setSelection(PlatCreator.catego);
 
-        //recycler
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        ingredient.setHasFixedSize(true);
 
         // use a linear layout manager
         ingredient.setLayoutManager(new LinearLayoutManager(this));
         //mets un adapter
-        ingredient.setAdapter(new IngredientListAdapter(need));
+        ingredient.setAdapter(new IngredientListAdapter(need,this));
 
 
 

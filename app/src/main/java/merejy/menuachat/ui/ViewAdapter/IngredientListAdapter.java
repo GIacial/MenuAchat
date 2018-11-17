@@ -1,6 +1,8 @@
 package merejy.menuachat.ui.ViewAdapter;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,9 +15,13 @@ import java.util.List;
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.kernel.Needing.NeedingList;
+import merejy.menuachat.ui.Activity.PlatCreator;
+import merejy.menuachat.ui.Popup.Module.QuestionModule.RemoveIngredientPlatModule;
+import merejy.menuachat.ui.Popup.QuestionPopup;
 
 public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.ViewHolder> {
     private List<Ingredient> list;
+    private Activity activity;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -44,8 +50,9 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
 
     // Provide a suitable constructor (depends on the kind of dataset)
 
-    public IngredientListAdapter(Collection<Ingredient> myDataset ) {
+    public IngredientListAdapter(Collection<Ingredient> myDataset , Activity activity ) {
         list = trie(myDataset.iterator());
+        this.activity = activity;
 
     }
 
@@ -84,6 +91,12 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         holder.produitName.setText(list.get(position).getNom());
         holder.prix.setText(list.get(position).getPrix(NeedingList.getNeeding().getCurrentMag())+"");
         holder.categorie.setText(list.get(position).getCategorie().toString());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QuestionPopup.showDialog(activity ,new RemoveIngredientPlatModule(activity,IngredientListAdapter.this,list.get(position),list));
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
