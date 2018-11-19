@@ -155,6 +155,7 @@ public class NeedingList implements Serializable {
     private final static String saveTag_quantite = "Quantité";
     private final static String saveTag_nomPlat = "Nom";
     private final static String saveTag_plat = "Plats";
+    private final static String saveTag_platAccompagnement = "Accompagnement";
 
     public static NeedingList getNeeding(){
         if(n == null){
@@ -189,7 +190,13 @@ public class NeedingList implements Serializable {
                 for(NeedingPlat p : n.plats){
                     //save des plats
                     writer.beginObject();
-                    writer.name(saveTag_nomPlat).value(p.getNom());
+                    if(p.isAccomppagner()){
+                        writer.name(saveTag_nomPlat).value(p.getPrincipalName());
+                        writer.name(saveTag_platAccompagnement).value(p.getAccompagnementName());
+                    }
+                    else{
+                        writer.name(saveTag_nomPlat).value(p.getNom());
+                    }
                     writer.endObject();
                 }
                 writer.endArray();//fin plats
@@ -248,14 +255,18 @@ public class NeedingList implements Serializable {
                                 //load des plats
                                 reader.beginObject();
                                 Plat plat = null;
+                                Plat accompagnement = null;
                                 while (reader.hasNext()){
                                     String name2 = reader.nextName();
-                                    if(name2.equals(saveTag_nomPlat)){
-                                        plat =  Database.getDatabase().getPlat(reader.nextString());
+                                    switch (name2){
+                                        case saveTag_nomPlat : plat =  Database.getDatabase().getPlat(reader.nextString());
+                                            break;
+                                        case saveTag_platAccompagnement: accompagnement =  Database.getDatabase().getPlat(reader.nextString());
+                                            break;
                                     }
                                 }
                                 if(plat != null){
-                                    NeedingPlat needingPlat = new NeedingPlat(plat);
+                                    NeedingPlat needingPlat = new NeedingPlat(plat , accompagnement);
                                     n.add(needingPlat);
                                 }
                                 reader.endObject();

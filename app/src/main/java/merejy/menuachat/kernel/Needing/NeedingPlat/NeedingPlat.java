@@ -13,7 +13,7 @@ import merejy.menuachat.kernel.Needing.NeedingIngredient.NeedingIngredient;
  * Created by Jeremy on 22/04/2018.
  */
 
-public class NeedingPlat implements Serializable{
+public class NeedingPlat {
 
     private Plat plat;
     private Plat accompagnement;
@@ -104,6 +104,21 @@ public class NeedingPlat implements Serializable{
             }
         }
         return res;
+    }
+
+    public boolean isAccomppagner(){
+        return this.plat.isAccompagner();
+    }
+
+    public  String getPrincipalName(){
+        return  plat.getNom();
+    }
+
+    public  String getAccompagnementName(){
+        if(accompagnement != null){
+            return accompagnement.getNom();
+        }
+        return "";
     }
 
 }
