@@ -156,6 +156,10 @@ public class NeedingList implements Serializable {
     private final static String saveTag_nomPlat = "Nom";
     private final static String saveTag_plat = "Plats";
     private final static String saveTag_platAccompagnement = "Accompagnement";
+    private final static String saveTag_atHome = "AtHomeState";
+    private final static String saveTag_isTake = "isTakeState";
+    private final static String saveTag_IngredientStateList = "ingredientListState";
+    private final static String saveTag_IngredientState = "ingredientState";
 
     public static NeedingList getNeeding(){
         if(n == null){
@@ -183,6 +187,14 @@ public class NeedingList implements Serializable {
                     writer.beginObject();
                     writer.name(saveTag_nomIngredient).value(i.getNom());
                     writer.name(saveTag_quantite).value(i.getQuantite());
+                    if(i.isAtHome()){
+                        writer.name(saveTag_atHome).value(i.isAtHome());
+                    }
+                    else{
+                        if(i.isTake()){
+                            writer.name(saveTag_isTake).value(i.isTake());
+                        }
+                    }
                     writer.endObject();
                 }
                 writer.endArray();//fin ingredient
@@ -197,6 +209,17 @@ public class NeedingList implements Serializable {
                     else{
                         writer.name(saveTag_nomPlat).value(p.getNom());
                     }
+
+                    writer.name(saveTag_IngredientStateList).beginArray();
+                    for( NeedingIngredient ni : p.getNeedingIngredients().values()){
+                        writer.beginObject();
+                        writer.name(saveTag_ingredient).value(ni.getNom());
+                        writer.name(saveTag_IngredientState).value(NeedingState.getConfigNeeding(ni).toString());
+                        writer.endObject();
+                    }
+                    writer.endArray();
+
+
                     writer.endObject();
                 }
                 writer.endArray();//fin plats
@@ -229,18 +252,31 @@ public class NeedingList implements Serializable {
                                 reader.beginObject();
                                 Ingredient ingredient = null;
                                 int quantite = 0;
+                                boolean isTake = false;
+                                boolean atHome = false;
                                 while(reader.hasNext()){
                                     String name2 = reader.nextName();
-                                    if(name2.equals(saveTag_nomIngredient)){
-                                        ingredient = Database.getDatabase().getIngredient(reader.nextString());
+                                    switch (name2){
+                                        case saveTag_nomIngredient :
+                                            ingredient = Database.getDatabase().getIngredient(reader.nextString());
+                                            break;
+                                        case saveTag_quantite :
+                                            quantite = reader.nextInt();
+                                            break;
+                                        case saveTag_atHome: atHome = reader.nextBoolean();
+                                            break;
+                                        case  saveTag_isTake: isTake = reader.nextBoolean();
+                                            break;
+                                        default: System.err.println(name2 + "n'est pas connu");
+
                                     }
-                                    else if( name2.equals(saveTag_quantite)){
-                                        quantite = reader.nextInt();
-                                    }
+
                                 }
                                if(quantite != 0 && ingredient != null){
                                     NeedingIngredient needingIngredient = new NeedingIngredient(ingredient);
                                    needingIngredient.addQuantite(quantite-1);
+                                   needingIngredient.setAtHome(atHome);
+                                   needingIngredient.setTake(isTake);
                                     n.add(needingIngredient);
                                }
                                reader.endObject();
@@ -256,6 +292,7 @@ public class NeedingList implements Serializable {
                                 reader.beginObject();
                                 Plat plat = null;
                                 Plat accompagnement = null;
+                                HashMap<String,NeedingState> isTake = new HashMap<>();
                                 while (reader.hasNext()){
                                     String name2 = reader.nextName();
                                     switch (name2){
@@ -263,10 +300,39 @@ public class NeedingList implements Serializable {
                                             break;
                                         case saveTag_platAccompagnement: accompagnement =  Database.getDatabase().getPlat(reader.nextString());
                                             break;
+                                        case  saveTag_IngredientStateList:
+                                            reader.beginArray();
+                                            while (reader.hasNext()){
+                                                reader.beginObject();
+                                                String nomIngredient = null;
+                                                NeedingState needingState = NeedingState.NEEDING_STATE_NONE;
+                                                while (reader.hasNext()){
+                                                    String name3 = reader.nextName();
+                                                    switch (name3){
+                                                        case saveTag_ingredient : nomIngredient = reader.nextString();
+                                                            break;
+                                                        case saveTag_IngredientState: try {
+                                                            needingState = NeedingState.valueOf(reader.nextString());
+                                                        }
+                                                        catch (IllegalArgumentException e){
+                                                            System.err.println(e);
+                                                        }
+                                                            break;
+                                                            default:break;
+                                                    }
+                                                }
+                                                reader.endObject();
+                                                if(nomIngredient != null){
+                                                    isTake.put(nomIngredient,needingState);
+                                                }
+                                            }
+                                            reader.endArray();
+                                            break;
+                                        default: System.err.println(name2 + "n'est pas connu");
                                     }
                                 }
                                 if(plat != null){
-                                    NeedingPlat needingPlat = new NeedingPlat(plat , accompagnement);
+                                    NeedingPlat needingPlat = new NeedingPlat(plat , accompagnement, isTake);
                                     n.add(needingPlat);
                                 }
                                 reader.endObject();

@@ -8,6 +8,7 @@ import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.database.Magasin;
 import merejy.menuachat.database.Plat;
 import merejy.menuachat.kernel.Needing.NeedingIngredient.NeedingIngredient;
+import merejy.menuachat.kernel.Needing.NeedingState;
 
 /**
  * Created by Jeremy on 22/04/2018.
@@ -19,28 +20,37 @@ public class NeedingPlat {
     private Plat accompagnement;
     private HashMap<String,NeedingIngredient> needingIngredients;
 
-    public  NeedingPlat(Plat plat , Plat accompagnement){
+    public  NeedingPlat(Plat plat , Plat accompagnement , HashMap<String,NeedingState> isTake){
         this.plat = plat;
         this.accompagnement = accompagnement;
         this.needingIngredients = new HashMap<>();
-        this.createNeedingIngredientList(plat);
+        this.createNeedingIngredientList(plat, isTake);
         if(accompagnement != null){
-            this.createNeedingIngredientList(accompagnement);
+            this.createNeedingIngredientList(accompagnement, isTake);
         }
     }
 
 
     public NeedingPlat(Plat p){
-        this(p,null);
+        this(p,null,new HashMap<String, NeedingState>());
     }
 
-    private void createNeedingIngredientList(Plat plat){
+
+    public NeedingPlat(Plat p, Plat accompagnement){
+        this(p,accompagnement,new HashMap<String, NeedingState>());
+    }
+
+    private void createNeedingIngredientList(Plat plat , HashMap<String,NeedingState> isTake){
         for(Ingredient i : plat.getIngredients()){
             if(needingIngredients.containsKey(i.getNom())){
                 needingIngredients.get(i.getNom()).addQuantite(1);
             }
             else{
-                needingIngredients.put(i.getNom(),new NeedingIngredient(i));
+                NeedingIngredient ni = new NeedingIngredient(i);
+                if(isTake.containsKey(ni.getNom())){
+                   NeedingState.configNeeding(ni,isTake.get(ni.getNom()));
+                }
+                needingIngredients.put(i.getNom(),ni);
             }
 
         }
