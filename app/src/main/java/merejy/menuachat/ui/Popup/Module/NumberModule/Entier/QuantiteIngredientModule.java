@@ -36,20 +36,17 @@ public class QuantiteIngredientModule implements EntierNumberPopupModule {
                 NeedingIngredient need = new NeedingIngredient(ingredient);
                 need.addQuantite(val-1);
 
-                Intent secondeActivite = null ;
+               // Intent secondeActivite = ToActivity.getIntentToGoTo(activity,target) ;
                 if(need.getQuantite() == 0){
                     Toast.makeText(activity, R.string.error_zeroQuantite,Toast.LENGTH_LONG).show();
                 }
                 switch (target){
                     case LIST_INGREDIENT :
-                        secondeActivite = new Intent(activity,ListeIngredientActivity.class);
                         if(need.getQuantite() != 0){
                             NeedingList.getNeeding().add(need);
                         }
                         break;
                     case PLAT_CREATOR:
-                        secondeActivite = new Intent(activity,PlatCreator.class);
-
                         for(int i = 0 ; i<val ; i++){
                             PlatCreator.addIngredient(ingredient);
                         }
@@ -57,10 +54,10 @@ public class QuantiteIngredientModule implements EntierNumberPopupModule {
                     default:break;
                 }
 
-                if(secondeActivite != null){
-                    secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
-                    activity.startActivity(secondeActivite);
-                }
+               // if(secondeActivite != null){
+                    Toast.makeText(activity,need.getQuantite()+" "+ingredient.getNom()+ activity.getResources().getString(R.string.text_Ajoutcomfirmer) ,Toast.LENGTH_SHORT).show();
+                   // activity.startActivity(secondeActivite);
+               // }
 
             }
         };
@@ -73,6 +70,6 @@ public class QuantiteIngredientModule implements EntierNumberPopupModule {
 
     @Override
     public String getQuestion() {
-        return activity.getResources().getString(R.string.text_questionQuantite);
+        return activity.getResources().getString(R.string.text_questionQuantite_1)+" "+ingredient.getNom()+" "+activity.getResources().getString(R.string.text_questionQuantite_2);
     }
 }

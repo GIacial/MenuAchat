@@ -53,21 +53,10 @@ public class All_IngredientList extends AbstractActivity {
         anuller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent secondeActivite = null ;
+                Intent secondeActivite = ToActivity.getIntentToGoTo(All_IngredientList.this,All_IngredientList.target) ;
 
-                switch (All_IngredientList.target){
-                    case LIST_INGREDIENT :
-                        secondeActivite = new Intent(All_IngredientList.this,ListeIngredientActivity.class);
-
-                        break;
-                    case PLAT_CREATOR:
-                        secondeActivite = new Intent(All_IngredientList.this,PlatCreator.class);
-
-
-                    default:break;
-                }
                 if(secondeActivite != null){
-                    secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
+
                     startActivity(secondeActivite);
                 }
 
