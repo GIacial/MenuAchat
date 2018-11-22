@@ -21,6 +21,7 @@ import merejy.menuachat.R;
 import merejy.menuachat.database.DataEnum.CategoriePlats;
 import merejy.menuachat.database.Database;
 import merejy.menuachat.database.Ingredient;
+import merejy.menuachat.database.Plat;
 import merejy.menuachat.ui.ViewAdapter.IngredientListAdapter;
 
 public class PlatCreator extends ActivitySaveOnClose {
@@ -28,6 +29,7 @@ public class PlatCreator extends ActivitySaveOnClose {
     static private List<Ingredient> need = new ArrayList<>();
     static private String nom = "";
     static private int catego = 0;
+    static private boolean accompagner = false;
 
     public static void  addIngredient(Ingredient i){
         need.add(i);
@@ -47,7 +49,7 @@ public class PlatCreator extends ActivitySaveOnClose {
         RecyclerView ingredient = findViewById(R.id.ingredientListForPlat);
         FloatingActionButton addIngredient = findViewById(R.id.IngredientAjoutPlat);
         final CheckBox accompagnement = findViewById(R.id.checkAccompagnement);//Recup CheckBox accompagnement
-
+        accompagnement.setChecked(accompagner);
                 //nom
         nom.setText(PlatCreator.nom);
 
@@ -80,21 +82,25 @@ public class PlatCreator extends ActivitySaveOnClose {
                 else {
                     Toast.makeText(PlatCreator.this,R.string.error_Plat_needNameOrIngredient,Toast.LENGTH_LONG).show();
                 }
-                Intent secondeActivite =  new Intent(PlatCreator.this,AllPlatList.class);
-                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
-                startActivity(secondeActivite);
+                Intent secondeActivite =  ToActivity.getIntentToGoTo(PlatCreator.this,ToActivity.ALL_PLAT);
+                if(secondeActivite != null){
+                    startActivity(secondeActivite);
+                }
             }
         });
 
         addIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent secondeActivite = new Intent(PlatCreator.this, All_IngredientList.class);
+                Intent secondeActivite = ToActivity.getIntentToGoTo(PlatCreator.this,ToActivity.ALL_INGREDIENT);
                 All_IngredientList.target = PlatCreator.this.getActivityEnum();
                 PlatCreator.nom = nom.getText().toString();
                 PlatCreator.catego = cat.getSelectedItemPosition();
-                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
-                startActivity(secondeActivite);
+                PlatCreator.accompagner = accompagnement.isChecked();
+
+                if(secondeActivite != null){
+                    startActivity(secondeActivite);
+                }
             }
         });
 
