@@ -40,6 +40,7 @@
     <string name="text_databsaeModifier">Modifier mes données</string>
     <string name="text_questionDatabaseModifier">En modifiant vos données , votre liste de course va être effacé.\n Voulez vous continuer ?</string>
 
+    <string name="text_regrouperParCategorie">Regrouper par categorie</string>
 
     <string name="colorSelectorMinValue">0</string>
     <string name="colorSelectorMaxValue">255</string>

@@ -23,6 +23,7 @@ import merejy.menuachat.R;
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.kernel.ColorManager;
+import merejy.menuachat.ui.Activity.AbstractActivity;
 import merejy.menuachat.ui.Activity.All_IngredientList;
 import merejy.menuachat.ui.Activity.IngredientCreator;
 import merejy.menuachat.ui.Button.OnClickListenerCreator.OnClickListenerCreator;
@@ -32,7 +33,7 @@ import merejy.menuachat.ui.Popup.Module.NumberModule.Entier.QuantiteIngredientMo
 public class ChoiceInSortedIngredientListAdapter extends RecyclerView.Adapter<ChoiceInSortedIngredientListAdapter.ViewHolder> {
     private List<List<Ingredient>> list;
     private List<AtomicBoolean> show;
-    private All_IngredientList activity;
+    private AbstractActivity activity;
     private OnClickListenerCreator<Ingredient> choiceAction;
 
     // Provide a reference to the views for each data item
@@ -53,7 +54,7 @@ public class ChoiceInSortedIngredientListAdapter extends RecyclerView.Adapter<Ch
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ChoiceInSortedIngredientListAdapter(Collection<Ingredient> myDataset, All_IngredientList activity , OnClickListenerCreator<Ingredient> choiceAction) {
+    public ChoiceInSortedIngredientListAdapter(Collection<Ingredient> myDataset, AbstractActivity activity , OnClickListenerCreator<Ingredient> choiceAction) {
         this.show = new ArrayList<>();
         list = trie(myDataset.iterator());
         this.activity = activity;
