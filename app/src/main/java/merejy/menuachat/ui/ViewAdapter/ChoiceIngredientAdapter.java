@@ -13,14 +13,17 @@ import java.util.List;
 
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.kernel.ColorManager;
+import merejy.menuachat.ui.Activity.AbstractActivity;
 import merejy.menuachat.ui.Activity.All_IngredientList;
 import merejy.menuachat.database.Ingredient;
+import merejy.menuachat.ui.Button.OnClickListenerCreator.OnClickListenerCreator;
 import merejy.menuachat.ui.Popup.EntierNumberPopUp;
 import merejy.menuachat.ui.Popup.Module.NumberModule.Entier.QuantiteIngredientModule;
 
-public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredientAdapter.ViewHolder> {
+public class ChoiceIngredientAdapter extends RecyclerView.Adapter<ChoiceIngredientAdapter.ViewHolder> {
     private List<Ingredient> list;
-    private All_IngredientList activity;
+    private AbstractActivity activity;
+    private OnClickListenerCreator<Ingredient> choiceAction;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -45,12 +48,10 @@ public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredi
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ChoiceIngredientAdapter(Collection<Ingredient> myDataset , All_IngredientList activity) {
+    public ChoiceIngredientAdapter(Collection<Ingredient> myDataset , AbstractActivity activity , OnClickListenerCreator<Ingredient> choiceAction) {
         list = trie(myDataset.iterator());
         this.activity = activity;
-
-
-
+        this.choiceAction = choiceAction;
     }
 
     private List<Ingredient> trie(Iterator<Ingredient> iterator){
@@ -72,7 +73,7 @@ public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredi
     // Create new views (invoked by the layout manager)
     @Override
     public ChoiceIngredientAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                           int viewType) {
+                                                                 int viewType) {
         // create a new view
         LinearLayout v = new LinearLayout(parent.getContext());
         v.setOrientation(LinearLayout.HORIZONTAL);
@@ -87,13 +88,7 @@ public class ChoiceIngredientAdapter  extends RecyclerView.Adapter<ChoiceIngredi
         //ici on mets a jour les info des composant du Holder
         holder.produitName.setText(list.get(position).getNom());
         holder.categorie.setText(list.get(position).getCategorie().toString());
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EntierNumberPopUp.showDialog(activity,new QuantiteIngredientModule(activity,All_IngredientList.target,list.get(position)));
-
-            }
-        });
+        holder.layout.setOnClickListener(choiceAction.createListener(list.get(position),activity));
         holder.itemView.setBackgroundColor(ColorManager.getIngredientColor(list.get(position).getCategorie()));
     }
 

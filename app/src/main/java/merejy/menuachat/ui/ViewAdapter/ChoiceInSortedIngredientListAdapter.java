@@ -25,6 +25,7 @@ import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.kernel.ColorManager;
 import merejy.menuachat.ui.Activity.All_IngredientList;
 import merejy.menuachat.ui.Activity.IngredientCreator;
+import merejy.menuachat.ui.Button.OnClickListenerCreator.OnClickListenerCreator;
 import merejy.menuachat.ui.Popup.EntierNumberPopUp;
 import merejy.menuachat.ui.Popup.Module.NumberModule.Entier.QuantiteIngredientModule;
 
@@ -32,6 +33,7 @@ public class ChoiceInSortedIngredientListAdapter extends RecyclerView.Adapter<Ch
     private List<List<Ingredient>> list;
     private List<AtomicBoolean> show;
     private All_IngredientList activity;
+    private OnClickListenerCreator<Ingredient> choiceAction;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -51,10 +53,11 @@ public class ChoiceInSortedIngredientListAdapter extends RecyclerView.Adapter<Ch
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ChoiceInSortedIngredientListAdapter(Collection<Ingredient> myDataset, All_IngredientList activity) {
+    public ChoiceInSortedIngredientListAdapter(Collection<Ingredient> myDataset, All_IngredientList activity , OnClickListenerCreator<Ingredient> choiceAction) {
         this.show = new ArrayList<>();
         list = trie(myDataset.iterator());
         this.activity = activity;
+        this.choiceAction = choiceAction;
 
 
     }
@@ -142,13 +145,7 @@ public class ChoiceInSortedIngredientListAdapter extends RecyclerView.Adapter<Ch
             final  Ingredient ingredient = list.get(numCat).get(list.get(numCat).size() + reelPosition);
             holder.categorie.setText(ingredient.getNom());
             holder.categorie.setGravity(Gravity.NO_GRAVITY);
-            holder.layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    EntierNumberPopUp.showDialog(activity,new QuantiteIngredientModule(activity,All_IngredientList.target,ingredient));
-
-                }
-            });
+            holder.layout.setOnClickListener(choiceAction.createListener(ingredient,activity));
             holder.itemView.setBackgroundColor(ColorManager.getIngredientColor(ingredient.getCategorie()));
         }
 

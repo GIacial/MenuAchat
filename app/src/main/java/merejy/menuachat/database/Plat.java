@@ -68,7 +68,12 @@ public class Plat implements Serializable{
         return nom.hashCode();
     }
 
-
+    public void modifyPlat(Plat nouveau){
+        this.ingredients = nouveau.ingredients;
+        this.categories = nouveau.categories;
+        this.accompagner = nouveau.accompagner;
+        this.nom = nouveau.nom;
+    }
 
 
 

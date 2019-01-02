@@ -1,9 +1,10 @@
-package merejy.menuachat.ui.Button.OnClickListenerCreator;
+package merejy.menuachat.ui.Button.OnClickListenerCreator.ChoicePlat;
 
 import android.app.Activity;
 import android.view.View;
 
 import merejy.menuachat.database.Plat;
+import merejy.menuachat.ui.Button.OnClickListenerCreator.OnClickListenerCreator;
 import merejy.menuachat.ui.Popup.ChoixAccompagnementPopup;
 import merejy.menuachat.ui.Popup.Module.QuestionModule.SelectedPlatQuestionModule;
 import merejy.menuachat.ui.Popup.QuestionPopup;

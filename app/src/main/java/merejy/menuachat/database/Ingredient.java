@@ -78,6 +78,11 @@ public class Ingredient  implements Serializable {
         return result;
     }
 
+    public  void modifyIngredient(Ingredient nouveau){
+        this.nom = nouveau.nom;
+        this.categorie = nouveau.categorie;
+    }
+
     //static
 
     public static void save (Ingredient i , JsonWriter writer){ //sauvegarde un ingredient

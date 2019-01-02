@@ -114,15 +114,30 @@ public class Database  implements Serializable {
         return m;
     }
 
-    public void modifyPlat(Plat origine , Plat nouveau){
+    public void modifyPlat(Plat origine , Plat nouveau) throws ItemAlreadyExist {
+        if(!origine.getNom().equals(nouveau.getNom())){
+            //nom different
+            if(plats.containsKey(nouveau.getNom())){
+                throw new ItemAlreadyExist();
+            }
             plats.remove(origine.getNom());
-            plats.put(nouveau.getNom(),nouveau);//mise a jour de la bd
+            plats.put(nouveau.getNom(),origine);
+        }
+        origine.modifyPlat(nouveau);
 
     }
 
-
-
-
+    public void  modifyIngredient(Ingredient origine , Ingredient nouveau) throws ItemAlreadyExist {
+        if(!origine.getNom().equals(nouveau.getNom())){
+            //nom different
+            if(ingredients.containsKey(nouveau.getNom())){
+                throw new ItemAlreadyExist();
+            }
+            ingredients.remove(origine.getNom());
+            ingredients.put(nouveau.getNom(),origine);
+        }
+        origine.modifyIngredient(nouveau);
+    }
 
     //static
 

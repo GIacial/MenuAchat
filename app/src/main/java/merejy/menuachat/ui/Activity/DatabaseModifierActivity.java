@@ -9,8 +9,9 @@ import android.widget.Button;
 
 import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
-import merejy.menuachat.kernel.Needing.NeedingList;
-import merejy.menuachat.ui.Button.OnClickListenerCreator.ChoicePlat_Modifier_OnClickListenerCreator;
+import merejy.menuachat.ui.Button.OnClickListenerCreator.ChoiceIngredient.ChoiceIngredient_Modifier_OnclickListenerCreator;
+import merejy.menuachat.ui.Button.OnClickListenerCreator.ChoicePlat.ChoicePlat_Modifier_OnClickListenerCreator;
+import merejy.menuachat.ui.ViewAdapter.ChoiceIngredientAdapter;
 import merejy.menuachat.ui.ViewAdapter.ChoicePlatAdapter;
 
 public class DatabaseModifierActivity extends AbstractActivity {
@@ -25,6 +26,10 @@ public class DatabaseModifierActivity extends AbstractActivity {
         RecyclerView platView = findViewById(R.id.platList);
         platView.setLayoutManager(new LinearLayoutManager(this));
         platView.setAdapter(new ChoicePlatAdapter(database.getAllPlat(),this,new ChoicePlat_Modifier_OnClickListenerCreator()));
+
+        RecyclerView ingredientView = findViewById(R.id.ingredientList);
+        ingredientView.setLayoutManager(new LinearLayoutManager(this));
+        ingredientView.setAdapter(new ChoiceIngredientAdapter(database.getAllIngredient(),this,new ChoiceIngredient_Modifier_OnclickListenerCreator()));
 
 
         Button comfirmer = findViewById(R.id.button_comfirmer);

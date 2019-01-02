@@ -10,8 +10,8 @@ import android.widget.Button;
 
 import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
+import merejy.menuachat.ui.Button.OnClickListenerCreator.ChoiceIngredient.ChoiceIngredient_Take_OnClickListenerCreator;
 import merejy.menuachat.ui.ViewAdapter.ChoiceInSortedIngredientListAdapter;
-import merejy.menuachat.ui.ViewAdapter.ChoiceIngredientAdapter;
 
 public class All_IngredientList extends AbstractActivity {
 
@@ -34,7 +34,7 @@ public class All_IngredientList extends AbstractActivity {
         // use a linear layout manager
         listUi.setLayoutManager(new LinearLayoutManager(this));
         //mets un adapter
-        listUi.setAdapter(new ChoiceInSortedIngredientListAdapter(n.getAllIngredient(),this));
+        listUi.setAdapter(new ChoiceInSortedIngredientListAdapter(n.getAllIngredient(),this,new ChoiceIngredient_Take_OnClickListenerCreator()));
         //listUi.setAdapter(new ChoiceIngredientAdapter(n.getAllIngredient(),this));
 
         //butoon

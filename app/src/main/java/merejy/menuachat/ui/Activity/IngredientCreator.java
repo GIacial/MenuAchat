@@ -13,22 +13,46 @@ import merejy.menuachat.Exception.ItemAlreadyExist;
 import merejy.menuachat.R;
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.database.Database;
+import merejy.menuachat.database.Ingredient;
 import merejy.menuachat.kernel.Needing.NeedingList;
 
 public class IngredientCreator extends ActivitySaveOnClose {
 
+    private static Ingredient origine = null;
+
+    public static void setModifyMode (Ingredient origine){
+        IngredientCreator.origine = origine;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ingredient_creator);
 
+        //valeur par défault
+        String nomValue = "";
+        CategorieIngredient categorieIngredientValue = CategorieIngredient.ANIMAUX;
+
+        //Recup IHM
+        final  EditText prix = findViewById(R.id.prixEdit);
         final EditText nom = findViewById(R.id.nomEdit);
-        nom.setText("");
         final Spinner  cat = findViewById(R.id.categorieEdit);
         Button   comfirmer = findViewById(R.id.button_comfimer_creator_ingredient);
-        final  EditText prix = findViewById(R.id.prixEdit);
+
+        //config Modify
+        if( origine != null){
+            nomValue = origine.getNom();
+            categorieIngredientValue = origine.getCategorie();
+            prix.setVisibility(View.GONE);
+        }
+
+        //init
+        cat.setAdapter(new ArrayAdapter<CategorieIngredient>(this,R.layout.support_simple_spinner_dropdown_item,CategorieIngredient.values()));
+
+        nom.setText(nomValue);
+        cat.setSelection(categorieIngredientValue.ordinal());
         prix.setText("");
+
 
         comfirmer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,8 +60,13 @@ public class IngredientCreator extends ActivitySaveOnClose {
 
                 if (nom.getText().toString().length() > 0 ) {
                     try {
-                        Database.getDatabase().addIngedient(nom.getText().toString(), (CategorieIngredient) cat.getSelectedItem());
-                        if (prix.getText().toString().length() > 0) {
+                        if(origine == null) {
+                            Database.getDatabase().addIngedient(nom.getText().toString(), (CategorieIngredient) cat.getSelectedItem());
+                        }
+                        else{
+                            Database.getDatabase().modifyIngredient(origine,new Ingredient(nom.getText().toString(), (CategorieIngredient) cat.getSelectedItem()));
+                        }
+                        if (prix.getText().toString().length() > 0 && origine == null) {
                                 double prixValue = Double.parseDouble(prix.getText().toString());
                                 Database.getDatabase().getIngredient(nom.getText().toString()).addPrix(prixValue, NeedingList.getNeeding().getCurrentMag());
 
@@ -53,14 +82,21 @@ public class IngredientCreator extends ActivitySaveOnClose {
                     Toast.makeText(IngredientCreator.this,R.string.error_Name_notWrite_ingredient,Toast.LENGTH_LONG).show();
                 }
 
-                Intent secondeActivite =  new Intent(IngredientCreator.this,All_IngredientList.class);
+                Intent secondeActivite = null;
+                if(origine == null){
+                    secondeActivite = ToActivity.getIntentToGoTo(IngredientCreator.this,ToActivity.ALL_INGREDIENT);
+                }
+                else{
+                    secondeActivite = ToActivity.getIntentToGoTo(IngredientCreator.this,ToActivity.DATABASE_MODIFIER);
+                }
+                IngredientCreator.origine = null; //reset
+                if(secondeActivite != null){
+                    startActivity(secondeActivite);
+                }
 
-                secondeActivite.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);        //permet de fermer les activity
-                startActivity(secondeActivite);
             }
         });
 
-        cat.setAdapter(new ArrayAdapter<CategorieIngredient>(this,R.layout.support_simple_spinner_dropdown_item,CategorieIngredient.values()));
     }
 
     @Override

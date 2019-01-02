@@ -1,4 +1,4 @@
-package merejy.menuachat.ui.Button.OnClickListenerCreator;
+package merejy.menuachat.ui.Button.OnClickListenerCreator.ChoicePlat;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.view.View;
 import merejy.menuachat.database.Plat;
 import merejy.menuachat.ui.Activity.PlatCreator;
 import merejy.menuachat.ui.Activity.ToActivity;
+import merejy.menuachat.ui.Button.OnClickListenerCreator.OnClickListenerCreator;
 
 public class ChoicePlat_Modifier_OnClickListenerCreator implements OnClickListenerCreator<Plat> {
     @Override

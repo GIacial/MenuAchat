@@ -14,6 +14,7 @@ import merejy.menuachat.R;
 import merejy.menuachat.kernel.ColorManager;
 import merejy.menuachat.kernel.Needing.NeedingList;
 import merejy.menuachat.ui.Popup.Module.QuestionModule.ClearListQuestionModule;
+import merejy.menuachat.ui.Popup.Module.QuestionModule.ModifyDatabaseQuestionModule;
 import merejy.menuachat.ui.Popup.QuestionPopup;
 
 abstract public class AbstractActivity extends AppCompatActivity {
@@ -56,8 +57,7 @@ abstract public class AbstractActivity extends AppCompatActivity {
                     QuestionPopup.showDialog(this, new ClearListQuestionModule(this));
                     break;
                 case R.id.databaseModifier:
-                    home = ToActivity.getIntentToGoTo(this, ToActivity.DATABASE_MODIFIER);
-                    NeedingList.getNeeding().clear();           //clear pour eviter les needing de rester dans la forme du precedent
+                    QuestionPopup.showDialog(this,new ModifyDatabaseQuestionModule(this));
                     break;
                 default:
                     Toast.makeText(this, "Menu Inutile", Toast.LENGTH_SHORT).show();
