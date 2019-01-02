@@ -29,13 +29,26 @@ public class PlatCreator extends ActivitySaveOnClose {
     static private List<Ingredient> need = new ArrayList<>();
     static private String nom = "";
     static private int catego = 0;
-    static private boolean accompagner = false;
+    static private boolean accompagner = true;
+    static private boolean creation = true;
+    static private Plat origine = null;
 
     public static void  addIngredient(Ingredient i){
         need.add(i);
     }
     public static void  deleteIngredient(Ingredient i) {
         need.remove(i);
+    }
+    public static void  setModifyMode(Plat origine){
+        if(origine != null){
+            creation = false;
+            nom = origine.getNom();
+            catego = origine.getCategories().ordinal();
+            accompagner = origine.isAccompagner();
+            need = origine.getIngredients();
+            PlatCreator.origine = origine;
+        }
+
     }
 
     @Override
@@ -69,20 +82,37 @@ public class PlatCreator extends ActivitySaveOnClose {
         comfirmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent secondeActivite;
+                if(creation){
+                    secondeActivite =  ToActivity.getIntentToGoTo(PlatCreator.this,ToActivity.ALL_PLAT);
+                }
+                else{
+                    secondeActivite =  ToActivity.getIntentToGoTo(PlatCreator.this,ToActivity.DATABASE_MODIFIER);
+                }
                 if(!nom.getText().toString().equals("") && need.size() > 0){
                     try {
-                        Database.getDatabase().addPlat(nom.getText().toString(),(CategoriePlats) cat.getSelectedItem(),need,accompagnement.isChecked());
+                        if(creation){
+                            Database.getDatabase().addPlat(nom.getText().toString(),(CategoriePlats) cat.getSelectedItem(),need,accompagnement.isChecked());
+
+                        }
+                        else{
+                            Plat nouveau = new Plat(nom.getText().toString(),(CategoriePlats) cat.getSelectedItem(),need,accompagnement.isChecked());
+                            Database.getDatabase().modifyPlat(PlatCreator.origine,nouveau);
+                        }
                     } catch (ItemAlreadyExist itemAlreadyExist) {
                         Toast.makeText(PlatCreator.this,R.string.error_PlatExistant,Toast.LENGTH_LONG).show();
                     }
+                    //reset des data
                     need = new ArrayList<>();
                     PlatCreator.nom = "";
                     PlatCreator.catego = 0;
+                    PlatCreator.accompagner = true;
+                    PlatCreator.creation = true;
                 }
                 else {
                     Toast.makeText(PlatCreator.this,R.string.error_Plat_needNameOrIngredient,Toast.LENGTH_LONG).show();
                 }
-                Intent secondeActivite =  ToActivity.getIntentToGoTo(PlatCreator.this,ToActivity.ALL_PLAT);
+
                 if(secondeActivite != null){
                     startActivity(secondeActivite);
                 }

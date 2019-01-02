@@ -114,6 +114,15 @@ public class Database  implements Serializable {
         return m;
     }
 
+    public void modifyPlat(Plat origine , Plat nouveau){
+            plats.remove(origine.getNom());
+            plats.put(nouveau.getNom(),nouveau);//mise a jour de la bd
+
+    }
+
+
+
+
 
     //static
 

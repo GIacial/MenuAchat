@@ -55,6 +55,10 @@ abstract public class AbstractActivity extends AppCompatActivity {
                 case R.id.clearList:
                     QuestionPopup.showDialog(this, new ClearListQuestionModule(this));
                     break;
+                case R.id.databaseModifier:
+                    home = ToActivity.getIntentToGoTo(this, ToActivity.DATABASE_MODIFIER);
+                    NeedingList.getNeeding().clear();           //clear pour eviter les needing de rester dans la forme du precedent
+                    break;
                 default:
                     Toast.makeText(this, "Menu Inutile", Toast.LENGTH_SHORT).show();
                     break;

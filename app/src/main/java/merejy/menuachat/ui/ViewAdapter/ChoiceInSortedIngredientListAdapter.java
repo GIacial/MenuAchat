@@ -126,14 +126,16 @@ public class ChoiceInSortedIngredientListAdapter extends RecyclerView.Adapter<Ch
                 image.setImageResource(android.R.drawable.arrow_down_float);
             }
             holder.layout.addView(image);
-            holder.layout.setOnClickListener(new View.OnClickListener() {
+            View.OnClickListener menuDeroulant  = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     AtomicBoolean bool = show.get(categorieIngredient.ordinal());
                     bool.set(!bool.get());
                     ChoiceInSortedIngredientListAdapter.this.notifyDataSetChanged();
                 }
-            });
+            };
+            holder.layout.setOnClickListener(menuDeroulant);
+            image.setOnClickListener(menuDeroulant);
         }
         else{
             //ingredient

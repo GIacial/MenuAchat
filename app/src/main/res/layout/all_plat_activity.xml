@@ -4,50 +4,64 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/mainLayout"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="@string/text_plat"
+                android:textAllCaps="true"
+                android:textSize="32sp"
+                android:layout_weight="1"
+                android:gravity="center"/>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:fillViewport="true"
+        android:layout_weight="5"
         android:id="@+id/scrollPane">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_plat"
-            android:textAllCaps="true"
-            android:textSize="32sp"
-            android:gravity="center"/>
+
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:id="@+id/platListAll"
             android:layout_weight="3"
             />
+
+
+    </LinearLayout>
+    </ScrollView>
+
         <Button
             android:layout_width="match_parent"
             android:layout_weight="@string/layout_weigth_one"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="@string/text_anullation"
             android:id="@+id/buttonAnuler"
             />
 
-    </LinearLayout>
-    </ScrollView>
+        </LinearLayout>
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/platAjoutDatabase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="10dp"
-            android:layout_alignEnd="@+id/scrollPane"
-            android:layout_alignBottom="@+id/scrollPane"
+            android:layout_alignEnd="@+id/mainLayout"
+            android:layout_alignBottom="@+id/mainLayout"
             android:clickable="true"
             app:srcCompat="@android:drawable/ic_input_add"  />
 

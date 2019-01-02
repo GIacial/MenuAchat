@@ -16,15 +16,18 @@ import merejy.menuachat.database.DataEnum.CategoriePlats;
 import merejy.menuachat.database.Plat;
 import merejy.menuachat.kernel.Needing.NeedingList;
 import merejy.menuachat.kernel.Needing.NeedingPlat.NeedingPlat;
+import merejy.menuachat.ui.Activity.AbstractActivity;
 import merejy.menuachat.ui.Activity.AllPlatList;
 import merejy.menuachat.ui.Activity.ListePlatActivity;
+import merejy.menuachat.ui.Button.OnClickListenerCreator.OnClickListenerCreator;
 import merejy.menuachat.ui.Popup.ChoixAccompagnementPopup;
 import merejy.menuachat.ui.Popup.Module.QuestionModule.SelectedPlatQuestionModule;
 import merejy.menuachat.ui.Popup.QuestionPopup;
 
 public class ChoicePlatAdapter  extends RecyclerView.Adapter<ChoicePlatAdapter.ViewHolder> {
     private List<Plat> list;
-    private AllPlatList activity;
+    private AbstractActivity activity;
+    private OnClickListenerCreator<Plat> choiceAction;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -49,9 +52,10 @@ public class ChoicePlatAdapter  extends RecyclerView.Adapter<ChoicePlatAdapter.V
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ChoicePlatAdapter(Collection<Plat> myDataset , AllPlatList activity) {
+    public ChoicePlatAdapter(Collection<Plat> myDataset , AbstractActivity activity, OnClickListenerCreator<Plat> choiceAction) {
         list = trie(myDataset.iterator());
         this.activity = activity;
+        this.choiceAction = choiceAction;
     }
 
     private List<Plat> trie(Iterator<Plat> iterator){
@@ -88,17 +92,10 @@ public class ChoicePlatAdapter  extends RecyclerView.Adapter<ChoicePlatAdapter.V
         //ici on mets a jour les info des composant du Holder
         holder.produitName.setText(list.get(position).getNom());
         holder.categorie.setText(list.get(position).getCategories().toString());
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(list.get(position).isAccompagner()){
-                    ChoixAccompagnementPopup.showDialog(activity,list.get(position));
-                }
-                else{
-                    QuestionPopup.showDialog(activity,new SelectedPlatQuestionModule(list.get(position),activity));
-                }
-            }
-        });
+        View.OnClickListener clickListener = choiceAction.createListener(list.get(position),activity);
+        if (clickListener != null){
+            holder.layout.setOnClickListener(clickListener);
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

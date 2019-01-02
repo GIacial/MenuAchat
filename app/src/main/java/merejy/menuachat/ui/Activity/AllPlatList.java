@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
+import merejy.menuachat.ui.Button.OnClickListenerCreator.ChoicePlat_Take_OnClickListenerCreator;
 import merejy.menuachat.ui.ViewAdapter.ChoicePlatAdapter;
 
 public class AllPlatList extends AbstractActivity {
@@ -30,7 +31,7 @@ public class AllPlatList extends AbstractActivity {
         // use a linear layout manager
         listUi.setLayoutManager(new LinearLayoutManager(this));
         //mets un adapter
-        listUi.setAdapter(new ChoicePlatAdapter(d.getAllPlat(), this));
+        listUi.setAdapter(new ChoicePlatAdapter(d.getAllPlat(), this, new ChoicePlat_Take_OnClickListenerCreator()));
 
         //butoon
         FloatingActionButton ajouterPlat = findViewById(R.id.platAjoutDatabase);
