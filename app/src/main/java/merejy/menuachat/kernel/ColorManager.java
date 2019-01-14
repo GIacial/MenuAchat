@@ -1,17 +1,14 @@
 package merejy.menuachat.kernel;
 
 import android.app.Activity;
-import android.app.admin.DeviceAdminInfo;
-import android.graphics.Color;
 import android.os.Environment;
+import android.util.JsonReader;
+import android.util.JsonWriter;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -54,13 +51,83 @@ public class ColorManager implements Serializable {
         }
     }
 
+    //save
+    private final  static String SAVETAG_INGREDIENT = "Ingredient";
+    private final  static String SAVETAG_PRIX = "Prix";
+    private final  static String SAVETAG_CATEGORIE_INGREDIENT = "CategorieIngredient";
+    private final  static String SAVETAG_CATEGORIE_PRIX = "CategoriePrix";
+    private final  static String SAVETAG_COLOR = "Color";
+
 
     static public void load (Activity activity){
         if(colorManager == null){
             try {
-                ObjectInputStream stream = new ObjectInputStream(new FileInputStream(new File(Environment.getExternalStorageDirectory()+File.separator+ Database.dossierSave,fileSave)));
-                colorManager = (ColorManager) stream.readObject();
-            } catch (IOException | ClassNotFoundException e) {
+
+                colorManager = new ColorManager(activity);
+                JsonReader reader = new JsonReader(new FileReader(new File(Environment.getExternalStorageDirectory()+File.separator+ Database.dossierSave,fileSave)));
+                reader.beginObject();   //debut database
+
+                while (reader.hasNext()){
+                    String name = reader.nextName();
+                    switch (name){
+                        case SAVETAG_INGREDIENT:
+                            reader.beginArray();
+                            while (reader.hasNext()){
+                                reader.beginObject();
+                                CategorieIngredient catIngredient = null;
+                                Integer color = null;
+                                while (reader.hasNext()){
+                                    String name2 = reader.nextName();
+                                    switch (name2){
+                                        case SAVETAG_CATEGORIE_INGREDIENT:
+                                            catIngredient = CategorieIngredient.valueOf(reader.nextString());
+                                            break;
+                                        case SAVETAG_COLOR:
+                                            color = reader.nextInt();
+                                            break;
+                                        default:System.err.println(name2 + "n'est pas reconnu dans "+ name );
+                                    }
+                                }
+                                if(catIngredient != null && color != null){
+                                    colorManager.setColorInst(catIngredient,color);
+                                }
+                                reader.endObject();
+                            }
+                            reader.endArray();
+                            break;
+                        case SAVETAG_PRIX:
+                            reader.beginArray();
+                            while (reader.hasNext()){
+                                reader.beginObject();
+                                PriceComparator priceComparator = null;
+                                Integer color = null;
+                                while (reader.hasNext()){
+                                    String name2 = reader.nextName();
+                                    switch (name2){
+                                        case SAVETAG_CATEGORIE_PRIX:
+                                            priceComparator = PriceComparator.valueOf(reader.nextString());
+                                            break;
+                                        case SAVETAG_COLOR:
+                                            color = reader.nextInt();
+                                            break;
+                                        default:System.err.println(name2 + "n'est pas reconnu dans "+ name );
+                                    }
+                                }
+                                if(priceComparator != null && color != null){
+                                    colorManager.setColorInst(priceComparator,color);
+                                }
+                                reader.endObject();
+                            }
+                            reader.endArray();
+                            break;
+                        default:System.err.println(name + "n'est pas reconnu");
+
+                    }
+                }
+
+                reader.endObject();
+                reader.close();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             if(colorManager == null){
@@ -76,8 +143,30 @@ public class ColorManager implements Serializable {
                 if(!dossier.exists() || !dossier.isDirectory()){
                     dossier.mkdir();
                 }
-                ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(new File(Environment.getExternalStorageDirectory()+File.separator+ Database.dossierSave,fileSave)));
-                stream.writeObject(colorManager);
+                JsonWriter writer = new JsonWriter(new FileWriter(new File(Environment.getExternalStorageDirectory()+File.separator+ Database.dossierSave,fileSave)));
+                writer.beginObject();   //debut database
+
+                //save ingredient color
+                writer.name(SAVETAG_INGREDIENT).beginArray();
+                for (CategorieIngredient cat : CategorieIngredient.values()){
+                    writer.beginObject();   //save la color pour la cat
+                    writer.name(SAVETAG_CATEGORIE_INGREDIENT).value(cat.toString());
+                    writer.name(SAVETAG_COLOR).value(colorManager.getIngredientColorInst(cat));
+                    writer.endObject();
+                }
+                writer.endArray();
+                //save price color
+                writer.name(SAVETAG_PRIX).beginArray();
+                for (PriceComparator comparator : PriceComparator.values()){
+                    writer.beginObject();
+                    writer.name(SAVETAG_CATEGORIE_PRIX).value(comparator.toString());
+                    writer.name(SAVETAG_COLOR).value(colorManager.getPriceColorInst(comparator));
+                    writer.endObject();
+                }
+                writer.endArray();
+
+                writer.endObject();
+                writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
