@@ -1,6 +1,7 @@
 package merejy.menuachat.ui.ViewAdapter;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -149,6 +150,8 @@ public class NeedingIngredientAdapter extends RecyclerView.Adapter<NeedingIngred
         holder.categorie.setTextColor(textColor);
         holder.quantite.setTextColor(textColor);
         holder.prix.setTextColor(ColorManager.getPriceColor(list.get(position).isLessCost(NeedingList.getNeeding().getCurrentMag())));
+        //bordure de text pour le prix
+        holder.prix.setShadowLayer(1.6f,1.5f,1.3f, textColor);
 
     }
 
