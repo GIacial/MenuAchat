@@ -43,6 +43,7 @@
     <string name="text_regrouperParCategorie">Regrouper par categorie</string>
     <string name="text_rechercherIngrédient">Rechercher un ingrédient</string>
     <string name="text_supprimerDonner">Supprimer mes données</string>
+    <string name="text_supprimer">Supprimer</string>
 
     <string name="colorSelectorMinValue">0</string>
     <string name="colorSelectorMaxValue">255</string>
@@ -57,6 +58,7 @@
     <string name="error_platNotFound">Ce plat n\existe pas </string>
     <string name="error_zeroQuantite">Vous ne voulez pas de ça</string>
     <string name="error_noQuestion">Pas de question => surement une erreur</string>
+    <string name="error_SupprimerIngredient"> ne peut être supprimer car il est utilisé dans les plats suivant : \n</string>
 
 
 

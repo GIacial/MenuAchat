@@ -14,9 +14,8 @@ import android.widget.TextView;
 
 import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
-import merejy.menuachat.ui.Button.OnClickListenerCreator.ChoiceIngredient.ChoiceIngredient_Modifier_OnclickListenerCreator;
+import merejy.menuachat.ui.Button.OnClickListenerCreator.ChoiceIngredient.ChoiceIngredient_Delete_OnClickListenerCreator;
 import merejy.menuachat.ui.Button.OnClickListenerCreator.ChoicePlat.ChoicePlat_Delete_OnClickListenerCreator;
-import merejy.menuachat.ui.Button.OnClickListenerCreator.ChoicePlat.ChoicePlat_Modifier_OnClickListenerCreator;
 import merejy.menuachat.ui.ViewAdapter.ChoiceInSortedIngredientListAdapter;
 import merejy.menuachat.ui.ViewAdapter.ChoiceIngredientAdapter;
 import merejy.menuachat.ui.ViewAdapter.ChoicePlatAdapter;
@@ -39,21 +38,22 @@ public class DatabaseDeleteActivity extends ActivitySaveOnClose {
 
         final RecyclerView ingredientView = findViewById(R.id.ingredientList);
         ingredientView.setLayoutManager(new LinearLayoutManager(this));
-        ingredientView.setAdapter(new ChoiceInSortedIngredientListAdapter(database.getAllIngredient(),this,new ChoiceIngredient_Modifier_OnclickListenerCreator()));
 
 
         final CheckBox regrouperParCategorie = findViewById(R.id.regrouperParCategorie);
+        ingredientView.setAdapter(new ChoiceInSortedIngredientListAdapter(database.getAllIngredient(),this,new ChoiceIngredient_Delete_OnClickListenerCreator(ingredientView,regrouperParCategorie)));
+
         regrouperParCategorie.setChecked(true);
         regrouperParCategorie.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(regrouperParCategorie.isChecked()){
-                    ingredientView.setAdapter(new ChoiceInSortedIngredientListAdapter(database.getAllIngredient(),DatabaseDeleteActivity.this,new ChoiceIngredient_Modifier_OnclickListenerCreator()));
+                    ingredientView.setAdapter(new ChoiceInSortedIngredientListAdapter(database.getAllIngredient(),DatabaseDeleteActivity.this,new ChoiceIngredient_Delete_OnClickListenerCreator(ingredientView,regrouperParCategorie)));
 
                 }
                 else{
-                    ingredientView.setAdapter(new ChoiceIngredientAdapter(database.getAllIngredient(),DatabaseDeleteActivity.this,new ChoiceIngredient_Modifier_OnclickListenerCreator()));
+                    ingredientView.setAdapter(new ChoiceIngredientAdapter(database.getAllIngredient(),DatabaseDeleteActivity.this,new ChoiceIngredient_Delete_OnClickListenerCreator(ingredientView,regrouperParCategorie)));
 
                 }
             }
@@ -111,7 +111,7 @@ public class DatabaseDeleteActivity extends ActivitySaveOnClose {
             @Override
             public void onClick(View v) {
 
-                Intent secondeActivite =  ToActivity.getIntentToGoTo(DatabaseDeleteActivity.this,ToActivity.LIST_INGREDIENT);
+                Intent secondeActivite =  ToActivity.getIntentToGoTo(DatabaseDeleteActivity.this,ToActivity.MAGASIN_CHOICE);
                 if(secondeActivite != null){
                     startActivity(secondeActivite);
                 }

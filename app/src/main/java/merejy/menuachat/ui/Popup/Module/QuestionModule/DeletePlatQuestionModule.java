@@ -3,6 +3,7 @@ package merejy.menuachat.ui.Popup.Module.QuestionModule;
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 
+import merejy.menuachat.R;
 import merejy.menuachat.database.Database;
 import merejy.menuachat.database.Plat;
 import merejy.menuachat.ui.Activity.AbstractActivity;
@@ -24,7 +25,7 @@ public class DeletePlatQuestionModule implements QuestionPopupModule {
 
     @Override
     public String getQuestion() {
-        return "Supprimer "+plat.getNom()+" ?";
+        return activity.getResources().getString(R.string.text_supprimer)+" "+plat.getNom()+" ?";
     }
 
     @Override

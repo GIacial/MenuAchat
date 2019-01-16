@@ -107,7 +107,7 @@ public class DatabaseModifierActivity extends ActivitySaveOnClose {
             @Override
             public void onClick(View v) {
 
-                    Intent secondeActivite =  ToActivity.getIntentToGoTo(DatabaseModifierActivity.this,ToActivity.LIST_INGREDIENT);
+                    Intent secondeActivite =  ToActivity.getIntentToGoTo(DatabaseModifierActivity.this,ToActivity.MAGASIN_CHOICE);
                     if(secondeActivite != null){
                         startActivity(secondeActivite);
                     }

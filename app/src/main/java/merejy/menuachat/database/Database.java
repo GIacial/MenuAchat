@@ -9,10 +9,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import merejy.menuachat.Exception.IngredientWasUseInPlat;
 import merejy.menuachat.Exception.ItemAlreadyExist;
 import merejy.menuachat.database.DataEnum.CategorieIngredient;
 import merejy.menuachat.database.DataEnum.CategoriePlats;
@@ -142,6 +144,27 @@ public class Database  implements Serializable {
     public void removePlat (Plat plat){
         if(plats.containsKey(plat.getNom())){
             plats.remove(plat.getNom());
+        }
+    }
+
+    public void removeIngredient (Ingredient ingredient) throws IngredientWasUseInPlat{
+        if(ingredients.containsKey(ingredient.getNom())){
+            findPlatWhoUseIngredient(ingredient);
+            ingredients.remove(ingredient.getNom());
+        }
+    }
+
+    private void findPlatWhoUseIngredient (Ingredient ingredient) throws IngredientWasUseInPlat{
+        List<String> namePlat = new ArrayList<>();
+        for(Plat plat : plats.values()){
+            for (Ingredient i : plat.getIngredients()){
+                if(i.equals(ingredient)){
+                    namePlat.add(plat.getNom());
+                }
+            }
+        }
+        if(!namePlat.isEmpty()){
+            throw new IngredientWasUseInPlat(namePlat);
         }
     }
 

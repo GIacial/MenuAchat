@@ -29,10 +29,11 @@ import merejy.menuachat.ui.ViewAdapter.AllAccompagnementAdapter;
 
 public class ChoixAccompagnementPopup extends DialogFragment {
 
-    static Plat plat;
+    static private Plat platPopup;
+    private Plat plat;
 
     static public void showDialog(Activity a , Plat p ){
-        plat = p;
+        platPopup = p;
         new ChoixAccompagnementPopup().show(a.getFragmentManager(),"ChoixAccompagnementDialog");
     }
 
@@ -42,7 +43,7 @@ public class ChoixAccompagnementPopup extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
+        plat = platPopup;
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
@@ -111,6 +112,5 @@ public class ChoixAccompagnementPopup extends DialogFragment {
     @Override
     public void onStop() {
         super.onStop();
-        ColorPopup.module = null;
     }
 }

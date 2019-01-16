@@ -19,10 +19,11 @@ import merejy.menuachat.ui.Popup.Module.NumberModule.Reel.ReelNumberPopupModule;
 
 public class ReelNumberPopup extends DialogFragment {
 
-    static private ReelNumberPopupModule module;
+     private ReelNumberPopupModule module;
+     static private ReelNumberPopupModule modulePopup;
 
     static public void showDialog(ReelNumberPopupModule module, Activity activity){
-        ReelNumberPopup.module = module;
+        ReelNumberPopup.modulePopup = module;
 
         new ReelNumberPopup().show(activity.getFragmentManager(),"priceDialog");
     }
@@ -33,6 +34,8 @@ public class ReelNumberPopup extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
+                this.module = modulePopup;
+                modulePopup = null;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -83,6 +86,5 @@ public class ReelNumberPopup extends DialogFragment {
     @Override
     public void onStop() {
         super.onStop();
-        ReelNumberPopup.module = null;
     }
 }

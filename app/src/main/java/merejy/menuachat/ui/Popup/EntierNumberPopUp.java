@@ -19,10 +19,11 @@ public class EntierNumberPopUp extends DialogFragment {
 
 
     private  int number = 1;
-    static private EntierNumberPopupModule module;
+    private EntierNumberPopupModule module;
+    static private  EntierNumberPopupModule modulePopup;
 
     static public void showDialog(Activity a , EntierNumberPopupModule module){
-            EntierNumberPopUp.module = module;
+            EntierNumberPopUp.modulePopup = module;
             new EntierNumberPopUp().show(a.getFragmentManager(),"quantiteDialog");
     }
 
@@ -31,6 +32,9 @@ public class EntierNumberPopUp extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
+
+        this.module = modulePopup;
+        modulePopup = null;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         // Get the layout inflater
@@ -95,7 +99,6 @@ public class EntierNumberPopUp extends DialogFragment {
     @Override
     public void onStop() {
         super.onStop();
-        EntierNumberPopUp.module = null;
     }
 }
 

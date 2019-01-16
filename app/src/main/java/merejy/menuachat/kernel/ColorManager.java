@@ -185,7 +185,7 @@ public class ColorManager implements Serializable {
     //non static
     private HashMap<PriceComparator,Integer> priceColor = new HashMap<>();
     private HashMap<CategorieIngredient,Integer> ingredientCategorieColor = new HashMap<>();
-    private HashMap<CategoriePlats,Integer> platsCategoriecolor = new HashMap<>();
+   // private HashMap<CategoriePlats,Integer> platsCategoriecolor = new HashMap<>();
 
 
     private ColorManager(Activity activity){

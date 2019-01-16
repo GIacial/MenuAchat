@@ -18,10 +18,11 @@ import merejy.menuachat.ui.Popup.Module.ColorModule.ColorPopupModule;
 public class ColorPopup extends DialogFragment {
 
 
-    static ColorPopupModule module;
+    private ColorPopupModule module;
+    static private ColorPopupModule modulePopup;
 
     static public void showDialog(Activity a , ColorPopupModule module){
-        ColorPopup.module = module;
+        ColorPopup.modulePopup = module;
         new ColorPopup().show(a.getFragmentManager(),"colorDialog");
     }
 
@@ -35,6 +36,8 @@ public class ColorPopup extends DialogFragment {
         // Use the Builder class for convenient dialog construction
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        this.module = modulePopup;
+        modulePopup = null;
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
@@ -109,6 +112,5 @@ public class ColorPopup extends DialogFragment {
     @Override
     public void onStop() {
         super.onStop();
-        ColorPopup.module = null;
     }
 }

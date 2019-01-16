@@ -16,10 +16,11 @@ import merejy.menuachat.ui.Popup.Module.QuestionModule.QuestionPopupModule;
 public class QuestionPopup extends DialogFragment {
 
 
-    static QuestionPopupModule module;
+    private static QuestionPopupModule modulePopup;
+    private  QuestionPopupModule module;
 
     static public void showDialog(Activity a ,QuestionPopupModule module){
-        QuestionPopup.module = module;
+        QuestionPopup.modulePopup = module;
         new QuestionPopup().show(a.getFragmentManager(),"quantiteDialog");
     }
 
@@ -29,6 +30,8 @@ public class QuestionPopup extends DialogFragment {
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
+        this.module = modulePopup;
+        modulePopup = null;
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         // Get the layout inflater
@@ -74,7 +77,6 @@ public class QuestionPopup extends DialogFragment {
     @Override
     public void onStop() {
         super.onStop();
-        QuestionPopup.module = null;
     }
 }
 
