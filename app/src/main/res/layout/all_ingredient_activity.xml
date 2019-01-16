@@ -21,6 +21,12 @@
                 android:textAllCaps="true"
                 android:textSize="32sp"
                 />
+            <SearchView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/searchBar"
+                android:queryHint="@string/text_rechercherIngrédient"
+                />
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="120dp"

@@ -139,6 +139,10 @@ public class Database  implements Serializable {
         origine.modifyIngredient(nouveau);
     }
 
+    public Collection<String> getAllNameOfIngredient(){
+        return ingredients.keySet();
+    }
+
     //static
 
 
