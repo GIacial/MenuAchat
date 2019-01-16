@@ -34,10 +34,14 @@ public class Plat implements Serializable{
     }
 
     public Double getPrix(Magasin mag){
-        double p = 0.0;
-        for(Ingredient i : ingredients){
-            p += i.getPrix(mag);
+        double p = Double.NaN;
+        if(mag != null){
+            p = 0.0;
+            for(Ingredient i : ingredients){
+                p += i.getPrix(mag);
+            }
         }
+
         return p;
     }
 
