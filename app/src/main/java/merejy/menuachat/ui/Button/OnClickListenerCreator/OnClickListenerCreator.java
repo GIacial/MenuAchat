@@ -1,9 +1,10 @@
 package merejy.menuachat.ui.Button.OnClickListenerCreator;
 
-import android.app.Activity;
 import android.view.View;
+
+import merejy.menuachat.ui.Activity.AbstractActivity;
 
 public interface OnClickListenerCreator <T> {
 
-      View.OnClickListener createListener (final T item, final Activity activity);
+      View.OnClickListener createListener (final T item, final AbstractActivity activity);
 }

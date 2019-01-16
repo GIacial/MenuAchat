@@ -55,7 +55,7 @@ public class QuantiteIngredientModule implements EntierNumberPopupModule {
                 }
 
                // if(secondeActivite != null){
-                    Toast.makeText(activity,need.getQuantite()+" "+ingredient.getNom()+ activity.getResources().getString(R.string.text_Ajoutcomfirmer) ,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity,need.getQuantite()+" "+ingredient.getNom()+" "+ activity.getResources().getString(R.string.text_Ajoutcomfirmer) ,Toast.LENGTH_SHORT).show();
                    // activity.startActivity(secondeActivite);
                // }
 

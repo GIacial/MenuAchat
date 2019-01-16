@@ -139,6 +139,12 @@ public class Database  implements Serializable {
         origine.modifyIngredient(nouveau);
     }
 
+    public void removePlat (Plat plat){
+        if(plats.containsKey(plat.getNom())){
+            plats.remove(plat.getNom());
+        }
+    }
+
 
 
     //static

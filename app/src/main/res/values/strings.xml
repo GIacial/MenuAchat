@@ -42,6 +42,7 @@
 
     <string name="text_regrouperParCategorie">Regrouper par categorie</string>
     <string name="text_rechercherIngrédient">Rechercher un ingrédient</string>
+    <string name="text_supprimerDonner">Supprimer mes données</string>
 
     <string name="colorSelectorMinValue">0</string>
     <string name="colorSelectorMaxValue">255</string>

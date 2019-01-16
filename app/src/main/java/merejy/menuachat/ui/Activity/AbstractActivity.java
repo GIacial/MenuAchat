@@ -57,7 +57,10 @@ abstract public class AbstractActivity extends AppCompatActivity {
                     QuestionPopup.showDialog(this, new ClearListQuestionModule(this));
                     break;
                 case R.id.databaseModifier:
-                    QuestionPopup.showDialog(this,new ModifyDatabaseQuestionModule(this));
+                    QuestionPopup.showDialog(this,new ModifyDatabaseQuestionModule(this,ToActivity.DATABASE_MODIFIER));
+                    break;
+                case R.id.databaseDelete:
+                    QuestionPopup.showDialog(this,new ModifyDatabaseQuestionModule(this,ToActivity.DATABASE_DELETE));
                     break;
                 default:
                     Toast.makeText(this, "Menu Inutile", Toast.LENGTH_SHORT).show();

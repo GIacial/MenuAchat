@@ -56,6 +56,9 @@
         <activity android:name=".ui.Activity.DatabaseModifierActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation"/>
+        <activity android:name=".ui.Activity.DatabaseDeleteActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"/>
     </application>
 
 </manifest>

@@ -14,7 +14,8 @@ public enum ToActivity {
     LIST_PLAT ,
     MAGASIN_CHOICE ,
     MAGASIN_CREATOR,
-    DATABASE_MODIFIER;
+    DATABASE_MODIFIER,
+    DATABASE_DELETE;
 
     static public Intent getIntentToGoTo (Activity activity ,ToActivity toActivity){
         Intent secondActivity = null;
@@ -48,6 +49,9 @@ public enum ToActivity {
                 break;
             case DATABASE_MODIFIER:
                 secondActivity = new Intent(activity, DatabaseModifierActivity.class);
+                break;
+            case DATABASE_DELETE:
+                secondActivity = new Intent(activity, DatabaseDeleteActivity.class);
                 break;
             default:
                 Toast.makeText(activity,"L'activité de retour est incorrect",Toast.LENGTH_SHORT).show();

@@ -15,5 +15,8 @@
     <item
         android:id="@+id/databaseModifier"
         android:title="@string/text_databsaeModifier"/>
+    <item
+        android:id="@+id/databaseDelete"
+        android:title="@string/text_supprimerDonner"/>
 
 </menu>
