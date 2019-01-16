@@ -18,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="top"
@@ -42,7 +42,7 @@
                 android:layout_margin="10dp"
                 android:text="@string/text_categorie"
                 android:textAllCaps="true"
-                android:textSize="12dp"
+                android:textSize="10dp"
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 />
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/text_quantite"
                 android:textAllCaps="true"
-                android:textSize="12dp"
+                android:textSize="10dp"
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 />
@@ -94,7 +94,7 @@
         </ScrollView>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
 
             >
