@@ -102,10 +102,9 @@ public class All_IngredientList extends AbstractActivity {
                     listUi.setAdapter(new ChoiceIngredientAdapter(ingredients,All_IngredientList.this,new ChoiceIngredient_Take_OnClickListenerCreator()));
 
                 }
-                return false;
+                return true;
             }
         });
-       // searchBar.setSuggestionsAdapter(new SimpleCursorAdapter(this,R.layout.sugestion_layout,null,(String[])database.getAllNameOfIngredient().toArray(),null,0));
 
 
     }
