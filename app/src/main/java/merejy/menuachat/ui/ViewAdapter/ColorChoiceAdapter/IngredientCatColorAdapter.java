@@ -60,6 +60,7 @@ public class IngredientCatColorAdapter extends RecyclerView.Adapter<IngredientCa
     public void onBindViewHolder(final IngredientCatColorAdapter.ViewHolder holder, final int position) {
         //ici on mets a jour les info des composant du Holder
         holder.categorieName.setText(list[position].toString());
+        holder.categorieName.setTextColor(ColorManager.getTextColor(list[position]));
         holder.itemView.setBackgroundColor(ColorManager.getIngredientColor(list[position]));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

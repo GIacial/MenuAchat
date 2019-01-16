@@ -86,10 +86,14 @@ public class ChoiceIngredientAdapter extends RecyclerView.Adapter<ChoiceIngredie
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         //ici on mets a jour les info des composant du Holder
-        holder.produitName.setText(list.get(position).getNom());
+        final Ingredient ingredient = list.get(position);
+        holder.produitName.setText(ingredient.getNom());
         holder.categorie.setText(list.get(position).getCategorie().toString());
         holder.layout.setOnClickListener(choiceAction.createListener(list.get(position),activity));
         holder.itemView.setBackgroundColor(ColorManager.getIngredientColor(list.get(position).getCategorie()));
+
+        holder.categorie.setTextColor(ColorManager.getTextColor(ingredient.getCategorie()));
+        holder.produitName.setTextColor(ColorManager.getTextColor(ingredient.getCategorie()));
     }
 
     // Return the size of your dataset (invoked by the layout manager)

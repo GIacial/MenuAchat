@@ -121,6 +121,7 @@ public class ChoiceInSortedIngredientListAdapter extends RecyclerView.Adapter<Ch
 
             holder.categorie.setText(categorieIngredient.toString());
             holder.categorie.setGravity(android.view.Gravity.CENTER);
+            holder.categorie.setTextColor(ColorManager.getTextColor(categorieIngredient));
             holder.itemView.setBackgroundColor(ColorManager.getIngredientColor(categorieIngredient));
             ImageButton image = new ImageButton(holder.layout.getContext());
             if( show.get(numCat).get()){
@@ -146,6 +147,7 @@ public class ChoiceInSortedIngredientListAdapter extends RecyclerView.Adapter<Ch
             final  Ingredient ingredient = list.get(numCat).get(list.get(numCat).size() + reelPosition);
             holder.categorie.setText(ingredient.getNom());
             holder.categorie.setGravity(Gravity.NO_GRAVITY);
+            holder.categorie.setTextColor(ColorManager.getTextColor(ingredient.getCategorie()));
             holder.layout.setOnClickListener(choiceAction.createListener(ingredient,activity));
             holder.itemView.setBackgroundColor(ColorManager.getIngredientColor(ingredient.getCategorie()));
         }

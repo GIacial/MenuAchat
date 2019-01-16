@@ -59,11 +59,16 @@ public class NeedingIngredientAdapter extends RecyclerView.Adapter<NeedingIngred
             this.take.setPadding(10,10,10,10);
             this.quantite = new TextView(v.getContext());
             this.quantite.setPadding(10,10,10,10);
-            v.addView(take,new LinearLayout.LayoutParams(10, ViewGroup.LayoutParams.WRAP_CONTENT,10));
-            v.addView(categorie,new LinearLayout.LayoutParams(20, ViewGroup.LayoutParams.WRAP_CONTENT,20));
-            v.addView(produitName,new LinearLayout.LayoutParams(40, ViewGroup.LayoutParams.WRAP_CONTENT,40));
-            v.addView(quantite,new LinearLayout.LayoutParams(10, ViewGroup.LayoutParams.WRAP_CONTENT,10));
-            v.addView(prix,new LinearLayout.LayoutParams(20, ViewGroup.LayoutParams.WRAP_CONTENT,20));
+            v.addView(take,new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT,10));
+            v.addView(categorie,new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT,22));
+            v.addView(produitName,new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT,38));
+            v.addView(quantite,new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT,20));
+            v.addView(prix,new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT,10));
+            take.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            produitName.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            quantite.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            prix.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            categorie.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         }
     }
 
@@ -119,9 +124,6 @@ public class NeedingIngredientAdapter extends RecyclerView.Adapter<NeedingIngred
             }
         });
 
-        holder.prix.setTextColor(ColorManager.getPriceColor(list.get(position).isLessCost(NeedingList.getNeeding().getCurrentMag())));
-
-
         holder.categorie.setText(list.get(position).getCategorie().toString());
         holder.quantite.setText(list.get(position).getQuantite()+"");
         holder.take.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +142,14 @@ public class NeedingIngredientAdapter extends RecyclerView.Adapter<NeedingIngred
                 QuestionPopup.showDialog(activity,new RemoveNeedingIngedientModule(activity,view,listTotalPrix,list.get(position)));
             }
         });
+        //color
         holder.itemView.setBackgroundColor(ColorManager.getIngredientColor(list.get(position).getCategorie()));
+        int textColor = ColorManager.getTextColor(list.get(position).getCategorie());
+        holder.produitName.setTextColor(textColor);
+        holder.categorie.setTextColor(textColor);
+        holder.quantite.setTextColor(textColor);
+        holder.prix.setTextColor(ColorManager.getPriceColor(list.get(position).isLessCost(NeedingList.getNeeding().getCurrentMag())));
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -1,6 +1,7 @@
 package merejy.menuachat.kernel;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Environment;
 import android.util.JsonReader;
 import android.util.JsonWriter;
@@ -49,6 +50,14 @@ public class ColorManager implements Serializable {
         if(colorManager != null){
             colorManager.setColorInst(priceComparator,color);
         }
+    }
+
+    static public int getTextColor(CategorieIngredient categorieIngredient){
+        int color = 0;
+        if( colorManager != null){
+            color = colorManager.getTextColorForCategorieColorInst(categorieIngredient);
+        }
+        return color;
     }
 
     //save
@@ -251,5 +260,15 @@ public class ColorManager implements Serializable {
 
     private void setColorInst(PriceComparator priceComparator , int color){
         this.priceColor.put(priceComparator,color);
+    }
+
+    private int getTextColorForCategorieColorInst(CategorieIngredient categorieIngredient){
+        int background = getIngredientColorInst(categorieIngredient);
+        int gray = (Color.red(background) + Color.green(background) + Color.green(background))/3;
+        int res = 255 - gray;
+        if (res >= 97 && res <= 157){//gris du milieu on mets du noir
+            res = 0;
+        }
+        return Color.rgb(res,res,res) ;
     }
 }
